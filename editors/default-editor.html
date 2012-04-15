@@ -5,30 +5,140 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="normalize.css" type="text/css" media="screen" title="normalize" charset="utf-8">
+  
     <style>
-      table {
-        font-family: helvetica !important;
-        color: #fff !important;
+      body {
+        font-size: 80%;
+        color: #FFF;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       }
-      p#message {
-        color: #FF0000;
+      
+      .editor-container { 
+        margin-top: 10px;
+        position: relative;
       }
+      
+      /* DESCRIPTION ----------------------------- */
+      #editor-desc {
+        width: 250px;
+        float:left;
+        margin-left: 20px;
+      }
+      
+      #editor-desc h1 {
+        font-size: 1.5em;
+        margin-top: 0;
+      }
+      
+      /* TABS ----------------------------- */
+      ul#tabs-list {
+        float: left;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      
+      ul#tabs-list li {
+        background: #000;
+        color: #FFF;
+        padding: 10px;
+      }
+       ul#tabs-list li.active {
+         background: #EEE;
+         color: #333;
+       }
+      
+      /* PANELS ----------------------------- */
+      
+      #panel-container { float: left; }
+      
+      .panel {
+        float: left;
+        width: 500px;
+        background: #EEE;
+        color: #333;
+        padding: 10px;
+        min-height: 100px;
+      }     
+      
+      /* FORMS ----------------------------- */
+      form .half { width: 50% }
+      form .half span { width: 50px; }
+       
+      form div {
+        float: left;
+        height: 35px;
+        width: 100%;
+      }
+        
+      label, form span { float: left; }
+      label {
+        margin-right: 5px;
+        padding: 5px 0;
+        font-weight: 600;
+      }
+      
+      form span {
+        width: 250px;
+      }
+      
+      input, select {
+        color: #333;
+        background: #FFF;
+        border: 1px solid #CCC;
+        padding: 5px 3px;
+      }
+      
+      input:focus, select:focus {
+        outline: none;
+        border: 1px solid #F8D56E;
+      }
+      
+      select {
+        width: 150px;
+      }
+      
+      #message {
+        display: none;
+        float: left;
+        background: #FF0000;
+        color: #FFF;
+        max-width: 200px;
+        position: absolute;
+        right: 0;
+        padding: 10px;
+        font-size: 12px;
+       }
+      
     </style>
     <script type="text/javascript" src="editor.js"></script>
     <script type="text/javascript">
       (function(){
         var _comm = new Comm(),
             _manifest = {};
-
+        //Set defaults for new popcorn event instances
+        var defaults = {
+          "Popcorn image Plugin" : {
+            href: "http://www.google.com",
+            src: "http://i256.photobucket.com/albums/hh185/hfladeboe/Tiny_Kitten_Face.jpg"
+          }
+        };
+        
         document.addEventListener( "DOMContentLoaded", function( e ){
-
           function sendData( alsoClose ){
+            console.log("sendData");
+            console.log(_comm);
             alsoClose = !!alsoClose; 
             var popcornOptions = {};
             for( var item in _manifest ) {
               popcornOptions[ item ] = document.getElementById( item ).value;
             }
-            document.getElementById( "message" ).innerHTML = "";
+            
+            var messageElement = document.getElementById("message");
+            messageElement.innerHTML = "";
+            messageElement.style.display = "";
+            
             _comm.send( "submit", {
               eventData: popcornOptions,
               alsoClose: alsoClose
@@ -44,6 +154,7 @@
           }
 
           document.addEventListener( "keydown", function( e ) {
+            console.log("keydown");
             if( e.keyCode === 13 ) {
               okPressed( e );
             } else if( e.keyCode === 27 ) {
@@ -56,42 +167,127 @@
               var element = document.getElementById( item );
               element.value = e.data[ item ];
             } //for
+           
           });
 
-          _comm.listen( "trackeventupdatefailed", function( e ) {
+          _comm.listen( "trackeventupdatefailed", function( e ) {  
+            // Get the settings
+            var popcornOptions = [];
+            for( var item in _manifest ) {
+              popcornOptions[ item ] = document.getElementById( item ).value;
+            }
+            
+            //Check if it's a time problem
             if( e.data === "invalidtime" ){
-              document.getElementById( "message" ).innerHTML = "You've entered an invalid start or end time. Please verify that they are both greater than 0, the end time is equal to or less than the media's duration, and that the start time is less than the end time.";
+              console.log(_manifest);
+               //Create Message
+                var messageElement = document.getElementById("message");
+                messageElement.innerHTML = "You've entered an invalid start or end time. Please verify that they are both greater than 0, the end time is equal to or less than the media's duration, and that the start time is less than the end time.";
+              messageElement.style.display = "block";
             } //if
           });
 
           _comm.listen( "trackeventdata", function( e ){
+            console.log(e);
+            
+            //Get options
             var popcornOptions = e.data.popcornOptions,
                 targets = e.data.targets,
                 media = e.data.media,
-                mediaName = "Current Media Element";
-
+                mediaName = "Current Media Element",
+                pluginName = e.data.manifest.about.name,
+                panels = document.querySelectorAll('.panel');
+            
+            //Set plugin name in description panel
+            document.getElementById('plugin-name').innerHTML = pluginName;
+            
+            //Set media name
             if( media && media.name && media.target ){
               mediaName += " (\"" + media.name + "\": " + media.target + ")";
             } //if
-
+            
+            //Create tabs ----------------------------------------
+            if (!styleSheet) {
+              var styleSheet = document.createElement('style');
+              styleSheet.setAttribute('type', 'text/css');
+              styleSheet.appendChild(
+                document.createTextNode(
+                  '\n' +
+                  '.panel { display: none; }\n' +
+                  '.panel.active { display: block; }\n'
+              ));
+              document.head.appendChild(styleSheet);
+            }      
+            //Create list of tabs
+            var tabsList = document.createElement("ul");
+            tabsList.id = "tabs-list";
+            document.getElementById("panel-container").appendChild(tabsList);
+            
+            //Hide panels and add even listener
+            for( var i = 0 ; i < panels.length; i++) {
+              var panel = panels[i];
+              if (typeof panel==="object") {
+                //Add tabs
+                var tab = document.createElement("li");
+                var tabLabel = panel.getAttribute("label") || panel.id;
+                tab.id = panel.id + "-tab";
+                tab.innerHTML = tabLabel;
+                tabsList.appendChild(tab);  
+                //If tab is clicked, show the corresponding panel
+                createTabLink(tab, panel);
+              }
+            }
+            
+            function createTabLink(tab, currentPanel) {
+              tab.addEventListener("click", function(e) {
+                var currentActive = document.querySelectorAll(".active");
+                for( var i = 0 ; i < currentActive.length; i++) {
+                  var panel = currentActive[i];
+                  removeClass(panel, "active");
+                }
+                
+                addClass(tab, "active");
+                addClass(currentPanel, "active");
+                
+                return false;
+              });
+            }
+            
+            //Show main panel
+            addClass(panels[0], "active");
+            addClass(tabsList.firstChild, "active");
+           
+            //Create Fields ---------------------------------------------
+            
+            //Item data
             _manifest = e.data.manifest.options;
-
+            
+            //Create each form field
             for( var item in _manifest ) {
-              var row = document.createElement( "TR" ),
-                  col1 = document.createElement( "TD" ),
-                  col2 = document.createElement( "TD" ),
+              var fieldElement = document.createElement( "div" ),
+                  labelElement = document.createElement( "label" ),
+                  inputElement = document.createElement( "span" ),
                   elem = _manifest[ item ].elem;
-
+              
+              //Add IDs
+              fieldElement.id = item + "-field";
+              labelElement.id = item + "-label";
+              inputElement.id = item + "-container";
+              
+              //Add the label text
               var itemLabel = _manifest[ item ].label || item;
               if( itemLabel === "In" ){
                 itemLabel = "Start (seconds)";
+                addClass(fieldElement, "half");
               }
               else if( itemLabel === "Out" ){
                 itemLabel = "End (seconds)";
+                addClass(fieldElement, "half");
               } //if
 
-              col1.innerHTML = "<b>" + itemLabel + "</b>";
-
+              labelElement.innerHTML = itemLabel;
+              
+              //Target select element
               if( item === "target" ) {
                 var select = document.createElement( "SELECT" );
                 select.id = "target";
@@ -112,35 +308,79 @@
                 if( popcornOptions.target === "Media Element" ) {
                     select.value = "Media Element";
                 }
-                col2.appendChild( select );
+                inputElement.appendChild( select );
 
                 select.addEventListener( "change", function( e ){
                   sendData( false );
                 }, false );
               } else {
+                //Other fields
                 var newItem = document.createElement( elem );
                 newItem.id = item;
                 newItem.style.width = "100%";
-                newItem.value = popcornOptions[ item ];
-                col2.appendChild( newItem );
+                //Add current value or default or blank
+                if(popcornOptions[ item ]) {
+                  newItem.value = popcornOptions[ item ]; 
+                } else if(defaults[pluginName] && defaults[pluginName][item]) {
+                  newItem.value = defaults[pluginName][item];
+                } else {
+                  newItem.value = "";
+                }
+                inputElement.appendChild( newItem );
                 newItem.addEventListener( "change", function( e ){
                   sendData( false );
                 }, false );
               }
 
-              row.appendChild( col1 );
-              row.appendChild( col2 );
-              document.getElementById( "table" ).appendChild( row );
+              fieldElement.appendChild( labelElement );
+              fieldElement.appendChild( inputElement );
+              document.getElementById( "default-editor" ).appendChild( fieldElement );
             }
+            sendData(false);
           });
-
+        // Helper functions ---------------------------------
+        
+        function hasClass(element, aClass) {
+          var result = element.className.match(new RegExp('(\\s|^)'+ aClass +'(\\s|$)'));
+          console.log(result);
+          return result;
+        }
+        
+        function addClass(element, aClass) {
+          if(!hasClass(element, aClass)) { 
+            console.log(element);
+            element.className += " " + aClass; 
+          }
+        }
+        
+        function removeClass(element, aClass) {
+          if(hasClass(element, aClass)) {
+            var match = new RegExp('(\\s|^)'+ aClass + '(\\s|$)');
+            element.className = element.className.replace(match,"");
+          }
+        }
+        
         }, false );
+
       })();
+      
     </script>
   </head>
   <body>
-    <table id="table">
-    </table>
-    <p id="message"></p>
+    <div class="editor-container">
+      <div id="editor-desc">
+        <h1 id="plugin-name">Plugin</h1>
+        <p><em>Press Enter to save and exit.</em></p>
+      </div>
+      <div id="panel-container">
+        <form class="panel" id="default-editor" label="Settings"></form>
+          <form class="panel" id="help-panel" label="Help">
+            <p>To change a value, simply change it and press 'done' or press the Enter key to save.</p>
+          </form>
+        </form>
+        <div id="message"></div>
+      </div>
+      
+    </div>
   </body>
 </html>
