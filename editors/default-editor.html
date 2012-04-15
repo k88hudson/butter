@@ -99,6 +99,35 @@
         width: 150px;
       }
       
+      
+      button {
+        font-weight: 600;
+        border-radius: 3px;
+        padding: 5px 10px;
+        margin: 0 5px 5px 0;
+        border: 1px solid;
+      }
+      
+      .ok-button {
+        color: #888;
+        border: 1px solid #000;
+        background: #2A2A2A;
+        background: -moz-linear-gradient(center bottom,#1C1C1C 0,#2A2A2A 100%);
+        background: -webkit-gradient(linear,left bottom,left top,color-stop(0,#1C1C1C),color-stop(1,#2A2A2A));
+      }
+      
+      .ok-button:hover {
+        border: 1px solid;
+        color: #333;
+        background: #2B86D4;
+        background: -moz-linear-gradient(top, #26B5D8 0%, #2B86D4 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#26B5D8), color-stop(100%,#2B86D4));
+      }
+      
+      .cancel-button {
+          color: #666;
+      }
+      
       #message {
         display: none;
         float: left;
@@ -117,22 +146,28 @@
       (function(){
         var _comm = new Comm(),
             _manifest = {};
+        
         //Set defaults for new popcorn event instances
         var defaults = {
           "Popcorn image Plugin" : {
             href: "http://www.google.com",
             src: "http://i256.photobucket.com/albums/hh185/hfladeboe/Tiny_Kitten_Face.jpg"
+          },
+          "Popcorn text Plugin" : {
+            text: "Hello world"
           }
         };
         
         document.addEventListener( "DOMContentLoaded", function( e ){
-          function sendData( alsoClose ){
+          function sendData( alsoClose, popcornOptions ){
             console.log("sendData");
-            console.log(_comm);
             alsoClose = !!alsoClose; 
-            var popcornOptions = {};
-            for( var item in _manifest ) {
-              popcornOptions[ item ] = document.getElementById( item ).value;
+            
+            if(popcornOptions === undefined) {
+              popcornOptions = {};
+              for( var item in _manifest ) {
+                popcornOptions[ item ] = document.getElementById( item ).value;
+              }
             }
             
             var messageElement = document.getElementById("message");
@@ -161,7 +196,8 @@
               cancelPressed( e );
             }
           }, false);
-
+          
+          // ------------------------------------------------------------------------------------
           _comm.listen( "trackeventupdated", function( e ){
             for( var item in _manifest ){
               var element = document.getElementById( item );
@@ -169,7 +205,7 @@
             } //for
            
           });
-
+          
           _comm.listen( "trackeventupdatefailed", function( e ) {  
             // Get the settings
             var popcornOptions = [];
@@ -179,19 +215,19 @@
             
             //Check if it's a time problem
             if( e.data === "invalidtime" ){
-              console.log(_manifest);
                //Create Message
                 var messageElement = document.getElementById("message");
                 messageElement.innerHTML = "You've entered an invalid start or end time. Please verify that they are both greater than 0, the end time is equal to or less than the media's duration, and that the start time is less than the end time.";
               messageElement.style.display = "block";
             } //if
           });
-
+          
+          // ------------------------------------------------------------------------------------
           _comm.listen( "trackeventdata", function( e ){
-            console.log(e);
-            
+            console.log("trackeventdata called");
             //Get options
             var popcornOptions = e.data.popcornOptions,
+                saveOriginalOptions = popcornOptions, //For reset on cancel
                 targets = e.data.targets,
                 media = e.data.media,
                 mediaName = "Current Media Element",
@@ -219,19 +255,16 @@
               document.head.appendChild(styleSheet);
             }      
             //Create list of tabs
-            var tabsList = document.createElement("ul");
-            tabsList.id = "tabs-list";
+            var tabsList = makeElement("ul", {id:"tabs-list"});
             document.getElementById("panel-container").appendChild(tabsList);
-            
+    
             //Hide panels and add even listener
             for( var i = 0 ; i < panels.length; i++) {
               var panel = panels[i];
               if (typeof panel==="object") {
                 //Add tabs
-                var tab = document.createElement("li");
                 var tabLabel = panel.getAttribute("label") || panel.id;
-                tab.id = panel.id + "-tab";
-                tab.innerHTML = tabLabel;
+                tab = makeElement("li", {id: panel.id + "-tab"}, "", tabLabel);
                 tabsList.appendChild(tab);  
                 //If tab is clicked, show the corresponding panel
                 createTabLink(tab, panel);
@@ -293,17 +326,13 @@
                 select.id = "target";
 
                 for( var i = 0, l = targets.length; i < l; i++ ) {
-                  var option = document.createElement( "OPTION" );
-                  option.value = targets[ i ];
-                  option.innerHTML = targets[ i ];
+                  var option = makeElement("option", { value: targets[ i ] }, "", targets[ i ]);
                   select.appendChild( option );
                   if( popcornOptions.target === targets[ i ] ) {
                     select.value = targets[ i ];
                   }
                 }
-                var option = document.createElement( "OPTION" );
-                option.value = "Media Element";
-                option.innerHTML =  mediaName;
+                var option = makeElement("option", { value: "Media Element" }, "", mediaName);
                 select.appendChild( option );
                 if( popcornOptions.target === "Media Element" ) {
                     select.value = "Media Element";
@@ -319,7 +348,7 @@
                 newItem.id = item;
                 newItem.style.width = "100%";
                 //Add current value or default or blank
-                if(popcornOptions[ item ]) {
+                if(popcornOptions[ item ] !== undefined) {
                   newItem.value = popcornOptions[ item ]; 
                 } else if(defaults[pluginName] && defaults[pluginName][item]) {
                   newItem.value = defaults[pluginName][item];
@@ -336,19 +365,57 @@
               fieldElement.appendChild( inputElement );
               document.getElementById( "default-editor" ).appendChild( fieldElement );
             }
+            
+            //Submit button
+            var submitButton = makeElement("button", {id:"default-submit-button"}, "ok-button", "Save and Exit");
+            var cancelButton = makeElement("button", {id:"default-cancel-button"}, "cancel-button", "Cancel");
+            document.getElementById( "default-editor" ).appendChild( submitButton );
+            document.getElementById( "default-editor" ).appendChild( cancelButton );
+            
+            //Add submit functionality to all buttons
+            (function(buttons) {
+              for(var b = 0; b < buttons.length; b++) {
+                if(hasClass(buttons[b], "ok-button")) {
+                  buttons[b].addEventListener("click", function(e) {
+                    e.preventDefault();
+                    sendData(true);
+                  });
+                } else if(hasClass(buttons[b], "cancel-button")) {
+                   buttons[b].addEventListener("click", function(e) {
+                      e.preventDefault();
+                      sendData(true, saveOriginalOptions);
+                    });
+                }
+              }
+             
+            })(document.querySelectorAll("button"));
+            
+            //Send data when all this is done.
             sendData(false);
           });
+       
         // Helper functions ---------------------------------
+        function makeElement(elementType, attributes, aClass, innerHTML) {
+          var newElement = document.createElement(elementType);
+          if(attributes){ 
+            for(attr in attributes) {
+              if(attributes.hasOwnProperty(attr)) {
+                newElement[attr] = attributes[attr]; 
+              }
+            }
+          }
+          if(aClass) {addClass(newElement, aClass);}
+          if(innerHTML) {newElement.innerHTML = innerHTML;}
+          return newElement;
+        }
         
         function hasClass(element, aClass) {
           var result = element.className.match(new RegExp('(\\s|^)'+ aClass +'(\\s|$)'));
-          console.log(result);
           return result;
         }
         
         function addClass(element, aClass) {
           if(!hasClass(element, aClass)) { 
-            console.log(element);
             element.className += " " + aClass; 
           }
         }
