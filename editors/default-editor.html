@@ -31,7 +31,7 @@
             document.getElementById( "message" ).innerHTML = "";
             _comm.send( "submit", {
               eventData: popcornOptions,
-              alsoClose: alsoClose
+              alsoClose: alsoClose,
             });
           } //sendData
 
@@ -52,6 +52,7 @@
           }, false);
 
           _comm.listen( "trackeventupdated", function( e ){
+            _comm.play();
             for( var item in _manifest ){
               var element = document.getElementById( item );
               element.value = e.data[ item ];

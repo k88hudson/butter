@@ -45,6 +45,7 @@ define( [ "core/eventmanager", "dialog/iframe-dialog", "dialog/window-dialog", "
     }
 
     function onTrackEventUpdated( e ){
+      console.log(e);
       var popcornData = _currentTrackEvent.popcornOptions;
       if( popcornData.target !== _currentTarget ){
         _currentTarget = popcornData.target;
@@ -63,7 +64,11 @@ define( [ "core/eventmanager", "dialog/iframe-dialog", "dialog/window-dialog", "
       _currentTrackEvent.unlisten( "trackeventupdatefailed", onTrackEventUpdateFailed );
       _em.dispatch( "close" );
     }
-
+    
+    function play() {
+      console.log('Play');
+    }
+    
     this.open = function( trackEvent ) {
       if( !_dialog ){
         if( _frameType === "window" ){
