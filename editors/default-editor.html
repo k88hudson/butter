@@ -184,7 +184,7 @@
             sendData( true );
           }
 
-          function cancelPressed( e ) {
+          function cancelPressed( e ) { 
             _comm.send( "cancel" );
           }
 
@@ -199,6 +199,7 @@
           
           // ------------------------------------------------------------------------------------
           _comm.listen( "trackeventupdated", function( e ){
+            _comm.send("play", {start: 2});
             for( var item in _manifest ){
               var element = document.getElementById( item );
               element.value = e.data[ item ];

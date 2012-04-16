@@ -56,7 +56,7 @@ var Comm = function(){
       context: _context
     }, "*" );
   }; //send
-
+  
   function onReady( e ){
     _context = e.context;
     _this.unlisten( "ready", onReady );
