@@ -56,14 +56,6 @@ var Comm = function(){
       context: _context
     }, "*" );
   }; //send
-  
-  this.play = function{
-    window.postMessage({
-      type: "play",
-      data: {},
-      content: _context
-    }, "*");
-  };
 
   function onReady( e ){
     _context = e.context;

@@ -11,7 +11,6 @@ define( [ "core/eventmanager", "dialog/iframe-dialog", "dialog/window-dialog", "
 
   function Editor( butter, source, type, frameType, parentElement, options ){
     options = options || {};
-
     var _id = __guid++,
         _frameType = frameType || DEFAULT_FRAME_TYPE,
         _source = source,
@@ -45,7 +44,6 @@ define( [ "core/eventmanager", "dialog/iframe-dialog", "dialog/window-dialog", "
     }
 
     function onTrackEventUpdated( e ){
-      console.log(e);
       var popcornData = _currentTrackEvent.popcornOptions;
       if( popcornData.target !== _currentTarget ){
         _currentTarget = popcornData.target;
@@ -63,10 +61,6 @@ define( [ "core/eventmanager", "dialog/iframe-dialog", "dialog/window-dialog", "
       _currentTrackEvent.unlisten( "trackeventupdated", onTrackEventUpdated );
       _currentTrackEvent.unlisten( "trackeventupdatefailed", onTrackEventUpdateFailed );
       _em.dispatch( "close" );
-    }
-    
-    function play() {
-      console.log('Play');
     }
     
     this.open = function( trackEvent ) {
@@ -115,12 +109,21 @@ define( [ "core/eventmanager", "dialog/iframe-dialog", "dialog/window-dialog", "
         submit: function( e ){
           var duration = TimeUtil.roundTime( butter.currentMedia.duration ),
               popcornData = e.data.eventData,
-              alsoClose = e.data.alsoClose;
+              alsoClose = e.data.alsoClose,
+              playOnSubmit = e.data.play;
           if( popcornData ){
             trackEvent.update( popcornData );
             if( alsoClose ){
               _dialog.close();
             } //if
+            if( playOnSubmit ){
+              butter.media[0].currentTime = popcornData.start;
+              butter.media[0].play();
+              setTimeout(function(){
+                 butter.media[0].pause();
+                 }, (( popcornData.end - popcornData.start ) * 1000)
+               );
+            }//if
           } //if
         },
         close: function( e ){

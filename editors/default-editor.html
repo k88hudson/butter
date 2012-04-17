@@ -32,7 +32,11 @@
             _comm.send( "submit", {
               eventData: popcornOptions,
               alsoClose: alsoClose,
+              play: true
             });
+            
+            _comm.send("play");            
+            
           } //sendData
 
           function okPressed( e ) {
@@ -52,7 +56,6 @@
           }, false);
 
           _comm.listen( "trackeventupdated", function( e ){
-            _comm.play();
             for( var item in _manifest ){
               var element = document.getElementById( item );
               element.value = e.data[ item ];
