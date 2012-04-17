@@ -110,7 +110,7 @@ define( [ "core/eventmanager", "dialog/iframe-dialog", "dialog/window-dialog", "
         submit: function( e ){
           var duration = TimeUtil.roundTime( butter.currentMedia.duration ),
               popcornData = e.data.eventData,
-              alsoClose = e.data.alsoClose;
+              alsoClose = e.data.alsoClose,
               playOnSubmit = e.data.play;
           if( popcornData ){
             trackEvent.update( popcornData );
