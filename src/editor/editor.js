@@ -11,6 +11,7 @@ define( [ "core/eventmanager", "dialog/iframe-dialog", "dialog/window-dialog", "
 
   function Editor( butter, source, type, frameType, parentElement, options ){
     options = options || {};
+    
     var _id = __guid++,
         _frameType = frameType || DEFAULT_FRAME_TYPE,
         _source = source,
@@ -62,7 +63,7 @@ define( [ "core/eventmanager", "dialog/iframe-dialog", "dialog/window-dialog", "
       _currentTrackEvent.unlisten( "trackeventupdatefailed", onTrackEventUpdateFailed );
       _em.dispatch( "close" );
     }
-    
+
     this.open = function( trackEvent ) {
       if( !_dialog ){
         if( _frameType === "window" ){
@@ -109,7 +110,7 @@ define( [ "core/eventmanager", "dialog/iframe-dialog", "dialog/window-dialog", "
         submit: function( e ){
           var duration = TimeUtil.roundTime( butter.currentMedia.duration ),
               popcornData = e.data.eventData,
-              alsoClose = e.data.alsoClose,
+              alsoClose = e.data.alsoClose;
               playOnSubmit = e.data.play;
           if( popcornData ){
             trackEvent.update( popcornData );
