@@ -6,6 +6,8 @@
     <script src="https://browserid.org/include.js" type="text/javascript" data-butter-exclude></script>
     <script src="../src/butter.js" data-butter-exclude></script>
     <script type="text/javascript" src="test.js" data-butter-exclude></script>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
     <style>
         #main, .content-div {
           float: left;
@@ -30,6 +32,151 @@
           position: relative;
           top: 30px;
         }
+        .editor-panel {
+          font-family: "Open Sans", sans-serif;
+          display: block;
+          position: absolute;
+          top: 35px;
+          right: 0;
+          background: url("../../resources/bg.jpg");
+          color: #EEE;
+          height: 800px;
+          border-left: 1px solid #222;
+          box-shadow: inset 5px 0 5px rgba(0,0,0,.2);
+        }
+        nav {
+          background: #333;
+          padding-top: 5px;
+        }
+        nav ul {
+          padding: 0;
+          margin: 0;
+          padding-left: 1em;
+          list-style: none;
+        }
+        nav ul::after {  
+          clear: both;
+          content: ".";
+          display: block;
+          height: 0;
+          visibility: hidden;
+          font-size: 0;
+        }
+        ul.tabs {
+          border-bottom: 1px solid #222;
+        }
+
+        ul.tabs > li {
+          color: #888;
+          float: left;
+          margin-bottom: -1px;
+          margin-right: 3px;
+          font-size: 14px;
+          padding: 8px 15px 6px 15px;
+          border-radius: 3px 3px 0 0;
+        }
+        ul.tabs > li:hover {
+          color: #EEE;
+          background: #444;
+        }
+        ul.tabs > li.selected {
+          color: #FFF;
+          background: none;
+          border: 1px solid #222;
+          border-bottom: none;
+          background: url("../../resources/bg.jpg");
+          
+        }
+
+        .show-grid .row > div {
+          background: rgba(0,0,0,.2)
+        }
+        .grid { margin: 15px 20px;}
+        .row { width: 280px; margin-bottom: 15px; }
+        
+        /* clearfix */
+        .row::after {  
+          clear: both;
+          content: ".";
+          display: block;
+          height: 0;
+          visibility: hidden;
+          font-size: 0;
+        }
+        .row > div:last-child { margin-right: 0; }
+        .third, .half, .full { 
+          float: left;
+          margin-right: 20px; 
+        }
+        .full { width: 280px;}
+        .third { width: 80px; }
+        .half { display: block; width: 130px; }
+        
+        label { 
+          display: block; 
+          font-size: 14px;
+          padding: 4px 0;
+        }
+
+        .prepend label { 
+          float: left;
+          margin: 0;
+          font-size: 11px;
+          font-weight: 600;
+          text-transform: uppercase;
+          height: 15px;
+          padding: 7px 7px 9px 7px;
+          background: #333;
+          border: 1px solid #222;
+          color: #EEE;
+          border-radius: 3px 0 0 3px;
+          border-right: 0;
+        }
+        .prepend input { 
+          float: left;
+          border-radius: 0 3px 3px 0;
+        }
+
+        .third input { width: 60px; }
+        .half input { width: 110px; }
+        .full input { width: 250px; }
+        input.small { width: 60px; } 
+
+        input {
+          display: block;
+          margin:0;
+          font-family: Monaco, "Courier New", monospace;
+          border: 1px solid #222;
+          padding: 8px 5px;
+          border-radius: 3px;
+          box-shadow: inset 0 2px 3px rgba(0,0,0,.4);
+        }
+        input:focus {
+          outline: none;
+          border: 1px solid #8F814C;
+          box-shadow: 0 0 3px #AAA;
+        }
+        .drop-target {
+          position: relative;
+          color: #CCC;
+          border: 3px dashed;
+          width: 273px;
+          height: 200px;
+          margin-right: 20px;
+          float: left;
+          text-align: center;
+          background-size: 100%;
+          background-position: center;
+          background-repeat: no-repeat;
+        }
+        .drop-target > span {
+          max-width: 10em;
+          font-size: 18px;
+          font-style: italic;
+          position: absolute;
+          top: 70px;
+        }
+
     </style>
 </head>
 <body>
@@ -46,5 +193,55 @@
         <p>Area 2</p>
     </div>
     <div id="target-div"></div>
+    <div class="editor-panel">
+      <nav>
+        <ul class="tabs">
+          <li class="selected">Basic</li>
+          <li>Advanced</li>
+           <li>Code</li>
+        </ul>
+      </nav>
+      <div class="grid">
+        <h2>Image</h2>
+
+        <div class="row">
+          <div class="full">
+            <div class="drop-target">
+              <span>Drop an image from your desktop</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="full">
+            <label>Or, use an image URL</label>
+            <input type="text"/>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="half prepend">
+            <label>Start</label>
+            <input type="text" class="small" value="00:00:00" />
+          </div>
+          <div class="half prepend">
+            <label>End</label>
+            <input type="text" class="small" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="half">
+            <label>Field</label>
+            <input type="text" />
+          </div>
+          <div class="half">
+            <label>Field</label>
+            <input type="text" />
+          </div>
+        </div>
+
+      </div>
+    </div>
 </body>
 </html>
