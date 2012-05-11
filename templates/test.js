@@ -7,7 +7,8 @@ document.addEventListener( "DOMContentLoaded", function( e ){
           _popcorn = Popcorn.instances[ 0 ],
           _targets = butter.targets,
           _currentTrackEvent,
-          template = {};
+          _imageGallery = []; //stores a gallery of uploaded images
+           template = {};
 
       function start(){ 
         var targetSelectors, i;
@@ -163,12 +164,20 @@ document.addEventListener( "DOMContentLoaded", function( e ){
         function makeImageDropper(id) {
           var canvas = document.createElement( "canvas" ),
               context,
-              dropTarget;
+              dropTarget,
+              imgGallery;
 
           canvas.id = "grabimage";
           canvas.style.display = "none";
           dropTarget = document.getElementById( id )
           dropTarget.innerHTML = "<span>Drag an image<br />from your desktop...</span";
+
+          imgGallery = document.createElement( "div");
+          imgGallery.classList.add( "img-gallery" );
+          imgGallery.appendChild( document.createElement("ul") );
+
+          dropTarget.parentNode.appendChild( imgGallery );
+          
 
           _currentTrackEvent && _currentTrackEvent.popcornOptions.src && ( dropTarget.style.backgroundImage = "url('" + _currentTrackEvent.popcornOptions.src + "')" ); 
 
@@ -182,7 +191,7 @@ document.addEventListener( "DOMContentLoaded", function( e ){
             dropTarget.classList.remove( "dragover" );
           }, false);
 
-          dropTarget.addEventListener( 'drop', function( event ) {
+          document.getElementById("editor-panel").addEventListener( 'drop', function( event ) {
             dropTarget.classList.remove( "dragover" );
             event.preventDefault();
             var file = event.dataTransfer.files[ 0 ],
@@ -195,9 +204,11 @@ document.addEventListener( "DOMContentLoaded", function( e ){
             } else if ( window.webkitURL ) {
               imgSrc = window.webkitURL.createObjectURL( file );
             }
-
+            
             image = document.createElement( 'img' );
             image.onload = function () {
+                var galleryItem;
+                
                 canvas.width = this.width;
                 canvas.height = this.height;
                 context = canvas.getContext( '2d' );
@@ -206,6 +217,16 @@ document.addEventListener( "DOMContentLoaded", function( e ){
                 sendData( _currentTrackEvent, { "src" : imgURI } );
                 dropTarget.style.backgroundImage = "url('" +  imgURI + "')";
                 dropTarget.firstChild.innerHTML = file.name || file.fileName;
+                
+                galleryItem = document.createElement("li");
+                galleryItem.appendChild( this );
+
+                this.addEventListener( "click", function() {
+                  dropTarget.style.backgroundImage = "url('" +  imgURI + "')";
+                  sendData( _currentTrackEvent, { "src" : imgURI } );
+                }, false);
+                imgGallery.firstChild.style.width = (imgGallery.firstChild.children.length + 1) * 120 + "px";
+                imgGallery.firstChild.appendChild( galleryItem );
             };
             image.src = imgSrc;
         

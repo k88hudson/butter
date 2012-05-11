@@ -29,7 +29,7 @@
         .container-div img {
           width: 100%;
         }
-        
+
         #main {
           min-width: 300px;
           min-height: 200px;
@@ -301,6 +301,24 @@
           -moz-transition: opacity .5s;
           -webkit-transition: opacity .5s;
           transition: opacity .5s;
+        }
+        .img-gallery {
+          height: 100px;
+          width: 300px;
+          overflow-y: hidden;
+          overflow-x: scroll;
+        }
+       .img-gallery ul {
+          padding: 0;
+          list-style: none;
+          height: 100px;
+        }
+        .img-gallery ul > li {
+          float: left;
+          margin-right: 10px;
+        }
+        .img-gallery ul > li > img {
+          width: 100px;
         }
 
 
