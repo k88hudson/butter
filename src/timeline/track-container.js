@@ -5,16 +5,14 @@
 define(
 [
   "core/logger",
-  "core/eventmanager",
   "util/dragndrop"
 ],
 function(
   Logger,
-  EventManager,
   DragNDrop
 ) {
 
-  return function( media ){
+  return function( butter, media ){
 
     var _media = media,
         _zoom = 1,

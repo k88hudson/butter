@@ -1,6 +1,7 @@
 /* This Source Code Form is subject to the terms of the MIT license
  * If a copy of the MIT license was not distributed with this file, you can
  * obtain one at http://www.mozillapopcorn.org/butter-license.txt */
+/*jshint evil:true*/
 
 define( [ "core/logger", "core/eventmanager" ], function( Logger, EventManager ) {
 
@@ -56,7 +57,9 @@ define( [ "core/logger", "core/eventmanager" ], function( Logger, EventManager )
      */
     function addPopcornHandlers(){
       for( var eventName in _popcornEvents ){
-        _popcorn.on( eventName, _popcornEvents[ eventName ] );
+        if( _popcornEvents.hasOwnProperty( eventName ) ) {
+          _popcorn.on( eventName, _popcornEvents[ eventName ] );
+        }
       } //for
     } //addPopcornHandlers
 
@@ -312,7 +315,7 @@ define( [ "core/logger", "core/eventmanager" ], function( Logger, EventManager )
               optionString = false;
               _logger.log( "WARNING: Unable to export event options: \n" + jsonError.message );
             }
-            
+
             if ( optionString ) {
               popcornString += "popcorn." + trackEvents[ i ]._natives.type + "(" +
                 optionString + ");\n";
@@ -348,7 +351,7 @@ define( [ "core/logger", "core/eventmanager" ], function( Logger, EventManager )
      * and insert it as a script in the head if that fails.
      */
     function createPopcorn( popcornString ){
-      var popcornFunction = new Function( "", popcornString );
+      var popcornFunction = new Function( "", popcornString ),
           popcorn = popcornFunction();
       if ( !popcorn ) {
         var popcornScript = document.createElement( "script" );
@@ -441,7 +444,7 @@ define( [ "core/logger", "core/eventmanager" ], function( Logger, EventManager )
         return;
       } //if
       if( _popcorn ){
-        _this.unbind(); 
+        _this.unbind();
       } //if
       while( container.firstChild ) {
         container.removeChild( container.firstChild );
@@ -522,7 +525,7 @@ define( [ "core/logger", "core/eventmanager" ], function( Logger, EventManager )
             return _popcorn.paused();
           } //if
           return true;
-        }, 
+        },
         set: function( val ){
           if( _popcorn ){
             if( val ){

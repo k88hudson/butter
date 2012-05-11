@@ -2,7 +2,7 @@
  * If a copy of the MIT license was not distributed with this file, you can
  * obtain one at http://www.mozillapopcorn.org/butter-license.txt */
 
-define( [ "core/logger", "core/eventmanager" ], function( Logger, EventManager ) {
+define( [ "core/logger", "core/eventmanager" ], function( Logger, EventManagerWrapper ) {
 
   return function( loader, config ) {
 
@@ -11,8 +11,9 @@ define( [ "core/logger", "core/eventmanager" ], function( Logger, EventManager )
         PLAYER_URL = "{popcorn-js}/modules/player/popcorn.player.js",
         PLAYER_TYPE_URL = "{popcorn-js}/players/{type}/popcorn.{type}.js";
 
-    var _eventManager = new EventManager( this ),
-        _snapshot;
+    var _snapshot;
+
+    EventManagerWrapper( this );
 
     this.scrape = function() {
       var rootNode = document.body,
@@ -22,7 +23,7 @@ define( [ "core/logger", "core/eventmanager" ], function( Logger, EventManager )
       return {
         media: medias,
         target: targets
-      }; 
+      };
     }; // scrape
 
     this.prepare = function( readyCallback ){
@@ -55,7 +56,7 @@ define( [ "core/logger", "core/eventmanager" ], function( Logger, EventManager )
     };
 
     this.getHTML = function( popcornStrings ){
-      var html, head, body, i, toClean, toExclude, node, newNode, base, mediaElements;
+      var html, head, body, i, l, toClean, toExclude, node, newNode, base, mediaElements;
 
       //html tag to which body and head are appended below
       html = document.createElement( "html" );
@@ -67,7 +68,7 @@ define( [ "core/logger", "core/eventmanager" ], function( Logger, EventManager )
       else {
         body = _snapshot.body.cloneNode( true );
       }
-      
+
       head = document.getElementsByTagName( "head" )[ 0 ].cloneNode( true );
 
       toExclude = Array.prototype.slice.call( head.querySelectorAll( "*[data-butter-exclude]" ) );
@@ -89,7 +90,7 @@ define( [ "core/logger", "core/eventmanager" ], function( Logger, EventManager )
         node.parentNode.replaceChild( newNode, node );
         newNode.removeAttribute( "data-butter-source" );
       }
-  
+
       toClean = body.querySelectorAll( "*[butter-clean=\"true\"]" );
       for ( i = 0, l = toClean.length; i < l; ++i ) {
         node = toClean[ i ];
@@ -129,6 +130,8 @@ define( [ "core/logger", "core/eventmanager" ], function( Logger, EventManager )
           body.appendChild( script );
         } //for
       } //if
+
+      this.dispatch( "getHTML", html );
 
       return "<html>" + html.innerHTML + "</html>";
     }; //getHTML

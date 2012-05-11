@@ -3,11 +3,11 @@
  * obtain one at http://www.mozillapopcorn.org/butter-license.txt */
 
 define( [
-          "core/comm", 
+          "core/comm",
           "core/eventmanager",
           "dialog/modal"
-        ], 
-        function( Comm, EventManager, Modal ){
+        ],
+        function( Comm, EventManagerWrapper, Modal ){
 
   return function( dialogOptions ) {
     dialogOptions = dialogOptions || {};
@@ -18,7 +18,6 @@ define( [
 
     var _this = this,
         _url = dialogOptions.url,
-        _em = new EventManager( _this ),
         _parent = dialogOptions.parent,
         _open = false,
         _iframe,
@@ -27,20 +26,22 @@ define( [
         _modalLayer,
         _listeners = dialogOptions.events || {};
 
+    EventManagerWrapper( _this );
+
     this.modal = dialogOptions.modal;
 
     function onSubmit( e ){
-      _em.dispatch( e.type, e.data );
+      _this.dispatch( e.type, e.data );
     } //onSubmit
 
     function onCancel( e ){
-      _em.dispatch( e.type, e.data );
+      _this.dispatch( e.type, e.data );
       _this.close();
     } //onCancel
 
     this.close = function(){
       // Send a close message to the dialog first, then actually close the dialog.
-      // A setTimeout is used here to ensure that its associated function will be run 
+      // A setTimeout is used here to ensure that its associated function will be run
       // almost right after the postMessage happens. This ensures that messages get to
       // their destination before we remove the dom element (which will basically ruin
       // everything) by placing callbacks in the browser's event loop in the correct order.
@@ -59,11 +60,11 @@ define( [
         window.removeEventListener( "beforeunload",  _this.close, false );
         for( var e in _listeners ){
           if( e !== "close" ){
-            _em.unlisten( e, _listeners[ e ] );
+            _this.unlisten( e, _listeners[ e ] );
           }
         } //for
-        _em.dispatch( "close" );
-        _em.unlisten( "close", _listeners.close );
+        _this.dispatch( "close" );
+        _this.unlisten( "close", _listeners.close );
       }, 0 );
     }; //close
 
@@ -74,8 +75,10 @@ define( [
       if( _this.modal ){
         _modalLayer = new Modal( _this.modal );
       } //if
-      for ( var e in listeners ) {
-        _listeners[ e ] = listeners[ e ];
+      for( var e in listeners ){
+        if( listeners.hasOwnProperty( e ) ){
+          _listeners[ e ] = listeners[ e ];
+        }
       } //for
       var defaultParent = _modalLayer ? _modalLayer.element : document.body;
       _parent = _parent || defaultParent;
@@ -88,7 +91,9 @@ define( [
           _comm.listen( "close", _this.close );
           window.addEventListener( "beforeunload",  _this.close, false );
           for( var e in _listeners ){
-            _em.listen( e, _listeners[ e ] );
+            if( _listeners.hasOwnProperty( e ) ){
+              _this.listen( e, _listeners[ e ] );
+            }
           } //for
           while( _commQueue.length > 0 ){
             var popped = _commQueue.pop();
@@ -99,7 +104,7 @@ define( [
           setTimeout( function() {
             _this.focus();
           }, 0 );
-          _em.dispatch( "open" );
+          _this.dispatch( "open" );
         });
       }, false );
       _parent.appendChild( _iframe );

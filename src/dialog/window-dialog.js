@@ -3,11 +3,11 @@
  * obtain one at http://www.mozillapopcorn.org/butter-license.txt */
 
 define( [
-          "core/comm", 
+          "core/comm",
           "core/eventmanager",
           "dialog/modal"
-        ], 
-        function( Comm, EventManager, Modal ){
+        ],
+        function( Comm, EventManagerWrapper, Modal ){
 
   var DEFAULT_WINDOW_WIDTH = 640,
       DEFAULT_WINDOW_HEIGHT = 479,
@@ -22,7 +22,6 @@ define( [
 
     var _this = this,
         _url = dialogOptions.url,
-        _em = new EventManager( _this ),
         _comm,
         _window,
         _modalLayer,
@@ -40,14 +39,16 @@ define( [
         ],
         _listeners = dialogOptions.events || {};
 
+    EventManagerWrapper( _this );
+
     _this.modal = dialogOptions.modal;
 
     function onSubmit( e ){
-      _em.dispatch( e.type, e.data );
+      _this.dispatch( e.type, e.data );
     } //onSubmit
 
     function onCancel( e ){
-      _em.dispatch( e.type, e.data );
+      _this.dispatch( e.type, e.data );
       _this.close();
     } //onCancel
 
@@ -55,12 +56,12 @@ define( [
       if( e.data.type === "connectionclosed" ){
         _this.close();
       } //if
-      _em.dispatch( "error", e.data );
+      _this.dispatch( "error", e.data );
     } //onError
 
     this.close = function(){
       // Send a close message to the dialog first, then actually close the dialog.
-      // A setTimeout is used here to ensure that its associated function will be run 
+      // A setTimeout is used here to ensure that its associated function will be run
       // almost right after the postMessage happens. This ensures that messages get to
       // their destination before we remove the dom element (which will basically ruin
       // everything) by placing callbacks in the browser's event loop in the correct order.
@@ -78,13 +79,15 @@ define( [
           _window.close();
         } //if
         clearInterval( _statusInterval );
-        window.removeEventListener( "beforeunload",  _this.close, false ); 
+        window.removeEventListener( "beforeunload",  _this.close, false );
         _comm = _window = undefined;
         _open = false;
         for( var e in _listeners ){
-          _em.unlisten( e, _listeners[ e ] );
+          if( _listeners.hasOwnProperty( e ) ){
+            _this.unlisten( e, _listeners[ e ] );
+          }
         } //for
-        _em.dispatch( "close" );
+        _this.dispatch( "close" );
       }, 0 );
     }; //close
 
@@ -98,8 +101,10 @@ define( [
       if( _this.modal ){
         _modalLayer = new Modal( _this.modal );
       } //if
-      for ( var e in listeners ) {
-        _listeners[ e ] = listeners[ e ];
+      for ( var e in listeners ){
+        if( listeners.hasOwnProperty( e ) ){
+          _listeners[ e ] = listeners[ e ];
+        }
       } //for
       _window = window.open( _url, "dialog-window:" + _url, _features.join( "," ) );
       window.addEventListener( "beforeunload",  _this.close, false );
@@ -109,7 +114,9 @@ define( [
         _comm.listen( "cancel", onCancel );
         _comm.listen( "close", _this.close );
         for( var e in _listeners ){
-          _em.listen( e, _listeners[ e ] );
+          if( _listeners.hasOwnProperty( e ) ){
+            _this.listen( e, _listeners[ e ] );
+          }
         } //for
         _statusInterval = setInterval( checkWindowStatus, WINDOW_CHECK_INTERVAL );
         while( _commQueue.length > 0 ){
@@ -117,7 +124,7 @@ define( [
           _this.send( popped.type, popped.data );
         } //while
         _open = true;
-        _em.dispatch( "open" );
+        _this.dispatch( "open" );
       });
     }; //open
 
