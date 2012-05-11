@@ -6,6 +6,7 @@
     <script src="https://browserid.org/include.js" type="text/javascript" data-butter-exclude></script>
     <script src="../src/butter.js" data-butter-exclude></script>
     <script type="text/javascript" src="test.js" data-butter-exclude></script>
+    <script src="../editors/editor.js" data-butter-exclude></script>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
     <style>
@@ -24,6 +25,11 @@
           font-family: helvetica;
           font-style: bold;
         }
+
+        .container-div img {
+          width: 100%;
+        }
+        
         #main {
           min-width: 300px;
           min-height: 200px;
@@ -38,11 +44,15 @@
           position: absolute;
           top: 35px;
           right: 0;
+          margin-right: -1000px;
           background: url("../../resources/bg.jpg");
           color: #EEE;
           height: 800px;
           border-left: 1px solid #222;
           box-shadow: inset 5px 0 5px rgba(0,0,0,.2);
+          -webkit-transition: all .5s;
+          -moz-transition: all .5s;
+          transition: all .5s;
         }
         nav {
           background: #333;
@@ -67,7 +77,6 @@
         }
 
         ul.tabs > li {
-          color: #888;
           float: left;
           margin-bottom: -1px;
           margin-right: 3px;
@@ -75,18 +84,25 @@
           padding: 8px 15px 6px 15px;
           border-radius: 3px 3px 0 0;
         }
+        ul.tabs > li > a {
+          color: #888;
+          text-decoration: none;
+        }
+
         ul.tabs > li:hover {
-          color: #EEE;
           background: #444;
         }
+
+        ul.tabs > li:hover a { color: #EEE; }
+
         ul.tabs > li.selected {
           color: #FFF;
           background: none;
           border: 1px solid #222;
           border-bottom: none;
           background: url("../../resources/bg.jpg");
-          
         }
+        ul.tabs > li.selected a { color: #FFF; }
 
         .show-grid .row > div {
           background: rgba(0,0,0,.2)
@@ -133,29 +149,123 @@
           border-right: 0;
         }
         .prepend input { 
+          width: auto;
           float: left;
           border-radius: 0 3px 3px 0;
         }
 
-        .third input { width: 60px; }
-        .half input { width: 110px; }
-        .full input { width: 250px; }
-        input.small { width: 60px; } 
+        input.small { width: 80px; } 
 
-        input {
+        input, textarea {
           display: block;
           margin:0;
+          width: 100%;
+          -moz-box-sizing: border-box;
+          -webkit-box-sizing: border-box;
+          box-sizing: border-box;
           font-family: Monaco, "Courier New", monospace;
           border: 1px solid #222;
           padding: 8px 5px;
           border-radius: 3px;
           box-shadow: inset 0 2px 3px rgba(0,0,0,.4);
         }
-        input:focus {
+        input:focus, textarea:focus, .btn.active {
           outline: none;
           border: 1px solid #8F814C;
           box-shadow: 0 0 3px #AAA;
         }
+
+        textarea { min-height: 300px; }
+
+        .btn {
+          float: left;
+          margin: 0;
+          font-size: 11px;
+          font-weight: 600;
+          text-transform: uppercase;
+          padding: 7px 7px 9px 7px;
+          background: #333;
+          border: 1px solid #222;
+          color: #EEE;
+          border-radius: 3px;
+        }
+
+        .btn.dropdown-toggle {
+          text-align: left;
+          min-width: 160px;
+          position: relative;
+        }
+        .btn span.caret {
+          display: inline-block;
+          width: 0;
+          height: 0;
+          vertical-align: top;
+          border-top: 4px solid #EEE;
+          border-right: 4px solid transparent;
+          border-left: 4px solid transparent;
+          content: "";
+          margin-top: 6px;
+          margin-left: 7px;
+        }
+
+        .btn.dropdown-toggle span.caret {
+          position: absolute;
+          right: 10px;
+        }
+
+        .btn-group {
+          display: inline-block;
+          position: relative;
+        }
+
+        .dropdown-menu {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          z-index: 1000;
+          float: left;
+          min-width: 160px;
+          padding: 4px 0;
+          margin: 1px 0 0;
+          list-style: none;
+          background-color: white;
+          border: 1px solid #CCC;
+          border: 1px solid rgba(0, 0, 0, 0.2);
+          -webkit-border-radius: 5px;
+          -moz-border-radius: 5px;
+          border-radius: 5px;
+          -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+          -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+          -webkit-background-clip: padding-box;
+          -moz-background-clip: padding;
+          background-clip: padding-box;
+        }
+        .open .dropdown-menu {
+          display: block;
+        }
+
+        .dropdown-menu a {
+          text-decoration: none;
+          display: block;
+          padding: 3px 15px;
+          clear: both;
+          font-weight: normal;
+          font-size: 13px;
+          line-height: 18px;
+          color: #333;
+          white-space: nowrap;
+        }
+
+        .dropdown-menu a:hover {
+          background: #EEE;
+        }
+
+        .dropdown-menu a.active {
+          background: #F6C333;
+        }
+
         .drop-target {
           position: relative;
           color: #CCC;
@@ -164,18 +274,35 @@
           height: 200px;
           margin-right: 20px;
           float: left;
-          text-align: center;
           background-size: 100%;
           background-position: center;
           background-repeat: no-repeat;
         }
         .drop-target > span {
-          max-width: 10em;
+          display: block;
+          text-align: center;
           font-size: 18px;
           font-style: italic;
-          position: absolute;
-          top: 70px;
+          padding-top: 60px;
         }
+
+        .butter-blink, .dragover {
+          box-shadow: 0 0 10px #F6C333;
+        }
+        .target-label { 
+          font-family: "Open Sans", sans-serif;
+          position: absolute;
+          z-index: 10000;
+          padding: 10px 0;
+          background: #333;
+          color: #FFF;
+          font-weight: 600;
+          opacity: .0;
+          -moz-transition: opacity .5s;
+          -webkit-transition: opacity .5s;
+          transition: opacity .5s;
+        }
+
 
     </style>
 </head>
@@ -185,63 +312,85 @@
       <source src="../external/popcorn-js/test/trailer.mp4">
     </video>
     <div class="container-div">
-        <div class="content-div" data-butter="target" id="Area1"></div>
-        <p>Area 1</p>
+        <div class="content-div" data-butter="target" id="Scott"></div>
+        <p></p>
     </div>
     <div class="container-div">
-        <div class="content-div" data-butter="target" id="Area2" data-butter-default></div>
-        <p>Area 2</p>
+        <div class="content-div" data-butter="target" id="Ben" data-butter-default></div>
+        <p></p>
+    </div>
+    <div class="container-div">
+        <div class="content-div" data-butter="target" id="Bobby" data-butter-default></div>
+        <p></p>
     </div>
     <div id="target-div"></div>
-    <div class="editor-panel">
+    <div class="editor-panel" id="editor-panel">
       <nav>
-        <ul class="tabs">
-          <li class="selected">Basic</li>
-          <li>Advanced</li>
-           <li>Code</li>
+        <ul id="editor-tabs" class="tabs">
+          <li class="selected"><a href="#basic">Basic</a></li>
+          <li><a href="#advanced">Advanced</a></li>
+          <li><a href="#code">Code</a></li>
         </ul>
       </nav>
-      <div class="grid">
-        <h2>Image</h2>
+      <div id="tab-panels" class="grid">
+        <div id="basic">
 
-        <div class="row">
-          <div class="full">
-            <div class="drop-target">
-              <span>Drop an image from your desktop</span>
+          <h2>Image</h2>
+          <div class="row">
+            <div class="btn-group" data-butter-input="target" >
+              <button class="btn dropdown-toggle"><span class="btn-title">Target</span><span class="caret"></span></button>
             </div>
           </div>
-        </div>
+          <div class="row">
+            <div class="full">
+              <div id="drop-target" class="drop-target" data-butter-input="src-drop"></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="full">
+              <label>Or, use an image URL</label>
+              <input data-butter-input="src" type="text"/>
+            </div>
+          </div>
+          <div class="row">
+            <div class="half prepend">
+              <label>Start</label>
+              <input data-butter-input="start" type="text" value="00:00:00" class="small" />
+            </div>
+            <div class="half prepend">
+              <label>End</label>
+              <input data-butter-input="end" type="text" class="small" />
+            </div>
+          </div>
 
-        <div class="row">
-          <div class="full">
-            <label>Or, use an image URL</label>
-            <input type="text"/>
-          </div>
-        </div>
+        </div><!-- #basic -->
 
-        <div class="row">
-          <div class="half prepend">
-            <label>Start</label>
-            <input type="text" class="small" value="00:00:00" />
-          </div>
-          <div class="half prepend">
-            <label>End</label>
-            <input type="text" class="small" />
-          </div>
-        </div>
+        <div id="advanced">
 
-        <div class="row">
-          <div class="half">
-            <label>Field</label>
-            <input type="text" />
+          <div class="row">
+            <div class="half">
+              <label>Field</label>
+              <input type="text" />
+            </div>
+            <div class="half">
+              <label>Field</label>
+              <input type="text" />
+            </div>
           </div>
-          <div class="half">
-            <label>Field</label>
-            <input type="text" />
-          </div>
-        </div>
 
-      </div>
+        </div> <!-- #advanced -->
+
+         <div id="code">
+          <h3>Code</h3>
+          <div class="row">
+            <div class="full">
+              <textarea><p>Hello world</p></textarea>
+            </div>
+          </div>
+
+        </div> <!-- #code -->
+
+      </div><!-- #tab-panels -->
     </div>
 </body>
 </html>
