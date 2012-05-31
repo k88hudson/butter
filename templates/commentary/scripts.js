@@ -3,7 +3,8 @@ document.addEventListener( "DOMContentLoaded", function( e ){
   Butter({
     config: "config.json",
     ready: function( butter ){
-      var media = butter.media[ 0 ];
+      var media = butter.media[ 0 ],
+          t = new Template();
 
       function start(){
         var track = media.addTrack( "Track1" );
@@ -11,44 +12,11 @@ document.addEventListener( "DOMContentLoaded", function( e ){
         media.addTrack( "Track" + Math.random() );
 
         var event = track.addTrackEvent({
-          type: "text",
+          type: "image",
           popcornOptions: {
             start: 0,
             end: 1,
-            text: "test",
             target: "video-overlay"
-          }
-        });
-
-        butter.tracks[ 0 ].addTrackEvent({ 
-          type: "text",
-          popcornOptions: {
-            start: 1,
-            end: 2,
-            text: "Test",   
-            target: "sidebar"
-          }
-        });
-    
-        butter.tracks[ 0 ].addTrackEvent({ 
-          type: "webpage",
-          popcornOptions: {
-            start:2,
-            end: 3,
-            id:"webpages-a",
-            src:"http://popcornjs.org/",
-            target: "sidebar"
-          }
-        });
-
-        butter.tracks[ 0 ].addTrackEvent({ 
-          type: "wikipedia",
-          popcornOptions: {
-            start:3,
-            end: 4,
-            title: "Cape Town yo",
-            src:"http://en.wikipedia.org/wiki/Cape_Town",
-            target: "sidebar"
           }
         });
 
@@ -56,7 +24,7 @@ document.addEventListener( "DOMContentLoaded", function( e ){
       }
 
       media.onReady( start );
-      
+      window.butter = butter;
     } 
   }); //Butter
 }, false );
