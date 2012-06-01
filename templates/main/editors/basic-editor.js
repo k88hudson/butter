@@ -194,7 +194,6 @@
       }
 
       for ( var item in _manifest ) {
-        console.log( item, typeof _manifest[item] );
         if ( item === "target" && _manifest[item].auto === true ) {
           createRow( item, _manifest[item]["hidden"], targets );
         } else { 
