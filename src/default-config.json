@@ -6,7 +6,8 @@
   "title": "Popcorn Maker",
   "ui": {
     "enabled": true,
-    "trackEventHighlight": "click"
+    "cssRenderClientSide": false,
+    "trackEventHighlight": "click",
   },
   "mediaDefaults": {
     "frameAnimation": true
