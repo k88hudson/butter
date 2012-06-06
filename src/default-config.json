@@ -1,12 +1,12 @@
 {
   "name": "default-config",
   "baseDir": "../",
+  "cssRenderClientSide": false,
   "snapshotHTMLOnReady": true,
   "scrapePage": true,
   "title": "Popcorn Maker",
   "ui": {
     "enabled": true,
-    "cssRenderClientSide": false,
     "trackEventHighlight": "click",
   },
   "mediaDefaults": {
