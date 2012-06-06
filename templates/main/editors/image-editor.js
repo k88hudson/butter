@@ -47,7 +47,7 @@
         if ( options && options[ item ] ) {
            popcornOptions[ item ] = options[ item ];
         } else if ( item === "src" ) {
-          if( document.getElementById( "imageType" ) && document.getElementById( "imageType" ).value === "yes" ) {
+          if( document.getElementById( "imageType" ) && document.getElementById( "imageType" ).value === "url" ) {
             popcornOptions[ item ] = document.getElementById( item ).value;
           }
         } else if ( document.getElementById( item ) ) {
@@ -87,10 +87,10 @@
         var element = document.getElementById( item );
         element.value = e.data[ item ];
         if( item === "src" ) {
-          if( e.data[ "imageType" ] === "no" ) {
+          if( e.data[ "imageType" ] === "dataURI" ) {
             document.getElementById("src-container").style.display = "none";
             //document.getElementById("drop-target").style.display = "block";
-          } else if( e.data[ "imageType" ] === "yes" ) {
+          } else if( e.data[ "imageType" ] === "url" ) {
             document.getElementById("src-container").style.display = "block";
             //document.getElementById("drop-target").style.display = "none";
           }
@@ -261,7 +261,7 @@
               context.drawImage( this, 0, 0, this.width, this.height );
               imgURI = canvas.toDataURL();
 
-              sendData( false, {"src" : imgURI, "imageType": "no" } );
+              sendData( false, {"src" : imgURI, "imageType": "dataURI" } );
               dropTarget.style.backgroundImage = "url('" +  imgURI + "')";
               dropTarget.firstChild.innerHTML = "";
           };

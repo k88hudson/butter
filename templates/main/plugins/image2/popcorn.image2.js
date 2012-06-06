@@ -1,4 +1,4 @@
-// PLUGIN: IMAGE
+// PLUGIN: IMAGE2
 
 (function ( Popcorn ) {
 
@@ -23,7 +23,12 @@
         end: 15, // seconds
         href: 'http://www.drumbeat.org/',
         src: 'http://www.drumbeat.org/sites/default/files/domain-2/drumbeat_logo.png',
-        text: 'DRUMBEAT',
+        imageType: 'url',
+        height: '100px',
+        width: '200px',
+        top: '50%',
+        left: '20%',
+        imageType: 'dataURI',
         target: 'imagediv'
       } )
  *
@@ -31,9 +36,9 @@
   Popcorn.plugin( "image2", {
       manifest: {
         about: {
-          name: "Popcorn image Plugin",
+          name: "Popcorn image2 Plugin",
           version: "0.1",
-          author: "Scott Downe. Modified by k88hudson",
+          author: "Scott Downe. Modified by @k88hudson",
           website: "http://scottdowne.wordpress.com/"
         },
         options: {
@@ -41,19 +46,17 @@
             elem: "input",
             type: "number",
             label: "In",
-            hidden: true
           },
           end: {
             elem: "input",
             type: "number",
             label: "Out",
-            hidden: true
           },
           imageType: {
             elem: "select",
-            options: [ "yes", "no" ],
+            options: [ "url", "dataURI" ],
             label: "Use URL?",
-            "default": "yes"
+            "default": "url"
           },
           src: {
             elem: "input",
@@ -71,28 +74,18 @@
             type: "text",
             label: "Height",
             "default": "150px",
-            hidden: true
           },
           top: {
             elem: "input",
             type: "text",
             label: "Top",
             "default": "0",
-            hidden: true
           },
           left: {
             elem: "input",
             type: "text",
             label: "Left",
             "default": "0",
-            hidden: true
-          },
-          text: {
-            elem: "input",
-            type: "text",
-            label: "Text",
-            optional: true,
-            hidden: true
           },
           href: {
             elem: "input",
@@ -105,7 +98,7 @@
       },
       _setup: function( options ) {
         var img,
-            target = document.getElementById( options.target );
+            target = options._target = document.getElementById( options.target );
 
         if( options.href ) {
           options._container = document.createElement( "a" );
@@ -121,7 +114,6 @@
           options._container.style.height = options.height;
           options._container.style.top = options.top;
           options._container.style.left = options.left;
-
 
         if ( !target && Popcorn.plugin.debug ) {
           throw new Error( "target container doesn't exist" );
@@ -139,27 +131,6 @@
             img.style.width = "100%";
 
             options._container.appendChild( img );
-
-            // If display text was provided, display it:
-            if ( options.text ) {
-              fontHeight = ( img.height / 12 ) + "px";
-              divText = document.createElement( "div" );
-
-              Popcorn.extend( divText.style, {
-                color: "black",
-                fontSize: fontHeight,
-                fontWeight: "bold",
-                position: "relative",
-                textAlign: "center",
-                width: img.style.width || img.width + "px",
-                zIndex: "10"
-              });
-
-              divText.innerHTML = options.text || "";
-
-              divText.style.top = ( ( img.style.height.replace( "px", "" ) || img.height ) / 2 ) - ( divText.offsetHeight / 2 ) + "px";
-              options._container.insertBefore( divText, img );
-            }
           }, false );
 
           img.src = options.src;
@@ -185,7 +156,7 @@
         options._container.style.display = "none";
       },
       _teardown: function( options ) {
-        document.getElementById( options.target ) && document.getElementById( options.target ).removeChild( options._container );
+        options._target && options._target.removeChild( options._container );
       }
   });
 })( Popcorn );
