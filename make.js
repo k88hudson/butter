@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
 var path = require( "path"),
-    normalize = path.normalize,
+    normalize = function( p ){ return '"' + path.normalize( p ) + '"'; },
     join = path.join,
     // Make Windows happy, use `node <path>`
-    nodeExec = function( p ){ return "node " + p; },
+    nodeExec = function( p ){ return 'node "' + p + '"'; },
 
     JSLINT = nodeExec( normalize( "./node_modules/jshint/bin/hint" ) ),
     CSSLINT = nodeExec( normalize( "./node_modules/csslint/cli.js" ) ),
@@ -127,10 +127,15 @@ target['check-lint'] = function() {
   exec(JSLINT + ' ' + files + ' --show-non-errors');
 };
 
-target.css = function() {
-  echo('### Building CSS using LESS');
+// If compress is true, crush CSS down, otherwise leave expanded.
+function lessToCSS( compress ){
+  echo( "### Building CSS using LESS (" +
+        ( compress ? "with" : "without" ) +
+        " compression)" );
 
-  var result = exec(LESS + ' ' + BUTTER_LESS_FILE, {silent:true});
+  var args = compress ? " -x " : " ",
+  result = exec(LESS + args + BUTTER_LESS_FILE, {silent:true});
+
   if( result.code === 0 ){
     var css = BUTTER_CSS_FILE_COMMENT + "\n\n" + result.output;
     css.to( BUTTER_CSS_FILE );
@@ -138,6 +143,11 @@ target.css = function() {
   } else {
     echo( result.output );
   }
+}
+
+target.css = function() {
+  // Leave CSS expanded if building in tree (for debugging)
+  lessToCSS( false );
 };
 
 target.build = function() {
@@ -155,8 +165,9 @@ target.build = function() {
   sed('-i', '@VERSION@', version, 'dist/butter.js');
   sed('-i', '@VERSION@', version, 'dist/butter.min.js');
 
-  target.css();
-  cp( normalize( 'css/*.css' ), DIST_DIR);
+  // Compress CSS for deployment
+  lessToCSS( true );
+  cp( 'css/*.css', DIST_DIR );
 };
 
 target.server = function() {
