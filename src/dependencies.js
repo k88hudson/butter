@@ -69,12 +69,6 @@ define([ 'util/xhr' ], function( XHR ){
                 css.appendChild( styles );
 
                 callback();
-/**
-                var div = document.createElement("div");
-                div.innerHTML = root.toCSS();
-                document.body.appendChild(div);
-                div.style.padding = "50px";
-**/
               });
             }
           });
@@ -127,15 +121,7 @@ define([ 'util/xhr' ], function( XHR ){
         if( !checkFn() ){
           // See if we need to render CSS client side with LESS
           if( config.value( "cssRenderClientSide" ) === true ){
-            var lessDone = false;
-            function done(){
-              lessDone = true;
-            }
-            checkFn = function(){
-              return lessDone;
-            };
-            loadLessFile( _loaders.js, url, error, done );
-            runCheckFn();
+            loadLessFile( _loaders.js, url, error, callback );
           }
           // Regular css file, inject <link> in head
           else {
