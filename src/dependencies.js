@@ -10,8 +10,7 @@ define([ 'util/xhr' ], function( XHR ){
       },
       VAR_REGEX = /\{([\w\-\._]+)\}/,
       CSS_POLL_INTERVAL = 10,
-//      LESS = "/less-1.3.0.min.js";
-      LESS = "/less-1.3.0.js";
+      LESS = "/less-1.3.0.min.js";
 
   var DEFAULT_CHECK_FUNCTION = function(){
     var index = 0;
