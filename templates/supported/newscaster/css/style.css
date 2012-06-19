@@ -121,9 +121,10 @@ section.video-container {
 }
 .upper-corner {
   position: absolute;
-  top: 20px;
-  left: 20px;
-  width: 250px;
+  top: 50px;
+  left: 25px;
+  width: 320px;
+  height: 200px;
 }
 section.suplementary {
   margin: 40px 0;

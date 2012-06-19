@@ -1,0 +1,224 @@
+{
+  "targets": [
+    {
+      "id": "Target0",
+      "name": "Target0",
+      "element": "background-container"
+    },
+    {
+      "id": "Target1",
+      "name": "Target1",
+      "element": "video-overlay"
+    },
+    {
+      "id": "Target2",
+      "name": "Target2",
+      "element": "upper-corner"
+    }
+  ],
+  "media": [
+    {
+      "id": "Media0",
+      "name": "Media0",
+      "url": [
+        "http://localhost:8888/templates/supported/newscaster/tedglobal.ogv",
+        "http://videos-origin.mozilla.org/serv/webmademovies/Moz_Doc_0329_GetInvolved.webm"
+      ],
+      "target": "video",
+      "duration": 20.526439666748047,
+      "tracks": [
+        {
+          "name": "Track0",
+          "id": "Track0",
+          "trackEvents": [
+            {
+              "id": "TrackEvent0",
+              "type": "titlecard",
+              "popcornOptions": {
+                "start": 1.781,
+                "end": 4.684,
+                "target": "video-overlay",
+                "title": "Popcorn rules!",
+                "subheading": "These dudes agree:"
+              },
+              "track": "Track0",
+              "name": "TrackEvent0"
+            },
+            {
+              "id": "TrackEvent1",
+              "type": "zoink",
+              "popcornOptions": {
+                "start": 10.973,
+                "end": 13.221,
+                "target": "background-container",
+                "text": "TED is awesome",
+                "type": "fact",
+                "triangle": "top left",
+                "flip": false,
+                "classes": "none",
+                "order": "1",
+                "top": 368,
+                "left": 497,
+                "width": "200"
+              },
+              "track": "Track0",
+              "name": "TrackEvent1"
+            }
+          ]
+        },
+        {
+          "name": "Track1",
+          "id": "Track1",
+          "trackEvents": [
+            {
+              "id": "TrackEvent2",
+              "type": "googlemap",
+              "popcornOptions": {
+                "start": 4.319,
+                "end": 6.953,
+                "target": "upper-corner",
+                "type": "ROADMAP",
+                "zoom": 12,
+                "lat": "",
+                "lng": "",
+                "location": "toronto",
+                "heading": "",
+                "pitch": 1
+              },
+              "track": "Track1",
+              "name": "TrackEvent2"
+            },
+            {
+              "id": "TrackEvent3",
+              "type": "zoink",
+              "popcornOptions": {
+                "start": 10.409,
+                "end": 12.487,
+                "target": "background-container",
+                "text": "I love coffee",
+                "type": "fact",
+                "classes": "none",
+                "triangle": "bottom left",
+                "flip": false,
+                "order": "1",
+                "top": 392,
+                "left": 1027,
+                "width": "200"
+              },
+              "track": "Track1",
+              "name": "TrackEvent3"
+            },
+            {
+              "id": "TrackEvent4",
+              "type": "flickr",
+              "popcornOptions": {
+                "start": 12.956,
+                "end": 15.731,
+                "target": "background-container",
+                "userid": "",
+                "tags": "scotland",
+                "username": "",
+                "apikey": "",
+                "height": "200",
+                "width": "200",
+                "padding": "0",
+                "border": "0",
+                "numberofimages": "10"
+              },
+              "track": "Track1",
+              "name": "TrackEvent5"
+            }
+          ]
+        },
+        {
+          "name": "Track2",
+          "id": "Track2",
+          "trackEvents": [
+            {
+              "id": "TrackEvent5",
+              "type": "zoink",
+              "popcornOptions": {
+                "start": 9.991,
+                "end": 11.688,
+                "target": "background-container",
+                "text": "I like clowns",
+                "type": "fiction",
+                "classes": "none",
+                "triangle": "bottom left",
+                "flip": false,
+                "order": "1",
+                "top": 523,
+                "left": 778,
+                "width": "200"
+              },
+              "track": "Track2",
+              "name": "TrackEvent4"
+            }
+          ]
+        },
+        {
+          "name": "Track3",
+          "id": "Track3",
+          "trackEvents": [
+            {
+              "id": "TrackEvent6",
+              "type": "shrink",
+              "popcornOptions": {
+                "start": 7.066,
+                "end": 15.487,
+                "target": "video-overlay",
+                "containerID": "video-container"
+              },
+              "track": "Track3",
+              "name": "TrackEvent8"
+            }
+          ]
+        },
+        {
+          "name": "Track4",
+          "id": "Track4",
+          "trackEvents": [
+            {
+              "id": "TrackEvent7",
+              "type": "googlemap",
+              "popcornOptions": {
+                "start": 7.061,
+                "end": 13.547,
+                "target": "background-container",
+                "type": "ROADMAP",
+                "zoom": 12,
+                "lat": "",
+                "lng": "",
+                "location": "Glasgow",
+                "heading": "",
+                "pitch": 1
+              },
+              "track": "Track4",
+              "name": "TrackEvent7"
+            },
+            {
+              "id": "TrackEvent8",
+              "type": "zoink",
+              "popcornOptions": {
+                "start": 15.904,
+                "end": 17.859,
+                "target": "video-overlay",
+                "text": "super cool, right?",
+                "type": "thought",
+                "classes": "none",
+                "triangle": "bottom left",
+                "flip": false,
+                "order": "1",
+                "top": 35,
+                "left": 457,
+                "width": "200"
+              },
+              "track": "Track4",
+              "name": "TrackEvent8"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

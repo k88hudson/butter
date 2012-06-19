@@ -3,7 +3,7 @@
   "title": "Newscaster",
   "template": "../index.html",
   "baseDir": "../../../",
-  "savedDataUrl": "butter/saved-data.json",
+  "savedDataUrl": "butter/saveddata.json",
   "editor": {
     "default": "{{baseDir}}editors/default-editor.html",
     "photo": "{{baseDir}}templates/supported/shared/editors/photo-editor.html",
@@ -22,6 +22,10 @@
       {
         "type": "photo",
         "path": "{{baseDir}}templates/supported/shared/plugins/photo/popcorn.photo.js"
+      },
+      {
+        "type": "shrink",
+        "path": "{{baseDir}}templates/supported/shared/plugins/shrink/popcorn.shrink.js"
       },
       {
         "type": "zoink",
@@ -44,6 +48,7 @@
       "text",
       "titlecard",
       "photo",
+      "shrink",
       "zoink",
       "shrink",
       "flickr",
