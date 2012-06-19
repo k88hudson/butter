@@ -32,18 +32,19 @@ body {
 
 .logo, .cube h2{
   font-family: "Bree Serif", Georgia, sans-serif;
-  font-weight: 700;
   letter-spacing: .05em;
 }
 
 h2, h5 {
-  text-shadow: 0 1px 30px rgba(255,255,255, 0.6);
   text-transform: uppercase;
+  font-weight: 400;
   font-family: "Bree Serif", Georgia, sans-serif;
 }
 
 h2 {
   font-family: "Merriweather", Georgia, sans-serif;
+  color: #FFF;
+
 }
 
 h3 {
