@@ -26,6 +26,7 @@
       ],
       "target": "video",
       "duration": 20.526439666748047,
+      "controls": true,
       "tracks": [
         {
           "name": "Track0",
@@ -48,17 +49,17 @@
               "id": "TrackEvent1",
               "type": "zoink",
               "popcornOptions": {
-                "start": 10.973,
-                "end": 13.221,
+                "start": 10.642,
+                "end": 12.898,
                 "target": "background-container",
-                "text": "TED is awesome",
+                "text": "<strong>Did you know?</strong> The population of Glasgow is about 23% of the population of Toronto.",
                 "type": "fact",
                 "triangle": "top left",
                 "flip": false,
                 "classes": "none",
                 "order": "1",
-                "top": 368,
-                "left": 497,
+                "top": 244,
+                "left": 173,
                 "width": "200"
               },
               "track": "Track0",
@@ -92,17 +93,17 @@
               "id": "TrackEvent3",
               "type": "zoink",
               "popcornOptions": {
-                "start": 10.409,
-                "end": 12.487,
+                "start": 10.408,
+                "end": 12.496,
                 "target": "background-container",
-                "text": "I love coffee",
+                "text": "<img src=\"http://upload.wikimedia.org/wikipedia/commons/thumb/7/75/View_of_Glasgow_from_Queens_Park.jpg/250px-View_of_Glasgow_from_Queens_Park.jpg\"> <a href=\"http://www.glasgow.gov.uk/\" target=\"_blank\">Glasgow</a>, like many cities, owes its existence to the river which flows through it and the fact that in historical times it was a convenient crossing point of that river. In those days the Clyde was not a deep navigable river up to Glasgow, but was the last place where a bridge could be built to allow a crossing without a boat. ",
                 "type": "fact",
                 "classes": "none",
                 "triangle": "bottom left",
                 "flip": false,
                 "order": "1",
-                "top": 392,
-                "left": 1027,
+                "top": 217,
+                "left": 1052,
                 "width": "200"
               },
               "track": "Track1",
@@ -112,11 +113,11 @@
               "id": "TrackEvent4",
               "type": "flickr",
               "popcornOptions": {
-                "start": 12.956,
-                "end": 15.731,
-                "target": "background-container",
+                "start": 13.914,
+                "end": 16.839,
+                "target": "video-overlay",
                 "userid": "",
-                "tags": "scotland",
+                "tags": "nyan cat",
                 "username": "",
                 "apikey": "",
                 "height": "200",
@@ -127,6 +128,26 @@
               },
               "track": "Track1",
               "name": "TrackEvent5"
+            },
+            {
+              "id": "TrackEvent5",
+              "type": "zoink",
+              "popcornOptions": {
+                "start": 18.06,
+                "end": 20.049,
+                "target": "video-overlay",
+                "text": "I think you should click me.",
+                "type": "thought",
+                "classes": "none",
+                "triangle": "bottom left",
+                "flip": false,
+                "order": "1",
+                "top": 236,
+                "left": 627,
+                "width": "200"
+              },
+              "track": "Track1",
+              "name": "TrackEvent8"
             }
           ]
         },
@@ -135,24 +156,41 @@
           "id": "Track2",
           "trackEvents": [
             {
-              "id": "TrackEvent5",
+              "id": "TrackEvent6",
               "type": "zoink",
               "popcornOptions": {
-                "start": 9.991,
-                "end": 11.688,
+                "start": 7.942,
+                "end": 9.664,
                 "target": "background-container",
-                "text": "I like clowns",
-                "type": "fiction",
+                "text": "Welcome to Glasgow!",
+                "type": "speech",
                 "classes": "none",
-                "triangle": "bottom left",
+                "triangle": "top left",
                 "flip": false,
                 "order": "1",
-                "top": 523,
-                "left": 778,
+                "top": "182",
+                "left": "807",
                 "width": "200"
               },
               "track": "Track2",
               "name": "TrackEvent4"
+            },
+            {
+              "id": "TrackEvent7",
+              "type": "titles",
+              "popcornOptions": {
+                "start": 16.432,
+                "end": 20.026,
+                "target": "upper-corner",
+                "text": " <h3>Greece’s Bailout Deal</h3> <p>BRUSSELS — As Greece’s political parties maneuvered to form a new government Tuesday, the country’s creditors were signaling a willingness to discuss revised terms for Greece’s bailout package to reflect its rapidly deteriorating economy. Related</p>  <p>The newfound willingness to talk, while probably requiring Greece to stick to long-range targets for reducing its debt and making structural changes in its economy, the <a href=\"http://topics.nytimes.com/top/reference/timestopics/organizations/e/european_union/index.html?inline=nyt-org\" target=\"_blank\">European Union</a>...</p> ",
+                "innerContainerClasses": "",
+                "containerClasses": "popcorn-transition popcorn-titles",
+                "activeClass": "popcorn-on",
+                "inactiveClass": "popcorn-off",
+                "transitionSpeed": "normal"
+              },
+              "track": "Track2",
+              "name": "TrackEvent9"
             }
           ]
         },
@@ -161,11 +199,11 @@
           "id": "Track3",
           "trackEvents": [
             {
-              "id": "TrackEvent6",
+              "id": "TrackEvent8",
               "type": "shrink",
               "popcornOptions": {
-                "start": 7.066,
-                "end": 15.487,
+                "start": 7.062,
+                "end": 12.903,
                 "target": "video-overlay",
                 "containerID": "video-container"
               },
@@ -179,7 +217,7 @@
           "id": "Track4",
           "trackEvents": [
             {
-              "id": "TrackEvent7",
+              "id": "TrackEvent9",
               "type": "googlemap",
               "popcornOptions": {
                 "start": 7.061,
@@ -195,26 +233,6 @@
               },
               "track": "Track4",
               "name": "TrackEvent7"
-            },
-            {
-              "id": "TrackEvent8",
-              "type": "zoink",
-              "popcornOptions": {
-                "start": 15.904,
-                "end": 17.859,
-                "target": "video-overlay",
-                "text": "super cool, right?",
-                "type": "thought",
-                "classes": "none",
-                "triangle": "bottom left",
-                "flip": false,
-                "order": "1",
-                "top": 35,
-                "left": 457,
-                "width": "200"
-              },
-              "track": "Track4",
-              "name": "TrackEvent8"
             }
           ]
         }

@@ -13,12 +13,6 @@
         EditorHelper( butter, popcorn );
 
 
-        function start() {
-          $("body").addClass("dark");
-        }
-
-        media.onReady( start );
-
       }
     });
   }, false);

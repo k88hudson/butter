@@ -12,8 +12,8 @@
   "plugin": {
     "plugins": [
       {
-        "type": "text",
-        "path": "{{baseDir}}external/popcorn-js/plugins/text/popcorn.text.js"
+        "type": "titles",
+        "path": "{{baseDir}}templates/supported/shared/plugins/titles/popcorn.titles.js"
       },
       {
         "type": "titlecard",
@@ -45,7 +45,7 @@
       }
     ],
     "defaults": [
-      "text",
+      "titles",
       "titlecard",
       "photo",
       "shrink",
