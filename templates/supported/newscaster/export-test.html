@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="http://localhost:8888/templates/supported/newscaster/butter/../"/>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>News Caster</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <meta name="viewport" content="width=device-width">
+
+  <link href='http://fonts.googleapis.com/css?family=Lato:300,700,300italic,700italic|Bree+Serif|Merriweather' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="../shared/css/normalise.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="../shared/css/jquery-ui/jquery.ui.all.css">
+
+  <link rel="stylesheet" href="../shared/plugins/titlecard/popcorn.titlecard.css">
+  <link rel="stylesheet" href="../shared/plugins/shrink/popcorn.shrink.css">
+  <link rel="stylesheet" href="../shared/plugins/zoink/popcorn.zoink.css">
+  <link rel="stylesheet" href="../shared/plugins/flickr/popcorn.flickr.css">
+  <link rel="stylesheet" href="../shared/css/popcorn.transitions.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.js"></script>
+
+
+
+  <script src="../../../../dist/external/popcorn-js/popcorn.js"></script>
+
+  <script src="http://localhost:8888/templates/supported/shared/plugins/titles/popcorn.titles.js"></script>
+  <script src="http://localhost:8888/templates/supported/shared/plugins/titlecard/popcorn.titlecard.js"></script>
+  <script src="http://localhost:8888/templates/supported/shared/plugins/photo/popcorn.photo.js"></script>
+  <script src="http://localhost:8888/templates/supported/shared/plugins/shrink/popcorn.shrink.js"></script>
+  <script src="http://localhost:8888/templates/supported/shared/plugins/zoink/popcorn.zoink.js"></script>
+  <script src="http://localhost:8888/external/popcorn-js/plugins/googlemap/popcorn.googlemap.js"></script>
+  <script src="http://localhost:8888/templates/supported/shared/plugins/flickr/popcorn.flickr.js"></script>
+  <script src="http://localhost:8888/templates/supported/shared/plugins/shrink/popcorn.shrink.js"></script>
+</head>
+<body>
+<div id="bg-cubes"></div>
+<div class="wrapper">
+
+  <div role="main">
+     <div id="background-container" class="video-overlay" data-butter="target"></div>
+    <section id="video-container" class="video-container">
+     
+      <video id="video" preload data-butter="media">
+        <source src="http://videos-origin.mozilla.org/serv/webmademovies/teddemo.mp4">
+        <source src="http://videos-origin.mozilla.org/serv/webmademovies/teddemo.ogv">
+        <source src="http://videos-origin.mozilla.org/serv/webmademovies/teddemo.webm">
+      </video>
+
+      <div id="video-overlay" class="video-overlay" data-butter="target" data-butter-default></div> 
+       <div id="upper-corner" class="upper-corner" data-butter="target"></div>
+    <div class="cube-container"> 
+      <div class="cube">
+        <div>
+          <div class="cube-side">
+            <h2><a href="http://www.ted.com" target="_blank">ted</a></h2>
+          </div>
+        </div>
+        <div class="cube-side">
+          <div>
+            <h2><a href="http://www.ted.com" target="_blank">ted</a></h2>
+          </div>
+        </div>
+        <div class="cube-side">
+          <div>
+            <h2><a href="http://www.ted.com" target="_blank">ted</a></h2>
+          </div>
+        </div>
+        <div class="cube-side">
+          <div>
+            <h2><a href="http://www.ted.com" target="_blank">ted</a></h2>
+          </div>
+        </div>
+        <div class="cube-top"></div>
+        <div class="cube-bottom"></div>
+        <div class="cube-shadow"></div>
+      </div> 
+    </div>
+
+    </section>
+  </div>
+</div>
+
+<script type="application/butter-custom-data">
+{}
+</script><script>
+(function(){
+var popcorn = Popcorn.smart("#video", [ "http://videos-origin.mozilla.org/serv/webmademovies/teddemo.mp4" , "http://videos-origin.mozilla.org/serv/webmademovies/teddemo.ogv" , "http://videos-origin.mozilla.org/serv/webmademovies/teddemo.webm" ], {});
+popcorn.titlecard({
+  "start": 1.781,
+  "end": 4.684,
+  "target": "video-overlay",
+  "title": "Popcorn rules!",
+  "subheading": "These dudes agree:"
+});
+popcorn.zoink({
+  "start": 10.642,
+  "end": 12.898,
+  "target": "background-container",
+  "text": "<strong>Did you know?</strong> The population of Glasgow is about 23% of the population of Toronto.",
+  "type": "fact",
+  "triangle": "top left",
+  "flip": false,
+  "classes": "none",
+  "order": "1",
+  "top": 244,
+  "left": 173,
+  "width": "200"
+});
+popcorn.googlemap({
+  "start": 4.319,
+  "end": 6.953,
+  "target": "upper-corner",
+  "type": "ROADMAP",
+  "zoom": 12,
+  "lat": "",
+  "lng": "",
+  "location": "toronto",
+  "heading": "",
+  "pitch": 1
+});
+popcorn.zoink({
+  "start": 10.408,
+  "end": 12.496,
+  "target": "background-container",
+  "text": "<img src=\"http://upload.wikimedia.org/wikipedia/commons/thumb/7/75/View_of_Glasgow_from_Queens_Park.jpg/250px-View_of_Glasgow_from_Queens_Park.jpg\"> <a href=\"http://www.glasgow.gov.uk/\" target=\"_blank\">Glasgow</a>, like many cities, owes its existence to the river which flows through it and the fact that in historical times it was a convenient crossing point of that river. In those days the Clyde was not a deep navigable river up to Glasgow, but was the last place where a bridge could be built to allow a crossing without a boat. ",
+  "type": "fact",
+  "classes": "none",
+  "triangle": "bottom left",
+  "flip": false,
+  "order": "1",
+  "top": 217,
+  "left": 1052,
+  "width": "200"
+});
+popcorn.flickr({
+  "start": 13.914,
+  "end": 16.839,
+  "target": "video-overlay",
+  "userid": "",
+  "tags": "nyan cat",
+  "username": "",
+  "apikey": "",
+  "height": "200",
+  "width": "200",
+  "padding": "0",
+  "border": "0",
+  "numberofimages": "10"
+});
+popcorn.zoink({
+  "start": 18.06,
+  "end": 20.049,
+  "target": "video-overlay",
+  "text": "I think you should click me.",
+  "type": "thought",
+  "classes": "none",
+  "triangle": "bottom left",
+  "flip": false,
+  "order": "1",
+  "top": 236,
+  "left": 627,
+  "width": "200"
+});
+popcorn.zoink({
+  "start": 7.942,
+  "end": 9.664,
+  "target": "background-container",
+  "text": "Welcome to Glasgow!",
+  "type": "speech",
+  "classes": "none",
+  "triangle": "top left",
+  "flip": false,
+  "order": "1",
+  "top": "182",
+  "left": "807",
+  "width": "200"
+});
+popcorn.titles({
+  "start": 16.432,
+  "end": 20.026,
+  "target": "upper-corner",
+  "text": " <h3>Greece’s Bailout Deal</h3> <p>BRUSSELS — As Greece’s political parties maneuvered to form a new government Tuesday, the country’s creditors were signaling a willingness to discuss revised terms for Greece’s bailout package to reflect its rapidly deteriorating economy. Related</p>  <p>The newfound willingness to talk, while probably requiring Greece to stick to long-range targets for reducing its debt and making structural changes in its economy, the <a href=\"http://topics.nytimes.com/top/reference/timestopics/organizations/e/european_union/index.html?inline=nyt-org\" target=\"_blank\">European Union</a>...</p> ",
+  "innerContainerClasses": "",
+  "containerClasses": "popcorn-transition popcorn-titles",
+  "activeClass": "popcorn-on",
+  "inactiveClass": "popcorn-off",
+  "transitionSpeed": "normal"
+});
+popcorn.shrink({
+  "start": 7.062,
+  "end": 12.903,
+  "target": "video-overlay",
+  "containerID": "video-container"
+});
+popcorn.googlemap({
+  "start": 7.061,
+  "end": 13.547,
+  "target": "background-container",
+  "type": "ROADMAP",
+  "zoom": 12,
+  "lat": "",
+  "lng": "",
+  "location": "Glasgow",
+  "heading": "",
+  "pitch": 1
+});
+popcorn.controls( true );
+}());
+</script>
+</body>
+</html>
