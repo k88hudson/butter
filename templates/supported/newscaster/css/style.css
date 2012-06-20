@@ -230,6 +230,10 @@ section.suplementary p:hover {
   -moz-transform: rotateX(-10deg) rotateY(20deg);
   -moz-transform-style: preserve-3d;
   -moz-transform: rotateX(-10deg) rotateY(-200deg);
+  -moz-animation-name: z-spin;
+  -moz-animation-duration: 25s;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: linear;
 
   -o-transition: transform 50ms linear;
   -o-transform: rotateX(-10deg) rotateY(20deg);
