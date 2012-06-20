@@ -20,10 +20,6 @@
     {
       "id": "Media0",
       "name": "Media0",
-      "url": [
-        "http://localhost:8888/templates/supported/newscaster/tedglobal.ogv",
-        "http://videos-origin.mozilla.org/serv/webmademovies/Moz_Doc_0329_GetInvolved.webm"
-      ],
       "target": "video",
       "duration": 20.526439666748047,
       "controls": true,
