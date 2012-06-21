@@ -4,13 +4,23 @@
 ::-moz-selection { background: rgba(0,0,0,.2); text-shadow: none; }
 ::selection { background: rgba(0,0,0,.2); text-shadow: none; }
 
+html {
+  background: rgb(59,59,63);
+  background: -moz-linear-gradient(top,  rgba(18,18,20,1) 0%, rgba(59,59,63,1) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(18,18,20,1)), color-stop(100%,rgba(59,59,63,1)));
+  background: -webkit-linear-gradient(top,  rgba(18,18,20,1) 0%,rgba(59,59,63,1) 100%);
+  background: -o-linear-gradient(top,  rgba(18,18,20,1) 0%,rgba(59,59,63,1) 100%);
+  background: -ms-linear-gradient(top,  rgba(18,18,20,1) 0%,rgba(59,59,63,1) 100%);
+  background: linear-gradient(top,  rgba(18,18,20,1) 0%,rgba(59,59,63,1) 100%);
+  height: 100%;
+}
+
 body {
   color: #FFF;
   height: 100%;
   font-weight: 300;
   font-size: 14px;
   font-family: "proxima-nova", "Helvetica Neue", sans-serif;
-  background: #302F30;
   -webkit-transition: all 1s ease;
   -moz-transition: all 1s ease;
   -o-transition: all 1s ease;
@@ -296,6 +306,7 @@ footer {
   color: #444;
   position: relative;
   font-size: 13px;
+  padding-bottom: 40px;
 }
 
 .popcorn-titles > div {
