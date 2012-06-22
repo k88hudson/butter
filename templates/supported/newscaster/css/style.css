@@ -3,6 +3,16 @@
    ========================================================================== */
 ::-moz-selection { background: rgba(0,0,0,.2); text-shadow: none; }
 ::selection { background: rgba(0,0,0,.2); text-shadow: none; }
+html {
+  background: rgb(18,18,20);
+  background: -moz-linear-gradient(top,  rgba(18,18,20,1) 0%, rgba(59,59,63,1) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(18,18,20,1)), color-stop(100%,rgba(59,59,63,1)));
+  background: -webkit-linear-gradient(top,  rgba(18,18,20,1) 0%,rgba(59,59,63,1) 100%);
+  background: -o-linear-gradient(top,  rgba(18,18,20,1) 0%,rgba(59,59,63,1) 100%);
+  background: -ms-linear-gradient(top,  rgba(18,18,20,1) 0%,rgba(59,59,63,1) 100%);
+  background: linear-gradient(top,  rgba(18,18,20,1) 0%,rgba(59,59,63,1) 100%);
+  height: 100%;
+ }
 
 body {
   color: #FFF;
@@ -10,7 +20,6 @@ body {
   font-weight: 300;
   font-size: 14px;
   font-family: "proxima-nova", "Helvetica Neue", sans-serif;
-  background: #302F30;
   -webkit-transition: all 1s ease;
   -moz-transition: all 1s ease;
   -o-transition: all 1s ease;
@@ -106,6 +115,137 @@ section.video-container {
     100%{ transform: rotateX(-10deg) rotateY(-360deg); }
 }
 
+<<<<<<< HEAD
+@-webkit-keyframes wavesfast {
+  0% {background-position: 0 0;}
+  90% {background-position: 0 0;}
+  100% {background-position: 0 800px;}
+}
+
+=======
+>>>>>>> 398aefa9f55fc177f9f35cf843ed9ab754f5c639
+@-moz-keyframes wavesfast {
+  0% {background-position: 0 0;}
+  90% {background-position: 0 0;}
+  100% {background-position: 0 800px;}
+}
+
+<<<<<<< HEAD
+@-o-keyframes wavesfast {
+  0% {background-position: 0 0;}
+  90% {background-position: 0 0;}
+  100% {background-position: 0 800px;}
+}
+
+@-ms-keyframes wavesfast {
+  0% {background-position: 0 0;}
+  90% {background-position: 0 0;}
+  100% {background-position: 0 800px;}
+}
+
+@keyframes wavesfast {
+  0% {background-position: 0 0;}
+  90% {background-position: 0 0;}
+  100% {background-position: 0 800px;}
+}
+
+@-moz-keyframes weathericon {
+  0% {background-position: 0 0;}
+  100% {background-position: 800px 0;}
+}
+
+.logo-alt {
+  position: absolute;
+  right: -55px;
+  bottom: 50px;
+  height: 100px;
+  width: 200px;
+  overflow: hidden;
+  color: #121212;
+  border: 2px solid rgba(255,255,255, .5);
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  -ms-transition: all 1s ease;
+  transition: all 1s ease;
+  opacity: 1;
+  border-radius: 10px;
+  background: rgb(167,167,167);
+  background: -moz-linear-gradient(-45deg,  rgba(167,167,167,1) 0%, rgba(224,224,224,1) 55%, rgba(244,244,244,1) 59%, rgba(167,167,167,1) 100%);
+  background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(167,167,167,1)), color-stop(55%,rgba(224,224,224,1)), color-stop(59%,rgba(244,244,244,1)), color-stop(100%,rgba(167,167,167,1)));
+  background: -webkit-linear-gradient(-45deg,  rgba(167,167,167,1) 0%,rgba(224,224,224,1) 55%,rgba(244,244,244,1) 59%,rgba(167,167,167,1) 100%);
+  background: -o-linear-gradient(-45deg,  rgba(167,167,167,1) 0%,rgba(224,224,224,1) 55%,rgba(244,244,244,1) 59%,rgba(167,167,167,1) 100%);
+  background: -ms-linear-gradient(-45deg,  rgba(167,167,167,1) 0%,rgba(224,224,224,1) 55%,rgba(244,244,244,1) 59%,rgba(167,167,167,1) 100%);
+  background: linear-gradient(-45deg,  rgba(167,167,167,1) 0%,rgba(224,224,224,1) 55%,rgba(244,244,244,1) 59%,rgba(167,167,167,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a7a7a7', endColorstr='#a7a7a7',GradientType=1 );
+  box-shadow: 0 50px 30px -20px rgba(0,0,0,.6);
+
+}
+
+.logo-alt:hover {
+  opacity:1;
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  -ms-transition: all 1s ease;
+  transition: all 1s ease;
+  right: -30px;
+}
+
+.logo-inner {
+  position: absolute;
+  top: 2px;
+  width: 100px;
+  margin-top: 10px;
+}
+.logo-alt h2,
+.logo-alt p {
+  text-shadow: 0 1px #FFF;
+  margin: 0;
+  text-align: center;
+}
+
+.logo-alt p {
+  font-size: 1.2em;
+  top: 30px;
+}
+
+.logo-alt a,
+.logo-alt a:visited {
+   color: #121212;
+   text-decoration: none;
+}
+
+.logo-shine {
+  width: 800px;
+  height: 800px;
+  background: -moz-linear-gradient(-45deg,  rgba(255,255,255,0) 0%, rgba(255,255,255,0) 37%, rgba(255,255,255,0.8) 45%, rgba(255,255,255,0) 50%);
+  background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(37%,rgba(255,255,255,0)), color-stop(45%,rgba(255,255,255,0.8)), color-stop(50%,rgba(255,255,255,0)));
+  background: -webkit-linear-gradient(-45deg,  rgba(255,255,255,0) 0%,rgba(255,255,255,0) 37%,rgba(255,255,255,0.8) 45%,rgba(255,255,255,0) 50%);
+  background: -o-linear-gradient(-45deg,  rgba(255,255,255,0) 0%,rgba(255,255,255,0) 37%,rgba(255,255,255,0.8) 45%,rgba(255,255,255,0) 50%);
+  background: -ms-linear-gradient(-45deg,  rgba(255,255,255,0) 0%,rgba(255,255,255,0) 37%,rgba(255,255,255,0.8) 45%,rgba(255,255,255,0) 50%);
+  background: linear-gradient(-45deg,  rgba(255,255,255,0) 0%,rgba(255,255,255,0) 37%,rgba(255,255,255,0.8) 45%,rgba(255,255,255,0) 50%);
+  position:relative;
+  left: -200px;
+  -webkit-animation: wavesfast 10s ease-in infinite;
+  -moz-animation: wavesfast 10s ease-in infinite;
+  -ms-animation: wavesfast 10s ease-in infinite;
+  -o-animation: wavesfast 10s ease-in infinite;
+  animation: wavesfast 10s ease-in infinite;
+
+}
+
+.logo-img {
+  position: absolute;
+  top: 0;
+  left: 115px;
+  background: url(../img/weather/wsprite0001-sunny.png) 0 0 no-repeat;
+  width: 64px;
+  height: 64px;
+  float: left;
+  margin: 8px 40px 120px 0;
+}
+
 .cube-container {
   position: absolute;
   right: -10px;
@@ -144,10 +284,6 @@ section.video-container {
   -moz-transform: rotateX(-10deg) rotateY(20deg);
   -moz-transform-style: preserve-3d;
   -moz-transform: rotateX(-10deg) rotateY(-200deg);
-  -moz-animation-name: z-spin;
-  -moz-animation-duration: 25s;
-  -moz-animation-iteration-count: infinite;
-  -moz-animation-timing-function: linear;
 
   -o-transition: transform 50ms linear;
   -o-transform: rotateX(-10deg) rotateY(20deg);
@@ -172,7 +308,16 @@ section.video-container {
   animation-duration: 25s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
+
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  -ms-transition: all 1s ease;
+  transition: all 1s ease;
+
 }
+
+
 
 .cube h2 {
   margin-top: 0;
@@ -330,20 +475,27 @@ footer {
 
 .title-card .text-container > div > h5 { 
   background: #FFF;
-  background: -moz-linear-gradient(left,  rgba(255,255,255,1) 0%, rgba(255,255,255,1) 53%, rgba(255,255,255,0) 100%);
-  background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,255,255,1)), color-stop(53%,rgba(255,255,255,1)), color-stop(100%,rgba(255,255,255,0)));
-  background: -webkit-linear-gradient(left,  rgba(255,255,255,1) 0%,rgba(255,255,255,1) 53%,rgba(255,255,255,0) 100%);
-  background: -o-linear-gradient(left,  rgba(255,255,255,1) 0%,rgba(255,255,255,1) 53%,rgba(255,255,255,0) 100%);
-  background: -ms-linear-gradient(left,  rgba(255,255,255,1) 0%,rgba(255,255,255,1) 53%,rgba(255,255,255,0) 100%);
-  background: linear-gradient(left,  rgba(255,255,255,1) 0%,rgba(255,255,255,1) 53%,rgba(255,255,255,0) 100%);
-  color: #640710;
+  background: -moz-linear-gradient(-45deg,  rgba(188,188,188,1) 0%, rgba(221,221,221,1) 16%, rgba(236,236,236,1) 53%, rgba(255,255,255,0) 100%);
+  background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(188,188,188,1)), color-stop(16%,rgba(221,221,221,1)), color-stop(53%,rgba(236,236,236,1)), color-stop(100%,rgba(255,255,255,0)));
+  background: -webkit-linear-gradient(-45deg,  rgba(188,188,188,1) 0%,rgba(221,221,221,1) 16%,rgba(236,236,236,1) 53%,rgba(255,255,255,0) 100%);
+  background: -o-linear-gradient(-45deg,  rgba(188,188,188,1) 0%,rgba(221,221,221,1) 16%,rgba(236,236,236,1) 53%,rgba(255,255,255,0) 100%);
+  background: -ms-linear-gradient(-45deg,  rgba(188,188,188,1) 0%,rgba(221,221,221,1) 16%,rgba(236,236,236,1) 53%,rgba(255,255,255,0) 100%);
+  background: linear-gradient(-45deg,  rgba(188,188,188,1) 0%,rgba(221,221,221,1) 16%,rgba(236,236,236,1) 53%,rgba(255,255,255,0) 100%);
+  color: #121212;
+  text-shadow: 0 1px #FFF;
   position: relative;
   left: 10px;
   padding-left: 30px;
   padding-right: 180px;
   font-size: 14px;
+  font-weight: 300;
 }
 
 .title-card .text-container > div > h5:before {
   content: "";
+}
+
+#weather-icon {
+  width: 64px;
+  height: 64px;
 }
