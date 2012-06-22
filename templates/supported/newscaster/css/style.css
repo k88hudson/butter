@@ -192,14 +192,14 @@ section.video-container {
 }
 
 
-.cube:hover a {
+.cube a:hover {
   color: #F65D00;
   text-shadow: 0 1px 10px #FE6A00;
-  -webkit-transition: all 1s ease;
-  -moz-transition: all 1s ease;
-  -o-transition: all 1s ease;
-  -ms-transition: all 1s ease;
-  transition: all 1s ease;
+  -webkit-transition: all .3s ease;
+  -moz-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  -ms-transition: all .3s ease;
+  transition: all .3s ease;
 }
 
 .cube > div {
@@ -281,10 +281,10 @@ section.video-container {
   vertical-align: middle;
   text-align: center;
   line-height: 1.2;
-  font-family: "proxima-nova", "Helvetica Neue", sans-serif;
+  font-family: "quatro-slab", "Helvetica Neue", sans-serif;
   font-weight: 800;
   color: #FF374C;
-  font-size: 3em;
+  font-size: 2em;
   letter-spacing: -0.08em;
   text-shadow: none;
 }
