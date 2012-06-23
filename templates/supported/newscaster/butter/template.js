@@ -13,7 +13,7 @@
         EditorHelper( butter, popcorn );
 
         function makeWeather(){
-          var city = "Edinburgh",
+          var city = "Toronto",
               query = city + "&num_of_days=3",
               uri = "http://free.worldweatheronline.com/feed/weather.ashx?key=b378c25d5e191856122206&q=" + query + "&format=json";
           

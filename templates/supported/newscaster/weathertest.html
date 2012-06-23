@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Template Title</title>
+  <meta name="viewport" content="width=device-width">
+
+  <link rel="stylesheet" href="../shared/css/normalise.css">
+  <style type="text/css">
+    body {
+      background: red;
+    } 
+    .weather-icon {
+      width: 64px;
+      height: 64px;  
+      float: left;
+    }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="spritely.js"></script>
+</head>
+<body>
+
+<script>
+var iconList = [
+  "wsymbol_0001_sunny",
+  "wsymbol_0002_sunny_intervals",
+  "wsymbol_0003_white_cloud",
+  "wsymbol_0004_black_low_cloud",
+  "wsymbol_0006_mist",
+  "wsymbol_0007_fog",
+  "wsymbol_0007_fog",
+  "wsymbol_0009_light_rain_showers",
+  "wsymbol_0009_light_rain_showers",
+  "wsymbol_0009_light_rain_showers",
+  "wsymbol_0010_heavy_rain_showers",
+  "wsymbol_0010_heavy_rain_showers",
+  "wsymbol_0010_heavy_rain_showers",
+  "wsymbol_0011_light_snow_showers",
+  "wsymbol_0011_light_snow_showers",
+  "wsymbol_0011_light_snow_showers",
+  "wsymbol_0012_heavy_snow_showers",
+  "wsymbol_0012_heavy_snow_showers",
+  "wsymbol_0012_heavy_snow_showers",
+  "wsymbol_0013_sleet_showers",
+  "wsymbol_0013_sleet_showers",
+  "wsymbol_0013_sleet_showers",
+  "wsymbol_0013_sleet_showers",
+  "wsymbol_0016_thundery_showers",
+  "wsymbol_0016_thundery_showers",
+  "wsymbol_0016_thundery_showers",
+  "wsymbol_0017_cloudy_with_light_rain",
+  "wsymbol_0017_cloudy_with_light_rain",
+  "wsymbol_0017_cloudy_with_light_rain",
+  "wsymbol_0018_cloudy_with_heavy_rain",
+  "wsymbol_0018_cloudy_with_heavy_rain",
+  "wsymbol_0018_cloudy_with_heavy_rain",
+  "wsymbol_0019_cloudy_with_light_snow",
+  "wsymbol_0019_cloudy_with_light_snow",
+  "wsymbol_0020_cloudy_with_heavy_snow",
+  "wsymbol_0020_cloudy_with_heavy_snow",
+  "wsymbol_0020_cloudy_with_heavy_snow",
+  "wsymbol_0020_cloudy_with_heavy_snow",
+  "wsymbol_0021_cloudy_with_sleet",
+  "wsymbol_0021_cloudy_with_sleet",
+  "wsymbol_0021_cloudy_with_sleet",
+  "wsymbol_0021_cloudy_with_sleet",
+  "wsymbol_0021_cloudy_with_sleet",
+  "wsymbol_0021_cloudy_with_sleet",
+  "wsymbol_0021_cloudy_with_sleet",
+  "wsymbol_0021_cloudy_with_sleet",
+  "wsymbol_0021_cloudy_with_sleet",
+  "wsymbol_0024_thunderstorms",
+  "wsymbol_0008_clear_sky_night",
+  "wsymbol_0004_black_low_cloud",
+  "wsymbol_0004_black_low_cloud",
+  "wsymbol_0004_black_low_cloud",
+  "wsymbol_0006_mist",
+  "wsymbol_0007_fog",
+  "wsymbol_0007_fog",
+  "wsymbol_0025_light_rain_showers_night",
+  "wsymbol_0025_light_rain_showers_night",
+  "wsymbol_0025_light_rain_showers_night",
+  "wsymbol_0026_heavy_rain_showers_night",
+  "wsymbol_0026_heavy_rain_showers_night",
+  "wsymbol_0026_heavy_rain_showers_night",
+  "wsymbol_0027_light_snow_showers_night",
+  "wsymbol_0027_light_snow_showers_night",
+  "wsymbol_0027_light_snow_showers_night",
+  "wsymbol_0028_heavy_snow_showers_night",
+  "wsymbol_0028_heavy_snow_showers_night",
+  "wsymbol_0028_heavy_snow_showers_night",
+  "wsymbol_0029_sleet_showers_night",
+  "wsymbol_0029_sleet_showers_night",
+  "wsymbol_0029_sleet_showers_night",
+  "wsymbol_0029_sleet_showers_night",
+  "wsymbol_0032_thundery_showers_night",
+  "wsymbol_0032_thundery_showers_night",
+  "wsymbol_0032_thundery_showers_night",
+  "wsymbol_0025_light_rain_showers_night",
+  "wsymbol_0033_cloudy_with_light_rain_night",
+  "wsymbol_0033_cloudy_with_light_rain_night",
+  "wsymbol_0034_cloudy_with_heavy_rain_night",
+  "wsymbol_0034_cloudy_with_heavy_rain_night",
+  "wsymbol_0034_cloudy_with_heavy_rain_night",
+  "wsymbol_0035_cloudy_with_light_snow_night",
+  "wsymbol_0035_cloudy_with_light_snow_night",
+  "wsymbol_0036_cloudy_with_heavy_snow_night",
+  "wsymbol_0036_cloudy_with_heavy_snow_night",
+  "wsymbol_0036_cloudy_with_heavy_snow_night",
+  "wsymbol_0036_cloudy_with_heavy_snow_night",
+  "wsymbol_0037_cloudy_with_sleet_night",
+  "wsymbol_0037_cloudy_with_sleet_night",
+  "wsymbol_0037_cloudy_with_sleet_night",
+  "wsymbol_0037_cloudy_with_sleet_night",
+  "wsymbol_0037_cloudy_with_sleet_night",
+  "wsymbol_0037_cloudy_with_sleet_night",
+  "wsymbol_0037_cloudy_with_sleet_night",
+  "wsymbol_0037_cloudy_with_sleet_night",
+  "wsymbol_0037_cloudy_with_sleet_night",
+  "wsymbol_0040_thunderstorms_night"
+],
+weatherIcon,
+i;
+
+
+for( i=0; i<iconList.length;i++){
+  weatherIcon = "img/weather/wsprite" + iconList[ i ].split("wsymbol_")[1].replace(/_/g,"-") + ".png";
+  makeIcon( weatherIcon);
+}
+
+function makeIcon( icon ){
+  var iconEl = document.createElement( "div" );
+  $( iconEl ).css( "background", "url(" + icon + ")" ).addClass( "weather-icon" );
+  document.body.appendChild( iconEl );
+  $( iconEl ).spritely();
+}
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
