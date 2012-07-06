@@ -7,7 +7,7 @@
   "title": "Popcorn Maker",
   "ui": {
     "enabled": true,
-    "trackEventHighlight": "click",
+    "trackEventHighlight": "click"
   },
   "mediaDefaults": {
     "frameAnimation": true
@@ -73,7 +73,8 @@
   "dirs": {
     "popcorn-js": "{{baseDir}}external/popcorn-js/",
     "css": "{{baseDir}}css/",
-    "resources": "{{baseDir}}resources/"
+    "resources": "{{baseDir}}resources/",
+    "tools": "{{baseDir}}tools/"
   },
   "icons": {
     "default": "popcorn-icon.png",
