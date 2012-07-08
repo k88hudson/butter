@@ -1,0 +1,85 @@
+/* UTILITIES
+-------------------------------------------------- */
+
+/* Spacing
+-------------------------------------------------- */
+body.butter-header-spacing {
+  padding-top: 50px;
+}
+
+body.butter-tray-spacing {
+  padding-bottom: 210px;
+  -moz-transition: padding-bottom 0.5s;
+  -webkit-transition: padding-bottom 0.5s;
+  -ms-transition: padding-bottom 0.5s;
+  -o-transition: padding-bottom 0.5s;
+  transition: padding-bottom 0.5s;
+}
+
+body.butter-tray-spacing.minimized {
+  padding-bottom: 35px;
+}
+
+
+/* Warnings
+-------------------------------------------------- */
+.butter-ua-warning {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 40px;
+  background: #fefcea; /* Old browsers */
+  background: -moz-linear-gradient(top, #fefcea 0%, #f1da36 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fefcea), color-stop(100%,#f1da36)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #fefcea 0%,#f1da36 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #fefcea 0%,#f1da36 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #fefcea 0%,#f1da36 100%); /* IE10+ */
+  background: linear-gradient(top, #fefcea 0%,#f1da36 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefcea', endColorstr='#f1da36',GradientType=0 ); /* IE6-9 */
+  z-index: 2140000010;
+  font: 10pt Arial,Helvetica,sans-serif;
+  text-align: center;
+  line-height: 40px;
+}
+
+/* Highlighting
+-------------------------------------------------- */
+.butter-highlight {
+  position: fixed;
+  z-index: 2100000000;
+  opacity: 0;
+}
+
+.butter-highlight.on {
+  opacity: 1;
+}
+
+.butter-highlight.blink{
+  -moz-transition: opacity 1.5s;
+  -o-transition: opacity 1.5s;
+  -webkit-transition: opacity 1.5s;
+  -ms-transition: opacity 1.5s;
+  transition: opacity 1.5s;
+  opacity: 0;
+}
+
+.butter-target-highlight {
+  background-color: rgb( 170, 170, 10 );
+  background-color: rgba( 170, 170, 10, 0.4 );
+}
+
+.butter-media-highlight {
+  background-color: rgb( 10, 170, 170 );
+  background-color: rgba( 10, 170, 170, 0.4 );
+}
+
+/* Icon Preloading
+-------------------------------------------------- */
+.butter-image-preload {
+  visibility: hidden;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}

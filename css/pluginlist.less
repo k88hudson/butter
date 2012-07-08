@@ -1,0 +1,185 @@
+/* PLUGIN LIST
+-------------------------------------------------- */
+
+#tools {
+  z-index: 2140000003;
+  position: absolute;
+  right: 10px;
+  top: 55px;
+  width: 120px;
+  height: 150px;
+}
+
+#work {
+  padding: 0 150px 0 0;
+  position: relative;
+  height: 160px;
+  top: 50px;
+}
+
+#butter-tray #plugin-list {
+  position: relative;
+  top: 5px;
+  left: 5px;
+  height: 150px;
+  z-index: 2140000002;
+  background-image: url( "../resources/bg.jpg" );
+  opacity: 0;
+  -moz-border-radius: 5px;
+  -o-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -moz-box-shadow: 0 1px 0 #737373,inset 0 1px 0 #414141, 0 0 1px #000;
+  -o-box-shadow: 0 1px 0 #737373,inset 0 1px 0 #414141, 0 0 1px #000;
+  -webkit-box-shadow: 0 1px 0 #737373,inset 0 1px 0 #414141, 0 0 1px #000;
+  box-shadow: 0 1px 0 #737373,inset 0 1px 0 #414141, 0 0 1px #000;
+}
+
+#butter-tray #plugin-list .container {
+  padding: 5px;
+  font-family: "Open Sans", "Helvetica Neue", sans-serif;
+  color: #EEE;
+  height: 140px;
+  overflow-y: scroll;
+}
+#butter-tray #plugin-list .container > p {
+  margin: 0 0 10px 5px;
+  font-size: 14px;
+  font-style: italic;
+}
+#butter-tray #plugin-list .container > div {
+  cursor: pointer;
+  position: relative;
+  float: left;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  padding: 15px 25px 15px 15px;
+  width: 160px;
+  font-size: 14px;
+  font-weight: 600;
+  text-shadow: 0 1px 2px #000;
+  -moz-border-radius: 10px;
+  -o-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  border: 1px solid black;
+  -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 3px 3px rgba(0,0,0,0.2);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 3px 3px rgba(0,0,0,0.2);
+  -o-box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 3px 3px rgba(0,0,0,0.2);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 3px 3px rgba(0,0,0,0.2);
+  background-image: -o-linear-gradient(bottom, rgb(31,31,31) 29%, rgb(36,36,36) 65%);
+  background-image: -moz-linear-gradient(bottom, rgb(31,31,31) 29%, rgb(36,36,36) 65%);
+  background-image: -webkit-linear-gradient(bottom, rgb(31,31,31) 29%, rgb(36,36,36) 65%);
+  background-image: -ms-linear-gradient(bottom, rgb(31,31,31) 29%, rgb(36,36,36) 65%);
+  background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.29, rgb(31,31,31)),
+    color-stop(0.65, rgb(36,36,36))
+  );
+  background-image: linear-gradient(bottom, rgb(31,31,31) 29%, rgb(36,36,36) 65%);
+}
+
+#butter-tray #plugin-list .container div > span.icon {
+  display: block;
+  float: left;
+  width: 30px;
+  height: 30px;
+  background-size: 30px;
+  background-repeat: no-repeat;
+  margin-right: 10px;
+}
+
+#butter-tray #plugin-list .container div > span.label {
+  line-height: 30px;
+}
+
+#butter-tray #popcorn-plugin {
+  -moz-border-radius: 6px;
+  -o-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  font-size: 80%;
+  background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0,#6E6E6E),color-stop(1,#7D7D7D));
+  background-image: -webkit-linear-gradient(center bottom,#6E6E6E 0,#7D7D7D 100%);
+  background-image: -moz-linear-gradient(center bottom,#6E6E6E 0,#7D7D7D 100%);
+  background-image: -ms-linear-gradient(center bottom,#6E6E6E 0,#7D7D7D 100%);
+  background-image: -o-linear-gradient(bottom,#6E6E6E 0,#7D7D7D 100%);
+  border: 1px solid #333;
+  -moz-box-shadow: 0 1px 0 #656565;
+  -o-box-shadow: 0 1px 0 #656565;
+  -webkit-box-shadow: 0 1px 0 #656565;
+  box-shadow: 0 1px 0 #656565;
+  padding: 3px;
+  height: 115px;
+  width: 115px;
+  position: relative;
+}
+
+#butter-tray #popcorn-plugin .list-wrapper {
+  position: relative;
+  top: 18px;
+  padding-left: 5px;
+  height: 95px;
+  width: 100px;
+  overflow: hidden;
+}
+
+#butter-tray #popcorn-plugin .list {
+  position: relative;
+  padding-left: 5px;
+  width: 100px;
+}
+
+#butter-tray #popcorn-plugin .title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 11px;
+  font-family: "Open Sans", "Helvetica Neue", sans-serif;
+  -moz-border-radius: 4px 4px 0 0;
+  -o-border-radius: 4px 4px 0 0;
+  -webkit-border-radius: 4px 4px 0 0;
+  border-radius: 4px 4px 0 0;
+  height: 17px;
+  width: 100%;
+  background-color: #3E3E3E;
+  background: rgb(65,68,73);
+  background: -moz-linear-gradient(top,  rgba(65,68,73,1) 0%, rgba(40,40,40,1) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(65,68,73,1)), color-stop(100%,rgba(40,40,40,1)));
+  background: -webkit-linear-gradient(top,  rgba(65,68,73,1) 0%,rgba(40,40,40,1) 100%);
+  background: -o-linear-gradient(top,  rgba(65,68,73,1) 0%,rgba(40,40,40,1) 100%);
+  background: -ms-linear-gradient(top,  rgba(65,68,73,1) 0%,rgba(40,40,40,1) 100%);
+  background: linear-gradient(top,  rgba(65,68,73,1) 0%,rgba(40,40,40,1) 100%);
+}
+
+#butter-tray #popcorn-plugin .title span {
+  text-shadow: 0 -1px 1px #000;
+  font-weight: 700;
+  padding-left: 8px;
+  color: #fff;
+}
+
+#butter-tray #popcorn-plugin .list-item {
+  font-family: "Open Sans", "Helvetica Neue", sans-serif;
+  font-weight: 600;
+  color: #fff;
+  list-style-type: none;
+  cursor: pointer;
+  font-size: 12px;
+  width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#butter-tray #popcorn-plugin .scroll-bar-v {
+  right: 3px;
+  width: 6px;
+  height: 100px;
+  top: 18px;
+}
+
+#butter-tray #popcorn-plugin .scroll-bar-v .scroll-handle {
+  width: 4px;
+}

@@ -1,0 +1,69 @@
+/* HEADER
+-------------------------------------------------- */
+
+#butter-header, .butter-header {
+  z-index: 2140000000;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  padding: 10px 15px 10px 24px;
+  color: #FFF;
+  background: rgb(65,68,73);
+  background: -moz-linear-gradient(top,  rgba(65,68,73,1) 0%, rgba(44,44,44,1) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(65,68,73,1)), color-stop(100%,rgba(44,44,44,1)));
+  background: -webkit-linear-gradient(top,  rgba(65,68,73,1) 0%,rgba(44,44,44,1) 100%);
+  background: -o-linear-gradient(top,  rgba(65,68,73,1) 0%,rgba(44,44,44,1) 100%);
+  background: -ms-linear-gradient(top,  rgba(65,68,73,1) 0%,rgba(44,44,44,1) 100%);
+  background: linear-gradient(top,  rgba(65,68,73,1) 0%,rgba(44,44,44,1) 100%);
+  border-bottom: 1px solid #222;
+  box-shadow: 0 2px 4px rgba(0,0,0,.3);
+  display: block;
+  font-family: "Open Sans", "Helvetica Neue", sans-serif;
+  -webkit-transition: all .3s ease;
+  -moz-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  -ms-transition: all .3s ease;
+  transition: all .3s ease;
+}
+
+#butter-header:hover {
+  -webkit-transition: all .3s ease;
+  -moz-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  -ms-transition: all .3s ease;
+  transition: all .3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,.5);
+}
+
+#butter-header .butter-header-inner {
+  height: 30px;
+}
+
+#butter-header .butter-logo {
+  float: left;
+  background-size: cover;
+  background-image: url( "../resources/drop.png" );
+  width: 23px;
+  height: 23px;
+  margin-top: 4px;
+  margin-right: 5px;
+}
+
+#butter-header .butter-name {
+  font-family: MetaBold, "Open Sans", sans-serif;
+  float: left;
+  font-size: 20px;
+  line-height: 30px;
+  font-weight: 700;
+  text-shadow: 0 -1px 0 #000, 0 -1px 1px #000;
+  margin: 0;
+}
+
+#butter-header .butter-editor-actions {
+  float: right;
+}
+
+#butter-header .butter-editor-actions > a {
+  text-decoration: none;
+}
