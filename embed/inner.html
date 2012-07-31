@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>Popcorn Maker</title>
+
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="style.css">
+  <script src="../external/popcorn-js/popcorn.js"></script>
+
+</head>
+<body class="embed">
+  <div class="container">
+    <div class="video">
+
+      <iframe src="http://www.youtube.com/embed/Zhawgd0REhA?controls=0&showinfo=0" frameborder="0" allowfullscreen=""></iframe>
+      <!--
+      <video id="video" preload data-butter="media" controls>
+        <source src="http://videos-cdn.mozilla.net/serv/webmademovies/trailer.mp4">
+        <source src="http://videos-cdn.mozilla.net/serv/webmademovies/trailer.ogv">
+        <source src="http://videos-cdn.mozilla.net/serv/webmademovies/trailer.webm">
+      </video>
+      -->
+
+      <div id="post-roll" class="embed-overlay" style="display:none;">
+        <div class="post-roll-inner">
+          <div class="embed-logo"><a href="#">Popcorn</a></div>
+          <div class="embed-project">
+            <hgroup>
+              <div class="embed-title">My Project</div>
+              <div class="embed-author">Jonny Appleseed</div>
+            </hgroup>
+            <div class="post-roll-description">This project was created entirely in a browser using <strong>HTML5 and javascript</strong>.</div>
+            <ul class="embed-nav post-roll-options">
+              <li><a href="#" id="replay">Replay</a></li>
+              <li><a href="#" id"remix">Remix</a></li>
+              <li><a href="#" id="share">Share</a></li>
+            </ul>
+          </div>
+        </div>
+      </div><!-- #post-roll -->
+
+      <div id="share" class="embed-overlay" style="display:none;">
+        <div class="share-inner">
+    
+          <div class="embed-logo"><a href="#">Popcorn</a></div>
+          <div class="embed-project">
+            <hgroup>
+              <div class="embed-project-title">My Project</div>
+              <div class="embed-author">Jonny Appleseed</div>
+            </hgroup>
+          </div>
+          <div class="share-options">
+            <fieldset>
+              <label>URL</label>
+              <input class="share-ul" type="url" value="http://wwww.gasdasdasdasd.com">
+              <ul class="embed-nav share-buttons">
+                <li><a href="#" id="replay">Twitter</a></li>
+                <li><a href="#" id"remix">Facebook</a></li>
+                <li><a href="#" id="share">Google+</a></li>
+              </ul>
+            </fieldset>
+            <fieldset>
+              <label>Embed</label>
+              <textarea><iframe blah></textarea>
+              <div class="share-size">
+                <label>Size</label>
+                <select class="share-size-picker">
+                  <option>Blah</option>
+                  <option>Blah</option>
+                  <option>Blah</option>
+                </select>
+              </div>
+            </fieldset>
+          </div><!-- .share-options -->
+        </div>
+      </div><!-- #share -->
+
+      <div class="play-state embed-logo"><a href="#">Popcorn</a></div>
+      <div class="play-state embed-info">
+        <div class="embed-project-title">My Project</div>
+        <div class="embed-author">Jonny Appleseed</div>
+      </div>
+
+    </div><!-- .video -->
+   
+
+    <div class="controls"></div>
+
+  </div>
+</body>
+</html>
