@@ -1,7 +1,7 @@
 {
   "targets": [
     {
-      "id": "overlay",
+      "id": "Target0",
       "name": "overlay",
       "element": "overlay"
     }
@@ -11,33 +11,52 @@
       "id": "Media0",
       "name": "Media0",
       "url": [
-        "http://videos-cdn.mozilla.net/serv/webmademovies/makecorn.mp4",
-        "http://videos-cdn.mozilla.net/serv/webmademovies/makecorn.ogv",
-        "http://videos-cdn.mozilla.net/serv/webmademovies/makecorn.webm"
+        "http://www.youtube.com/watch?v=0EjLWh2150I&butteruid=1344102653971"
       ],
       "target": "video",
-      "duration": 64.54166412353516,
+      "duration": 220.24000549316406,
+      "controls": true,
       "tracks": [
         {
           "name": "Layer0",
           "id": "Layer0",
           "trackEvents": [
             {
-              "id": "TrackEvent3",
-              "type": "titles",
+              "id": "TrackEvent0",
+              "type": "barbara",
               "popcornOptions": {
-                "start": 0.076,
-                "end": 1.085,
+                "start": 10.0364,
+                "end": 11.24825,
                 "target": "overlay",
-                "text": "Popcorn.js",
-                "innerContainerClasses": "",
-                "containerClasses": "popcorn-transition popcorn-titles",
-                "activeClass": "popcorn-on",
-                "inactiveClass": "popcorn-off",
-                "transitionSpeed": "normal"
+                "text": "barbara streisand",
+                "showText": false,
+                "amplitude": "100",
+                "wordgap": 0,
+                "pitch": "60",
+                "speed": "150",
+                "pluginPath": "../assets/plugins/barbara/"
               },
-              "track": "Track0",
-              "name": "TrackEvent3"
+              "track": "Layer0",
+              "name": "TrackEvent1"
+            }
+          ]
+        },
+        {
+          "name": "Layer1",
+          "id": "Layer1",
+          "trackEvents": [
+            {
+              "id": "TrackEvent1",
+              "type": "looper",
+              "popcornOptions": {
+                "start": 8.08971,
+                "end": 11.25469,
+                "target": "overlay",
+                "disable": "",
+                "mute": ""
+              },
+              "track": "Layer1",
+              "name": "TrackEvent1"
             }
           ]
         }

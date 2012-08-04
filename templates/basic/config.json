@@ -18,20 +18,20 @@
         "path": "{{baseDir}}templates/assets/plugins/zoink/popcorn.zoink.js"
       },
       {
-        "type": "googlemap",
-        "path": "{{baseDir}}external/popcorn-js/plugins/googlemap/popcorn.googlemap.js"
+        "type": "looper",
+        "path": "{{baseDir}}templates/assets/plugins/looper/popcorn.looper.js"
       },
       {
-        "type": "twitter",
-        "path": "{{baseDir}}templates/assets/plugins/twitter/popcorn.twitter.js"
+        "type": "barbara",
+        "path": "{{baseDir}}templates/assets/plugins/barbara/popcorn.barbara.js"
       }
     ],
     "defaults": [
       "titles",
       "photo",
       "zoink",
-      "googlemap",
-      "twitter"
+      "looper",
+      "barbara"
     ]
   },
   "editor": {
