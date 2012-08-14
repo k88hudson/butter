@@ -22,7 +22,8 @@ define( [
           TrackEventView
         ){
 
-  var __guid = 0;
+  var __guid = 0,
+      __MINIMUM_TRACKEVENT_SIZE = 0.2;
 
   var TrackEventUpdateException = function ( reason, message ) {
     this.type = "trackevent-update";
@@ -124,7 +125,7 @@ define( [
       }
 
       if ( newStart >= newEnd ) {
-        throw new TrackEventUpdateException( "start-greater-than-end", "[start] must be equal to or less than [end]." );
+        throw new TrackEventUpdateException( "start-greater-than-end", "[start] must be less than [end]." );
       }
       if ( _track && _track._media && _track._media.ready ) {
         var media = _track._media;
@@ -200,15 +201,15 @@ define( [
         } else {
           _popcornOptions.end = _popcornOptions.end - _popcornOptions.start;
           _popcornOptions.start = 0;
-        } // if
-      } else if ( _popcornOptions.end - _popcornOptions.start > inc ) {
+        }
+      } else if ( _popcornOptions.end - _popcornOptions.start > ( inc + __MINIMUM_TRACKEVENT_SIZE ) ) {
         _popcornOptions.end -= inc;
       } else {
-        _popcornOptions.end = _popcornOptions.start;
-      } // if
+        _popcornOptions.end = _popcornOptions.start + __MINIMUM_TRACKEVENT_SIZE;
+      }
       _this.dispatch( "trackeventupdated", _this );
       _this.update( _popcornOptions );
-    }; //moveFrameLeft
+    };
 
     /**
      * Member: moveFrameRight
