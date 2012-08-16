@@ -183,10 +183,10 @@
         },
         transition: {
           elem: "select",
-          options: [ "None", "Pop", "Fly Up", "Fly Down", "Sparkles" ],
-          values: [ "none", "pop", "flyUp", "flyDown", "sparkles" ],
+          options: [ "None", "Pop", "Slide Up", "Slide Down", "Fade" ],
+          values: [ "none", "popcorn-pop", "popcorn-slide-up", "popcorn-slide-down", "popcorn-fade" ],
           label: "Transition",
-          "default": "pop"
+          "default": "popcorn-pop"
         },
         fontFamily: {
           elem: "select",
