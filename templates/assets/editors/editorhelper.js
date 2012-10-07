@@ -1,5 +1,6 @@
 (function( global, $ ) {
-  var plugins = {};
+  var plugins = {},
+      HANDLE_OFFSET = 16;
 
   var EditorHelper = function() {
     throw "Do not use EditorHelper in this mannger. Use EditorHelper.init instead.";
@@ -22,7 +23,8 @@
      *                    {Function} end: Fucntion to execute on drag end event
      */
     global.EditorHelper.draggable = function( trackEvent, dragContainer, mediaContainer, options ) {
-      var media = mediaContainer.getBoundingClientRect();
+      var media = mediaContainer.getBoundingClientRect(),
+          dragRect = dragContainer.getBoundingClientRect();
 
       options = options || {};
 
@@ -47,16 +49,32 @@
           if ( options.start ) {
             options.start();
           }
-        
         },
         stop: function( event, ui ) {
+          var totalWidth = dragContainer.offsetLeft + dragRect.width + HANDLE_OFFSET,
+              totalHeight = dragContainer.offsetTop + dragRect.height + HANDLE_OFFSET,
+              top,
+              left;
+
+          if ( totalWidth > media.width ) {
+            left = ( ( media.width - dragRect.width ) / media.width ) * 100;
+          } else {
+            left = ( ui.position.left / media.width ) * 100;
+          }
+
+          if ( totalHeight > media.height ) {
+            top = ( ( media.height - dragRect.height ) / media.height ) * 100;
+          } else {
+            top = ( ui.position.top / media.height ) * 100;
+          }
+
           if ( options.end ) {
             options.end();
           }
           document.activeElement.blur();
           trackEvent.update({
-            top: ( ui.position.top / media.height ) * 100,
-            left: ( ui.position.left / media.width ) * 100
+            top: top,
+            left: left
           });
         }
       });
@@ -81,18 +99,13 @@
      *                    {Number} minHeight: Minimum height that the resizeContainer should be
      */
     global.EditorHelper.resizable = function( trackEvent, resizeContainer, mediaContainer, options ) {
-      var media = mediaContainer.getBoundingClientRect(),
-          iframeVideo = mediaContainer.querySelector( "iframe" );
+      var media = mediaContainer.getBoundingClientRect();
 
       options = options || {};
 
       $( resizeContainer ).resizable({
         handles: options.handlePositions,
         start: function() {
-          if ( iframeVideo ) {
-            iframeVideo.style.pointerEvents = "none";
-          }
-
           if ( options.start ) {
             options.start();
           }
@@ -101,10 +114,6 @@
         stop: function( event, ui ) {
           var height = ( ui.size.height + resizeContainer.offsetTop ) <= media.height ? ui.size.height : media.height - resizeContainer.offsetTop,
               width = ( ui.size.width + resizeContainer.offsetLeft ) <= media.width ? ui.size.width : media.width - resizeContainer.offsetLeft;
-
-          if ( iframeVideo ) {
-            iframeVideo.style.pointerEvents = "auto";
-          }
 
           if ( options.end ) {
             options.end();
