@@ -36,8 +36,8 @@ Global styles and classes
     line-height: 23px;
   }
 
-  video {
-    width: 100%;
+.hero-unit iframe {
+    float: right;
   }
 
   hgroup {
@@ -47,8 +47,8 @@ Global styles and classes
 
   .hero-unit p {
     font-family: "Open Sans Light", sans-serif;
-    font-size: 16px;
-    line-height: 28px;
+    font-size: 14px;
+    line-height: 1.6;
   }
   .hero-unit h1 {
     margin-left: -12px;
