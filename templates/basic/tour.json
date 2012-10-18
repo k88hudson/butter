@@ -11,8 +11,8 @@
       "id": "Media0",
       "name": "Media0",
       "url": [
-        "http://videos-origin.mozilla.org/serv/webmademovies/neighbourhood2.webm?butteruid=1350595016158",
-        "http://videos-origin.mozilla.org/serv/webmademovies/neighbourhood2.mp4?butteruid=1350595016159"
+        "https://videos-cdn.mozilla.net/serv/webmademovies/neighbourhood2.webm",
+        "https://videos-cdn.mozilla.org/serv/webmademovies/neighbourhood2.mp4"
       ],
       "target": "video",
       "duration": 31.948999404907227,

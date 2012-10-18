@@ -11,8 +11,8 @@
       "id": "Media0",
       "name": "Media0",
       "url": [
-        "http://videos-cdn.mozilla.net/serv/webmademovies/getstarted.mp4?butteruid=1350596729008",
-        "http://videos-cdn.mozilla.net/serv/webmademovies/getstarted.webm?butteruid=1350596729009"
+        "https://videos-cdn.mozilla.net/serv/webmademovies/getstarted.mp4",
+        "https://videos-cdn.mozilla.net/serv/webmademovies/getstarted.webm"
       ],
       "target": "video",
       "duration": 11.222000122070312,
