@@ -36,7 +36,7 @@ Global styles and classes
     line-height: 23px;
   }
 
-.hero-unit iframe {
+  .hero-unit iframe {
     float: right;
   }
 
