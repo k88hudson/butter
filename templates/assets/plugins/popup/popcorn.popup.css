@@ -111,9 +111,11 @@
 }
 
 .popcorn-responsive-image-position {
-  height: 110%;
-  right: 100%;
-  top: -5%;
+  height: 0.15em;
+  width: 0.15em;
+  left: -0.11em;
+  top: 50%;
+  margin-top: -0.075em;
   margin-right: -15px;
 }
 
