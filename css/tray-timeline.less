@@ -4,6 +4,7 @@
 @_trackEventHeight: 27px;
 @_trackHeight: @_trackEventHeight + 3;
 @_mediaContainerHeight: 140px;
+@_mobileMediaContainerHeight: 60px;
 @_trackContainerSpacing: 0;
 @_trackHandleWidth: 129px;
 
@@ -44,6 +45,10 @@
   position: relative;
   top: @_trackContainerSpacing;
   height: @_mediaContainerHeight;
+  @media only screen and ( max-device-height: 800px ) and ( max-device-width: 1280px ) {
+    height: @_mobileMediaContainerHeight;
+  }
+
 }
 
 .tracks-container-wrapper {
@@ -224,6 +229,9 @@
   position: absolute;
   width: @_trackHandleWidth;
   height: @_mediaContainerHeight;
+  @media only screen and ( max-device-height: 800px ) and ( max-device-width: 1280px ) {
+    height: @_mobileMediaContainerHeight;
+  }
   left: 0;
   top: @_trackContainerSpacing;
   bottom: 1px;
