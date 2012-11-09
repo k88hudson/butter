@@ -286,12 +286,18 @@ define( [ "core/logger", "core/eventmanager", "util/dragndrop",
 
     _this.update( inputOptions );
 
-    _element.addEventListener( "mousedown", function ( e ) {
+    function mouseDown( e ) {
       _this.dispatch( "trackeventmousedown", { originalEvent: e, trackEvent: _trackEvent } );
-    }, true);
-    _element.addEventListener( "mouseup", function ( e ) {
+    }
+
+    function mouseUp( e ) {
       _this.dispatch( "trackeventmouseup", { originalEvent: e, trackEvent: _trackEvent } );
-    }, false);
+    }
+
+    _element.addEventListener( "touchstart", mouseDown, true );
+    _element.addEventListener( "touchend", mouseUp, true );
+    _element.addEventListener( "mousedown", mouseDown, true);
+    _element.addEventListener( "mouseup", mouseUp, false);
     _element.addEventListener( "mouseover", function ( e ) {
       _this.dispatch( "trackeventmouseover", { originalEvent: e, trackEvent: _trackEvent } );
     }, false );
