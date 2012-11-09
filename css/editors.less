@@ -62,6 +62,9 @@
 .butter-editor-close-btn {
   position: fixed;
   top: @HEADER_SPACING;
+  @media only screen and ( max-device-height: 800px ) and ( max-device-width: 1280px ) {
+    top: @PRIMARYHEADER_SPACING;
+  }
   right: 0;
   z-index: @HEADER_Z_INDEX + 1;
   &.toggled .icon {
@@ -79,15 +82,24 @@
   position: fixed;
   z-index: @EDITOR_Z_INDEX;
   top: @HEADER_SPACING;
+  @media only screen and ( max-device-height: 800px ) and ( max-device-width: 1280px ) {
+    top: @PRIMARYHEADER_SPACING;
+  }
   bottom: 0;
   right: 0;
   width: @EDITOR_WIDTH;
+  @media only screen and ( max-device-height: 800px ) and ( max-device-width: 1280px ) {
+    width: @MOBILE_EDITOR_WIDTH;
+  }
   background: @baseLight;
   .transition( right 0.35s );
   border-left: 1px solid @baseLightOutline;
 
   &.minimized {
     right: -@EDITOR_WIDTH - 2;
+    @media only screen and ( max-device-height: 800px ) and ( max-device-width: 1280px ) {
+      right: -@MOBILE_EDITOR_WIDTH - 2;
+    }
   }
 
   // Tabs, breadcrumbs

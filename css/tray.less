@@ -5,6 +5,9 @@
 // Adds room to bottom of template for tray
 .butter-tray-spacing {
   padding-bottom: @TRAY_SPACING;
+  @media only screen and ( max-device-height: 800px ) and ( max-device-width: 1280px ) {
+    padding-bottom: @MOBILE_TRAY_SPACING;
+  }
   .transition( padding-bottom 0.5s );
 }
 
@@ -14,6 +17,9 @@
 
 .butter-editor-spacing.editor-open .butter-tray {
   right: @EDITOR_WIDTH;
+  @media only screen and ( max-device-height: 800px ) and ( max-device-width: 1280px ) {
+    right: @MOBILE_EDITOR_WIDTH;
+  }
 }
 
 .butter-tray {
@@ -24,6 +30,9 @@
   left: 0;
   right: 0;
   height: @TRAY_HEIGHT;
+  @media only screen and ( max-device-height: 800px ) and ( max-device-width: 1280px ) {
+    height: @MOBILE_TRAY_HEIGHT;
+  }
   .selectable( none );
 
   * {
@@ -32,6 +41,9 @@
 
   &.butter-tray-minimized {
     bottom: -@TRAY_HEIGHT + @_butterStatusHeight;
+    @media only screen and ( max-device-height: 800px ) and ( max-device-width: 1280px ) {
+      bottom: -@MOBILE_TRAY_HEIGHT + @_butterStatusHeight;
+    }
   }
 
   &.butter-tray-transitions {
@@ -47,7 +59,10 @@
   // This is the list of plugins in "my events"
   .butter-timeline-area {
     position: relative;
-    height: 160px;
+    height: @TIMELINE_AREA_HEIGHT;
+    @media only screen and ( max-device-height: 800px ) and ( max-device-width: 1280px ) {
+      height: @MOBILE_TIMELINE_AREA_HEIGHT;
+    }
     top: @_butterStatusHeight;
   }
 
@@ -65,7 +80,4 @@
     //TO-DO: This should be moved into a general UI kit
     .transition( opacity 0.5s );
   }
-
-
-
 }
