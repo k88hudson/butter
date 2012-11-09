@@ -37,11 +37,15 @@ define( [ "dialog/dialog", "ui/widget/tooltip", "util/shims" ], function( Dialog
           hidden: false
         });
 
-        document.body.addEventListener( "mousedown", function removeTooltips() {
+        function removeTooltips() {
           mediaTooltip.classList.remove( "tooltip-on" );
           popupTooltip.parentNode.removeChild( popupTooltip );
           document.body.removeEventListener( "mousedown", removeTooltips, true );
-        }, true );
+          document.body.removeEventListener( "touchend", removeTooltips, true );
+        }
+
+        document.body.addEventListener( "mousedown", removeTooltips, true );
+        document.body.addEventListener( "touchstart", removeTooltips, true );
 
       }
 

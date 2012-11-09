@@ -55,6 +55,11 @@
 
       var ua = navigator.userAgent,
           acceptedUA;
+
+      if ( ua.indexOf( "Android" ) > -1 ) {
+        Butter.isMobile = true;
+      }
+
       for ( var uaName in ACCEPTED_UA_LIST ) {
         if( ACCEPTED_UA_LIST.hasOwnProperty( uaName ) ) {
           var uaRegex = new RegExp( uaName + "(?:/|\\s)([0-9]+)\\.", "g" ),
