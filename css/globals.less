@@ -224,7 +224,6 @@
 //  }
 // }
 
-// These are the widths chosen for each supported size.
 @small-w: 560;
 @medium-w: 640;
 @large-w: 853;
@@ -241,6 +240,9 @@
 // Editor width
 @in-editor-offset-w: ~`parseInt( "@{EDITOR_WIDTH}" )`;
 @in-editor-offset-h: ~`parseInt( "@{TRAY_HEIGHT}" ) + parseInt( "@{HEADER_SPACING}" )`;
+
+//mobile
+@mobile: ~`"only screen and ( max-device-height: 800px ) and ( max-device-width: 1280px )"`;
 
 // ~`...` is javascript evaluation in LESS http://lesscss.org/#-javascript-evaluation
 // This has to use parseInt because the LESS variables have px in them

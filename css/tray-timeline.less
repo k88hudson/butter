@@ -1,7 +1,7 @@
 /*********************************************************
 * TRAY TIMELINE
 */
-@_trackEventHeight: 27px;
+@_trackEventHeight: 36px;
 @_trackHeight: @_trackEventHeight + 3;
 @_mediaContainerHeight: 140px;
 @_mobileMediaContainerHeight: 60px;
@@ -142,8 +142,8 @@
   }
   .handle {
     position: absolute;
-    height: 18px;
-    width: 18px;
+    height: @_trackEventHeight;
+    width: @_trackEventHeight;
     top: 5px;
     opacity: 0;
     background: @_trackEventColor;
@@ -152,7 +152,7 @@
       content: "";
       position: absolute;
       display: inline-block;
-      background-image: url( "../resources/icons/glyphiconshalflings-green.png" );
+      //background-image: url( "../resources/icons/glyphiconshalflings-green.png" );
       width: 14px;
       height: 14px;
       top: 2px;

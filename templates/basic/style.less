@@ -17,7 +17,14 @@
   @media @xlarge {
     width: @xlarge-w-px;
   }
+  @media @mobile {
+    width: 500px;
+  }
   .butter-header-spacing & {
+    @media @mobile {
+      width: 300px;
+      background: red;
+    }
     @media @small-in-editor {
       width: @small-w-px;
     }
@@ -29,6 +36,9 @@
     }
     @media @xlarge-in-editor {
       width: @xlarge-w-px;
+    }
+    @media @mobile {
+      width: 500px;
     }
   }
   border: 15px solid #FFF;
