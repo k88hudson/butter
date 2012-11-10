@@ -82,13 +82,20 @@
   position: fixed;
   z-index: @EDITOR_Z_INDEX;
   top: @HEADER_SPACING;
-  @media only screen and ( max-device-height: 800px ) and ( max-device-width: 1280px ) {
-    top: @PRIMARYHEADER_SPACING;
+  bottom: @TRAY_HEIGHT;
+  @media @mobile {
+    top: 0;
+    bottom: @MOBILE_TRAY_HEIGHT;
   }
-  bottom: 0;
+  .tray-minimized & {
+    bottom: 0;
+  }
+  @media @mobile {
+    width: @MOBILE_EDITOR_WIDTH;
+  }
   right: 0;
   width: @EDITOR_WIDTH;
-  @media only screen and ( max-device-height: 800px ) and ( max-device-width: 1280px ) {
+  @media @mobile {
     width: @MOBILE_EDITOR_WIDTH;
   }
   background: @baseLight;
