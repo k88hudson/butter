@@ -39,14 +39,19 @@ define( [ "core/eventmanager" ], function( EventManager ) {
 
     function onMouseUp(){
       window.removeEventListener( "mouseup", onMouseUp, false );
+      window.removeEventListener( "touchend", onMouseUp, false );
       window.removeEventListener( "mousemove", onMouseMove, false );
+      window.removeEventListener( "touchmove", onMouseMove, false );
       _handle.addEventListener( "mousedown", onMouseDown, false );
+      _handle.addEventListener( "touchstart", onMouseDown, false );
       _handle.classList.remove( ACTIVE_CLASS );
     }
 
     function onMouseMove( e ){
-      var diff = e.pageY - _mousePos,
+      var pageY = e.touches[ 0 ].pageY || e.pageY,
+          diff = pageY - _mousePos,
           maxDiff = _elementHeight - _handleHeight;
+      e.preventDefault();
       diff = Math.max( 0, Math.min( diff, maxDiff ) );
       var p = diff / maxDiff;
       outerElement.scrollTop = ( _scrollHeight - _parentHeight ) * p;
@@ -54,12 +59,16 @@ define( [ "core/eventmanager" ], function( EventManager ) {
     }
 
     function onMouseDown( e ){
-      if( e.button === 0 ){
+      if( e.touches || e.button === 0 ){
+        var pageY = e.touches[ 0 ].pageY || e.pageY;
         var handleY = _handle.offsetTop;
-        _mousePos = e.pageY - handleY;
+        _mousePos = pageY - handleY;
         window.addEventListener( "mouseup", onMouseUp, false );
+        window.addEventListener( "touchend", onMouseUp, false );
         window.addEventListener( "mousemove", onMouseMove, false );
+        window.addEventListener( "touchmove", onMouseMove, false );
         _handle.removeEventListener( "mousedown", onMouseDown, false );
+        _handle.removeEventListener( "touchstart", onMouseDown, false );
         _handle.classList.add( ACTIVE_CLASS );
       }
     }
@@ -101,7 +110,8 @@ define( [ "core/eventmanager" ], function( EventManager ) {
         return;
       }
 
-      var posY = e.pageY,
+      var pageY = e.touches[ 0 ].pageY || e.pageY;
+      var posY = pageY,
           handleRect = _handle.getBoundingClientRect(),
           elementRect = _element.getBoundingClientRect(),
           p;
@@ -117,6 +127,7 @@ define( [ "core/eventmanager" ], function( EventManager ) {
     }, false);
 
     _handle.addEventListener( "mousedown", onMouseDown, false );
+    _handle.addEventListener( "touchstart", onMouseDown, false );
 
     _this.update();
 
@@ -162,13 +173,17 @@ define( [ "core/eventmanager" ], function( EventManager ) {
 
     function onMouseUp(){
       window.removeEventListener( "mouseup", onMouseUp, false );
+      window.removeEventListener( "touchend", onMouseUp, false );
       window.removeEventListener( "mousemove", onMouseMove, false );
+      window.removeEventListener( "touchmove", onMouseMove, false );
       _handle.addEventListener( "mousedown", onMouseDown, false );
+      _handle.addEventListener( "touchstart", onMouseDown, false );
     }
 
     function onMouseMove( e ){
       e.preventDefault();
-      var diff = e.pageX - _mousePos;
+      var pageX = e.touches[ 0 ].pageX || e.pageX;
+      var diff = pageX - _mousePos;
       diff = Math.max( 0, Math.min( diff, _elementWidth - _handleWidth ) );
       _handle.style.left = diff + "px";
       var p = _handle.offsetLeft / ( _elementWidth - _handleWidth );
@@ -178,11 +193,15 @@ define( [ "core/eventmanager" ], function( EventManager ) {
 
     function onMouseDown( e ){
       if( e.button === 0 ){
+        var pageX = e.touches[ 0 ].pageX || e.pageX;
         var handleX = _handle.offsetLeft;
-        _mousePos = e.pageX - handleX;
+        _mousePos = pageX - handleX;
         window.addEventListener( "mouseup", onMouseUp, false );
+        window.addEventListener( "touchend", onMouseUp, false );
         window.addEventListener( "mousemove", onMouseMove, false );
+        window.addEventListener( "touchmove", onMouseMove, false );
         _handle.removeEventListener( "mousedown", onMouseDown, false );
+        _handle.removeEventListener( "touchstart", onMouseDown, false );
       }
     }
 
@@ -222,7 +241,8 @@ define( [ "core/eventmanager" ], function( EventManager ) {
         return;
       }
 
-      var posX = e.pageX,
+      var pageX = e.touches[ 0 ].pageX || e.pageX;
+      var posX = pageX,
           handleRect = _handle.getBoundingClientRect(),
           elementRect = _element.getBoundingClientRect(),
           p;
@@ -238,7 +258,7 @@ define( [ "core/eventmanager" ], function( EventManager ) {
       outerElement.scrollLeft = ( _scrollWidth - _elementWidth ) * p;
     }, false);
 
-    _handle.addEventListener( "mousedown", onMouseDown, false );
+    _handle.addEventListener( "touchstart", onMouseDown, false );
 
     _this.update();
 

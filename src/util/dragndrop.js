@@ -136,6 +136,7 @@ define( [ "core/eventmanager", "util/lang", "util/scroll-group" ],
       // Prevent drags from happening while we're dragging around objects, since
       // it's not an HTML5 drag and it'll interfere.
       window.addEventListener( "dragstart", __onWindowDragStart, false );
+      window.addEventListener( "touchstart", __onWindowDragStart, false );
 
       DragNDrop.dispatch( "dragstarted" );
     }
@@ -143,6 +144,7 @@ define( [ "core/eventmanager", "util/lang", "util/scroll-group" ],
 
   function __onDraggableMouseUp( e ) {
     window.removeEventListener( "dragstart", __onWindowDragStart, false );
+    window.removeEventListener( "touchstart", __onWindowDragStart, false );
     window.removeEventListener( "mousemove", __onDraggableDragged, false );
     window.removeEventListener( "touchmove", __onDraggableDragged, false );
     window.removeEventListener( "mousemove", __onDraggableMouseUp, false );
@@ -200,7 +202,7 @@ define( [ "core/eventmanager", "util/lang", "util/scroll-group" ],
   }
 
   function __onDraggableMouseDown( e ) {
-    if ( e.which !== 1 || e.ctrlKey ) {
+    if ( !e.touches && ( e.which !== 1 || e.ctrlKey ) ) {
       __onDraggableMouseUp( e );
       return;
     }
@@ -532,7 +534,7 @@ define( [ "core/eventmanager", "util/lang", "util/scroll-group" ],
 
     element.setAttribute( "draggable", true );
 
-    element.addEventListener( "dragstart", function( e ) {
+    element.addEventListener( "touchstart", function( e ) {
       __currentDraggingElement = element;
       e.dataTransfer.effectAllowed = "all";
       // coerce to string so IE9 doesn't throw
@@ -1044,6 +1046,7 @@ define( [ "core/eventmanager", "util/lang", "util/scroll-group" ],
     function onElementMouseMove( e ) {
     var clientX = e.touches ? e.touches[ 0 ].clientX : e.clientX,
         clientY = e.touches ? e.touches[ 0 ].clientY : e.clientY;
+    e.preventDefault();
       if ( !_moved ) {
         _moved = true;
         _placeHolder = createPlaceholder( _draggingElement );
