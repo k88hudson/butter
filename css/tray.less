@@ -5,7 +5,7 @@
 // Adds room to bottom of template for tray
 .butter-tray-spacing {
   padding-bottom: @TRAY_SPACING;
-  @media only screen and ( max-device-height: 800px ) and ( max-device-width: 1280px ) {
+  @media @mobile {
     padding-bottom: @MOBILE_TRAY_SPACING;
   }
   .transition( padding-bottom 0.5s );
@@ -27,7 +27,7 @@
   left: 0;
   right: 0;
   height: @TRAY_HEIGHT;
-  @media only screen and ( max-device-height: 800px ) and ( max-device-width: 1280px ) {
+  @media @mobile {
     height: @MOBILE_TRAY_HEIGHT;
   }
   .selectable( none );
@@ -38,7 +38,7 @@
 
   &.butter-tray-minimized {
     bottom: -@TRAY_HEIGHT + @_butterStatusHeight;
-    @media only screen and ( max-device-height: 800px ) and ( max-device-width: 1280px ) {
+    @media @mobile {
       bottom: -@MOBILE_TRAY_HEIGHT + @_butterStatusHeight;
     }
   }
@@ -57,7 +57,7 @@
   .butter-timeline-area {
     position: relative;
     height: @TIMELINE_AREA_HEIGHT;
-    @media only screen and ( max-device-height: 800px ) and ( max-device-width: 1280px ) {
+    @media @mobile {
       height: @MOBILE_TIMELINE_AREA_HEIGHT;
     }
     top: @_butterStatusHeight;
