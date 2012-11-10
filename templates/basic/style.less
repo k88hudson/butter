@@ -21,10 +21,6 @@
     width: 500px;
   }
   .butter-header-spacing & {
-    @media @mobile {
-      width: 300px;
-      background: red;
-    }
     @media @small-in-editor {
       width: @small-w-px;
     }
@@ -52,6 +48,9 @@
   position: absolute;
   left: 0;
   top: 80px; /* compensate for header */
+  @media @mobile {
+    top: 0;
+  }
   right: 350px;
   bottom: 0;
   -webkit-transition: right 0.25s;
@@ -121,6 +120,9 @@ body.editor-minimized .body-wrapper {
   @media @xlarge {
     font-size: @baseFontSize * ( @xlarge-w / @small-w );
   }
+  @media @mobile {
+    font-size: @baseFontSize;
+  }
   .butter-header-spacing & {
     @media @small-in-editor {
       font-size: @baseFontSize;
@@ -133,6 +135,9 @@ body.editor-minimized .body-wrapper {
     }
     @media @xlarge-in-editor {
       font-size: @baseFontSize * ( @xlarge-w / @small-w );
+    }
+    @media @mobile {
+      font-size: @baseFontSize * ( 500 / @small-w );
     }
   }
 }
@@ -171,4 +176,10 @@ body.editor-minimized .body-wrapper {
   left: 0;
   width: 100%;
   overflow: hidden;
+}
+
+@media @mobile {
+  #tabzilla {
+    display: none !important;
+  }
 }

@@ -82,8 +82,8 @@
   position: fixed;
   z-index: @EDITOR_Z_INDEX;
   top: @HEADER_SPACING;
-  @media only screen and ( max-device-height: 800px ) and ( max-device-width: 1280px ) {
-    top: @PRIMARYHEADER_SPACING;
+  @media @mobile {
+    top: 0;
   }
   bottom: 0;
   right: 0;
