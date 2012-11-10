@@ -22,7 +22,7 @@
             "util/xhr", "util/lang", "util/tutorial",
             "text!default-config.json", "text!layouts/ua-warning.html",
             "ui/widget/tooltip", "crashreporter", "core/project",
-            "util/shims"                  // keep this at the end so it doesn't need a spot in the function signature
+            "UAParser/ua-parser", "util/shims"                  // keep this at the end so it doesn't need a spot in the function signature
           ],
           function(
             EventManager, Logger, Config, Target, Media, Page,
@@ -33,6 +33,9 @@
             ToolTip, CrashReporter, Project,
             Shims                         // placeholder
           ){
+
+    // Satisfy lint by making reference non-global
+    var UAParser = window.UAParser;
 
     var __guid = 0;
 
@@ -54,18 +57,27 @@
     Butter.init = function( butterOptions ) {
 
       var ua = navigator.userAgent,
+          mobileDeviceRegex = /(Android|iPad)/,
           acceptedUA;
 
-      if ( ua.indexOf( "Android" ) > -1 ) {
+      // ua-parser uses the current browsers UA by default
+      var ua = new UAParser().getResult(),
+          name = ua.browser.name,
+          major = ua.browser.major,
+          device = ua.device.model,
+          acceptedUA = false;
+
+      if ( mobileDeviceRegex.test( device ) ) {
         Butter.isMobile = true;
+        if ( device === "iPad" ) {
+          Butter.isIPad = true;
+        }
       }
 
       for ( var uaName in ACCEPTED_UA_LIST ) {
-        if( ACCEPTED_UA_LIST.hasOwnProperty( uaName ) ) {
-          var uaRegex = new RegExp( uaName + "(?:/|\\s)([0-9]+)\\.", "g" ),
-              match = uaRegex.exec( ua );
-          if ( match && match.length === 2 && Number( match[ 1 ] ) >= ACCEPTED_UA_LIST[ uaName ] ) {
-            acceptedUA = uaName + "/" + match[ 1 ];
+        if ( name === uaName ) {
+          if ( +major >= ACCEPTED_UA_LIST[ uaName ] ) {
+            acceptedUA = true;
           }
         }
       }
@@ -826,6 +838,15 @@
                   } else {
                     // No backup found, keep loading
                     attemptDataLoad( useProject );
+                  }
+                });
+                _this.listen( "ready", function() {
+                  if( Butter.isIPad ) {
+                    //debugger;
+                    var iPadDialog = Dialog.spawn( "ipad", {
+                      data: _this.currentMedia.popcorn.popcorn.media
+                    });
+                    iPadDialog.open();
                   }
                 });
               });
