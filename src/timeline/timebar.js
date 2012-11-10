@@ -113,11 +113,13 @@ define( [ "util/lang", "./scrubber" ], function( util, Scrubber ) {
 
     this.enable = function() {
       _canvas.addEventListener( "mousedown", _scrubber.onMouseDown, false );
+      _canvas.addEventListener( "touchstart", _scrubber.onMouseDown, false );
       _scrubber.enable();
     };
 
     this.disable = function() {
       _canvas.removeEventListener( "mousedown", _scrubber.onMouseDown, false );
+      _canvas.removeEventListener( "touchstart", _scrubber.onMouseDown, false );
       _scrubber.disable();
     };
 

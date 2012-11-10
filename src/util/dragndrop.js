@@ -107,11 +107,14 @@ define( [ "core/eventmanager", "util/lang", "util/scroll-group" ],
   }
 
   function __onDraggableDragged( e ) {
+    var clientX = e.touches ? e.touches[ 0 ].clientX : e.clientX,
+        clientY = e.touches ? e.touches[ 0 ].clientY : e.clientY;
+
     e.preventDefault();
 
     __mouseLast[ 0 ] = __mousePos[ 0 ];
     __mouseLast[ 1 ] = __mousePos[ 1 ];
-    __mousePos = [ e.clientX, e.clientY ];
+    __mousePos = [ clientX, clientY ];
 
     var draggables = __selectedDraggables,
         i;
@@ -141,7 +144,9 @@ define( [ "core/eventmanager", "util/lang", "util/scroll-group" ],
   function __onDraggableMouseUp( e ) {
     window.removeEventListener( "dragstart", __onWindowDragStart, false );
     window.removeEventListener( "mousemove", __onDraggableDragged, false );
+    window.removeEventListener( "touchmove", __onDraggableDragged, false );
     window.removeEventListener( "mousemove", __onDraggableMouseUp, false );
+    window.removeEventListener( "touchmove", __onDraggableMouseUp, false );
 
     if ( !__mouseDown ) {
       return;
@@ -201,7 +206,9 @@ define( [ "core/eventmanager", "util/lang", "util/scroll-group" ],
     }
     e.stopPropagation();
     window.addEventListener( "mousemove", __onDraggableDragged, false );
+    window.addEventListener( "touchmove", __onDraggableDragged, false );
     window.addEventListener( "mouseup", __onDraggableMouseUp, false );
+    window.addEventListener( "touchend", __onDraggableMouseUp, false );
   }
 
   function __getPaddingRect( element ) {
@@ -298,12 +305,14 @@ define( [ "core/eventmanager", "util/lang", "util/scroll-group" ],
         };
 
     function onLeftMouseDown( e ) {
+    var clientX = e.touches ? e.touches[ 0 ].clientX : e.clientX,
+        clientY = e.touches ? e.touches[ 0 ].clientY : e.clientY;
       e.stopPropagation();
 
       var originalRect = element.getBoundingClientRect(),
           originalPosition = element.offsetLeft,
           originalWidth = element.clientWidth,
-          mouseDownPosition = e.clientX,
+          mouseDownPosition = clientX,
           mousePosition,
           mouseOffset;
 
@@ -366,7 +375,9 @@ define( [ "core/eventmanager", "util/lang", "util/scroll-group" ],
 
       function onMouseUp( e ) {
         window.removeEventListener( "mousemove", onMouseMove, false );
+        window.removeEventListener( "touchmove", onMouseMove, false );
         window.removeEventListener( "mouseup", onMouseUp, false );
+        window.removeEventListener( "touchend", onMouseUp, false );
         clearInterval( _updateInterval );
         _updateInterval = -1;
         _onStop( _resizeEvent );
@@ -375,8 +386,10 @@ define( [ "core/eventmanager", "util/lang", "util/scroll-group" ],
       }
 
       function onMouseMove( e ) {
+    var clientX = e.touches ? e.touches[ 0 ].clientX : e.clientX,
+        clientY = e.touches ? e.touches[ 0 ].clientY : e.clientY;
         e.preventDefault();
-        mousePosition = e.clientX;
+        mousePosition = clientX;
         if ( _updateInterval === -1 ) {
           _lastDims = [];
           _resizeEvent.direction = 'left';
@@ -386,23 +399,27 @@ define( [ "core/eventmanager", "util/lang", "util/scroll-group" ],
       }
 
       _elementRect = element.getBoundingClientRect();
-      mouseOffset = e.clientX - _elementRect.left;
+      mouseOffset = clientX - _elementRect.left;
       _scrollRect = _scroll.getBoundingClientRect();
 
       element.classList.add( RESIZABLE_CLASS );
 
       window.addEventListener( "mousemove", onMouseMove, false );
+      window.addEventListener( "touchmove", onMouseMove, false );
       window.addEventListener( "mouseup", onMouseUp, false );
+      window.addEventListener( "touchend", onMouseUp, false );
 
       DragNDrop.dispatch( "resizestarted" );
     }
 
     function onRightMouseDown( e ) {
+    var clientX = e.touches ? e.touches[ 0 ].clientX : e.clientX,
+        clientY = e.touches ? e.touches[ 0 ].clientY : e.clientY;
       e.stopPropagation();
 
       var originalPosition = element.offsetLeft,
           originalWidth = element.offsetWidth,
-          mouseDownPosition = e.clientX,
+          mouseDownPosition = clientX,
           mousePosition,
           mouseOffset;
 
@@ -452,7 +469,9 @@ define( [ "core/eventmanager", "util/lang", "util/scroll-group" ],
 
       function onMouseUp( e ) {
         window.removeEventListener( "mousemove", onMouseMove, false );
+        window.removeEventListener( "touchmove", onMouseMove, false );
         window.removeEventListener( "mouseup", onMouseUp, false );
+        window.removeEventListener( "touchend", onMouseUp, false );
         clearInterval( _updateInterval );
         _updateInterval = -1;
         _onStop( _resizeEvent );
@@ -461,7 +480,9 @@ define( [ "core/eventmanager", "util/lang", "util/scroll-group" ],
       }
 
       function onMouseMove( e ) {
-        mousePosition = e.clientX;
+    var clientX = e.touches ? e.touches[ 0 ].clientX : e.clientX,
+        clientY = e.touches ? e.touches[ 0 ].clientY : e.clientY;
+        mousePosition = clientX;
         if ( _updateInterval === -1 ) {
           _lastDims = [];
           _resizeEvent.direction = 'right';
@@ -474,23 +495,29 @@ define( [ "core/eventmanager", "util/lang", "util/scroll-group" ],
       if ( _scroll ) {
         _scrollRect = _scroll.getBoundingClientRect();
       }
-      mouseOffset = e.clientX - _elementRect.left;
+      mouseOffset = clientX - _elementRect.left;
 
       element.classList.add( RESIZABLE_CLASS );
 
       window.addEventListener( "mousemove", onMouseMove, false );
+      window.addEventListener( "touchmove", onMouseMove, false );
       window.addEventListener( "mouseup", onMouseUp, false );
+      window.addEventListener( "touchend", onMouseUp, false );
 
       DragNDrop.dispatch( "resizestarted" );
     }
 
     _leftHandle.addEventListener( "mousedown", onLeftMouseDown, false );
+    _leftHandle.addEventListener( "touchstart", onLeftMouseDown, false );
     _rightHandle.addEventListener( "mousedown", onRightMouseDown, false );
+    _rightHandle.addEventListener( "touchstart", onRightMouseDown, false );
 
     return {
       destroy: function() {
         _leftHandle.removeEventListener( "mousedown", onLeftMouseDown, false );
+        _leftHandle.removeEventListener( "touchstart", onLeftMouseDown, false );
         _rightHandle.removeEventListener( "mousedown", onRightMouseDown, false );
+        _rightHandle.removeEventListener( "touchstart", onRightMouseDown, false );
       }
     };
   }
@@ -540,6 +567,8 @@ define( [ "core/eventmanager", "util/lang", "util/scroll-group" ],
         _rememberedDraggables = [];
 
     function onDrop( e ) {
+    var clientX = e.touches ? e.touches[ 0 ].clientX : e.clientX,
+        clientY = e.touches ? e.touches[ 0 ].clientY : e.clientY;
       var transferData, helper;
       e.stopPropagation();
       e.preventDefault();
@@ -558,7 +587,7 @@ define( [ "core/eventmanager", "util/lang", "util/scroll-group" ],
       }
       helper = __helpers[ transferData ] || __currentDraggingElement;
       if ( helper ) {
-        _onDrop( helper, [ e.clientX, e.clientY ] );
+        _onDrop( helper, [ clientX, clientY ] );
       }
     }
 
@@ -569,6 +598,8 @@ define( [ "core/eventmanager", "util/lang", "util/scroll-group" ],
     }
 
     function onDragEnter( e ) {
+    var clientX = e.touches ? e.touches[ 0 ].clientX : e.clientX,
+        clientY = e.touches ? e.touches[ 0 ].clientY : e.clientY;
       var transferData, helper;
       if ( _hoverClass ) {
         element.classList.add( _hoverClass );
@@ -584,11 +615,13 @@ define( [ "core/eventmanager", "util/lang", "util/scroll-group" ],
       }
       helper = __helpers[ transferData ] || __currentDraggingElement;
       if ( helper ) {
-        _onOver( helper, [ e.clientX, e.clientY ] );
+        _onOver( helper, [ clientX, clientY ] );
       }
     }
 
     function onDragLeave( e ) {
+    var clientX = e.touches ? e.touches[ 0 ].clientX : e.clientX,
+        clientY = e.touches ? e.touches[ 0 ].clientY : e.clientY;
       var transferData, helper;
       if ( _hoverClass ) {
         element.classList.remove( _hoverClass );
@@ -604,7 +637,7 @@ define( [ "core/eventmanager", "util/lang", "util/scroll-group" ],
       }
       helper = __helpers[ transferData ] || __currentDraggingElement;
       if ( helper ) {
-        _onOut( helper, [ e.clientX, e.clientY ] );
+        _onOut( helper, [ clientX, clientY ] );
       }
     }
 
@@ -846,12 +879,14 @@ define( [ "core/eventmanager", "util/lang", "util/scroll-group" ],
     }
 
     element.addEventListener( "mousedown", __onDraggableMouseDown, false );
+    element.addEventListener( "touchstart", __onDraggableMouseDown, false );
 
     _draggable.droppable = null;
 
     _draggable.destroy = function() {
       _draggable.selected = false;
       element.removeEventListener( "mousedown", __onDraggableMouseDown, false );
+      element.removeEventListener( "touchstart", __onDraggableMouseDown, false );
     };
 
     _draggable.update = function() {
@@ -887,12 +922,14 @@ define( [ "core/eventmanager", "util/lang", "util/scroll-group" ],
     };
 
     _draggable.start = function( e ) {
+    var clientX = e.touches ? e.touches[ 0 ].clientX : e.clientX,
+        clientY = e.touches ? e.touches[ 0 ].clientY : e.clientY;
       // Store original position of the element and the offset of the mouse wrt the window. These values are used
       // in calculations elsewhere (e.g. update, containment, etc.) to figure out exactly how many pixels the user
       // moved the element. Later, _originalPosition is used to revert the element to its original position if
       // required.
       _originalPosition = [ element.offsetLeft, element.offsetTop ];
-      _mouseOffset = [ e.clientX, e.clientY ];
+      _mouseOffset = [ clientX, clientY ];
 
       // Notify listeners that dragging is starting now.
       _onStart();
@@ -1005,6 +1042,8 @@ define( [ "core/eventmanager", "util/lang", "util/scroll-group" ],
     }
 
     function onElementMouseMove( e ) {
+    var clientX = e.touches ? e.touches[ 0 ].clientX : e.clientX,
+        clientY = e.touches ? e.touches[ 0 ].clientY : e.clientY;
       if ( !_moved ) {
         _moved = true;
         _placeHolder = createPlaceholder( _draggingElement );
@@ -1014,7 +1053,7 @@ define( [ "core/eventmanager", "util/lang", "util/scroll-group" ],
         positionElement( 0 );
       }
       else{
-        var diff = _mouseDownPosition - e.clientY;
+        var diff = _mouseDownPosition - clientY;
         positionElement( diff );
         var dragElementRect = _draggingElement.getBoundingClientRect();
         for ( var i=_elements.length - 1; i>=0; --i ) {
@@ -1060,6 +1099,8 @@ define( [ "core/eventmanager", "util/lang", "util/scroll-group" ],
     }
 
     function onElementMouseDown( e ) {
+    var clientX = e.touches ? e.touches[ 0 ].clientX : e.clientX,
+        clientY = e.touches ? e.touches[ 0 ].clientY : e.clientY;
       if ( e.which !== 1 ) {
         return;
       }
@@ -1070,7 +1111,7 @@ define( [ "core/eventmanager", "util/lang", "util/scroll-group" ],
       var style = getComputedStyle( _draggingElement );
 
       _oldZIndex = style.getPropertyValue( "z-index" );
-      _mouseDownPosition = e.clientY;
+      _mouseDownPosition = clientY;
 
       window.addEventListener( "mouseup", onElementMouseUp, false );
       window.addEventListener( "mousemove", onElementMouseMove, false );
@@ -1081,7 +1122,9 @@ define( [ "core/eventmanager", "util/lang", "util/scroll-group" ],
     function onElementMouseUp( e ) {
       _draggingElement.style.zIndex = _oldZIndex;
       window.removeEventListener( "mouseup", onElementMouseUp, false );
+      window.removeEventListener( "touchend", onElementMouseUp, false );
       window.removeEventListener( "mousemove", onElementMouseMove, false );
+      window.removeEventListener( "touchmove", onElementMouseMove, false );
       _moved = false;
       if ( _placeHolder ) {
         _draggingElement.style.zIndex = "";
@@ -1101,6 +1144,7 @@ define( [ "core/eventmanager", "util/lang", "util/scroll-group" ],
     _instance.removeItem = function( item ) {
       _elements.splice( _elements.indexOf( item ), 1 );
       item.removeEventListener( "mousedown", onElementMouseDown, false );
+      item.removeEventListener( "touchstart", onElementMouseDown, false );
     };
 
     return _instance;
