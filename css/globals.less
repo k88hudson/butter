@@ -242,7 +242,7 @@
 @in-editor-offset-h: ~`parseInt( "@{TRAY_HEIGHT}" ) + parseInt( "@{HEADER_SPACING}" )`;
 
 //mobile
-@mobile: ~`"only screen and ( max-device-height: 800px ) and ( max-device-width: 1280px )"`;
+@mobile: ~`"only screen and ( max-device-height: 800px ) and ( max-device-width: 1280px ), only screen and ( max-height: 800px ) and ( max-width: 1280px )"`;
 
 // ~`...` is javascript evaluation in LESS http://lesscss.org/#-javascript-evaluation
 // This has to use parseInt because the LESS variables have px in them

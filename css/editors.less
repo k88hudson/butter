@@ -62,7 +62,7 @@
 .butter-editor-close-btn {
   position: fixed;
   top: @HEADER_SPACING;
-  @media only screen and ( max-device-height: 800px ) and ( max-device-width: 1280px ) {
+  @media @mobile {
     top: @PRIMARYHEADER_SPACING;
   }
   right: 0;
@@ -104,7 +104,7 @@
 
   &.minimized {
     right: -@EDITOR_WIDTH - 2;
-    @media only screen and ( max-device-height: 800px ) and ( max-device-width: 1280px ) {
+    @media @mobile {
       right: -@MOBILE_EDITOR_WIDTH - 2;
     }
   }
