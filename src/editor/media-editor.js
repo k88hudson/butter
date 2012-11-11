@@ -15,6 +15,8 @@ define( [ "util/lang", "util/uri", "util/keys", "editor/editor", "text!layouts/m
       _currentMediaWrapper = _containerElement.querySelector( ".current-media-wrapper" ),
       _addAlternateSourceBtn = _containerElement.querySelector( ".add-alternate-media-source-btn" ),
       _mediaErrorMessage = _containerElement.querySelector( ".media-error-message" ),
+      _archiveButton = _parentElement.querySelector( ".add-archive" ),
+      _archiveInput = _parentElement.querySelector( ".add-archive-input" ),
       _media,
       _inputCount = 0,
       _emptyInputs = 0,
@@ -188,6 +190,9 @@ define( [ "util/lang", "util/uri", "util/keys", "editor/editor", "text!layouts/m
     }
   }
 
+
+
+
   _addAlternateSourceBtn.addEventListener( "click", addAlternateSourceBtnHandler, false );
 
   function onMediaTimeout() {
@@ -211,6 +216,30 @@ define( [ "util/lang", "util/uri", "util/keys", "editor/editor", "text!layouts/m
     Editor.BaseEditor.extend( _this, butter, rootElement, {
       open: function() {
         _media = butter.currentMedia;
+
+          function addArchive() {
+            var val = _archiveInput.value;
+            Popcorn.getJSONP( "http://archive.org/bookmarks/" + val + " ?output=json&callback=createArchiveMedia", function( data ) {
+              var i,
+                  id,
+                  start,
+                  mediaString,
+                  DEFAULT_EVENT_LENGTH = 3;
+
+              for ( i = 0; i < 5; i++ ) {
+                id = data[ i ].identifier;
+                start = parseInt( data[ i ].media.split( "=" )[ 1 ] );
+                mediaString = "http://www.archive.org/download/" + id  + "/" + id + ".mp4?start=" + start + "&end=" + start + 20;
+                butter.generateSafeTrackEvent( "mediaspawner", 0, 0, {
+                  start: i * DEFAULT_EVENT_LENGTH,
+                  end: i * DEFAULT_EVENT_LENGTH + DEFAULT_EVENT_LENGTH,
+                  source: mediaString
+                });
+              }
+            });
+          }
+
+        _archiveButton.addEventListener( "click", addArchive, false );
 
         _media.listen( "mediaready", onMediaReady );
         _media.listen( "mediacontentchanged", onMediaContentChanged );

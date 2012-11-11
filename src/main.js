@@ -117,8 +117,8 @@
         return _currentMedia.getManifest( name );
       }; //getManifest
 
-      _this.generateSafeTrackEvent = function( type, start, track ) {
-        var end, trackEvent;
+      _this.generateSafeTrackEvent = function( type, start, track, options ) {
+        var end, trackEvent, i;
 
         if ( start + _defaultTrackeventDuration > _currentMedia.duration ) {
           start = _currentMedia.duration - _defaultTrackeventDuration;
@@ -146,16 +146,23 @@
           track = _currentMedia.forceEmptyTrackSpaceAtTime( track, start, end );
         }
 
+        options = options || {
+          start: start,
+          end: end
+        };
+
+        options.target = _defaultTarget.elementID;
+
         track = track || _currentMedia.addTrack();
 
         trackEvent = track.addTrackEvent({
-          popcornOptions: {
-            start: start,
-            end: end,
-            target: _defaultTarget.elementID
-          },
+          popcornOptions: options,
           type: type
         });
+
+        if ( options ) {
+          trackEvent.update( options );
+        }
 
         if( _currentMedia.currentTime < _currentMedia.duration - DEFAULT_TRACKEVENT_OFFSET ){
           _currentMedia.currentTime += DEFAULT_TRACKEVENT_OFFSET;
