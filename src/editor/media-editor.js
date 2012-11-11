@@ -17,8 +17,6 @@ define( [ "util/lang", "util/uri", "util/keys", "editor/editor", "text!layouts/m
       _mediaErrorMessage = _containerElement.querySelector( ".media-error-message" ),
       _archiveButton = _parentElement.querySelector( ".add-archive" ),
       _archiveInput = _parentElement.querySelector( ".add-archive-input" ),
-      _archiveResults = _parentElement.querySelector( ".archive-results" ),
-      _archiveBlock = LangUtils.domFragment( EDITOR_LAYOUT, ".archive-block" ),
       _media,
       _inputCount = 0,
       _emptyInputs = 0,
@@ -223,7 +221,8 @@ define( [ "util/lang", "util/uri", "util/keys", "editor/editor", "text!layouts/m
         allSources.push({
           start: totalDuration,
           end: totalDuration + duration,
-          source: mediaString
+          source: mediaString,
+          title: data.title
         });
       }
 
@@ -233,8 +232,8 @@ define( [ "util/lang", "util/uri", "util/keys", "editor/editor", "text!layouts/m
         _butter.currentMedia.url = [ "#t=," + totalDuration ];
         _butter.listen( "mediaready", function() {
         allSources.forEach( function( source ) {
-          archiveBlock = _archiveBlock.cloneNode( true );
-          _archiveResults.appendChild( archiveBlock );
+          //archiveBlock = _archiveBlock.cloneNode( true );
+          //_archiveResults.appendChild( archiveBlock );
           _butter.generateSafeTrackEvent( "mediaspawner", source.start, 0, source );
         });
 

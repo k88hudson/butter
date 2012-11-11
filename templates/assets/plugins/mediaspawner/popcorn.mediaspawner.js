@@ -64,6 +64,11 @@
           type: "number",
           label: "End"
         },
+        title: {
+          elem: "input",
+          label: "Video Title",
+          "default": "My video"
+        },
         starttime: {
           elem: "input",
           type: "number",
@@ -74,7 +79,7 @@
           elem: "input",
           type: "number",
           label: "Media Width",
-          "default": 40,
+          "default": 70,
           units: "%",
           optional: true,
           hidden: true
@@ -83,7 +88,7 @@
           elem: "input",
           type: "number",
           label: "Media Height",
-          "default": 40,
+          "default":70,
           units: "%",
           optional: true,
           hidden: true
@@ -92,7 +97,7 @@
           elem: "input",
           type: "number",
           label: "Media Top",
-          "default": 5,
+          "default": 0,
           units: "%",
           optional: true,
           hidden: true
@@ -101,7 +106,7 @@
           elem: "input",
           type: "number",
           label: "Media Left",
-          "default": 5,
+          "default": 0,
           units: "%",
           optional: true,
           hidden: true
@@ -129,15 +134,16 @@
           container,
           regexResult;
 
-      function createAttribution( data ) {
+      function createAttribution() {
         var attributionContainer = document.createElement( "div" ),
             anchor = document.createElement( "a" );
         attributionContainer.classList.add( "media-spawner-attribution" );
-        anchor.href = data.url;
+        anchor.href = options.source;
         anchor.setAttribute( "target", "_blank" );
-        anchor.innerHTML = data.name;
+        anchor.innerHTML = options.title;
         attributionContainer.addEventListener( "click", onAttributionClick, false );
         attributionContainer.appendChild( anchor );
+        console.log( attributionContainer );
         container.appendChild( attributionContainer );
       }
 
@@ -220,7 +226,10 @@
       container.style.top = options.top + "%";
       container.style.left = options.left + "%";
 
+      createAttribution();
+
       target && target.appendChild( container );
+
 
 
       function constructMedia(){
