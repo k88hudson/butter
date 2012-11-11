@@ -17,9 +17,12 @@ define( [ "util/lang", "util/uri", "util/keys", "editor/editor", "text!layouts/m
       _mediaErrorMessage = _containerElement.querySelector( ".media-error-message" ),
       _archiveButton = _parentElement.querySelector( ".add-archive" ),
       _archiveInput = _parentElement.querySelector( ".add-archive-input" ),
+      _archiveResults = _parentElement.querySelector( ".archive-results" ),
+      _archiveBlock = LangUtils.domFragment( EDITOR_LAYOUT, ".archive-block" ),
       _media,
       _inputCount = 0,
       _emptyInputs = 0,
+      _butter,
       _this;
 
   function updateButterMedia() {
@@ -190,6 +193,57 @@ define( [ "util/lang", "util/uri", "util/keys", "editor/editor", "text!layouts/m
     }
   }
 
+  function addArchive() {
+    var val = _archiveInput.value;
+    Popcorn.getJSONP( "http://archive.org/bookmarks/" + val + " ?output=json&callback=createArchiveMedia", function( data ) {
+      var i,
+          id,
+          start,
+          end,
+          duration,
+          totalDuration,
+          mediaString,
+          splitData,
+          archiveBlock,
+          allSources = [],
+          DEFAULT_EVENT_LENGTH = 3;
+
+      totalDuration = 15;
+
+      for ( i = 0; i < 5; i++ ) {
+        splitData = data[ i ].media.split( "/" );
+        id = data[ i ].identifier;
+        start = parseInt( splitData[ 1 ] ),
+        end = parseInt( splitData [ 3 ] ),
+        duration = end - start,
+        totalDuration += duration,
+        mediaString = "http://archive.org/download/" + id  + "/" + id + ".mp4?start=" + start + "&end=" + end;
+        thumbString = "http://archive.org/download/" + id  + "/format=Thumbnail";
+        console.log( thumbString );
+        allSources.push({
+          start: totalDuration,
+          end: totalDuration + duration,
+          source: mediaString
+        });
+      }
+
+       // Check duration
+      if ( _butter.duration < totalDuration ) {
+        console.log( totalDuration );
+        _butter.currentMedia.url = [ "#t=," + totalDuration ];
+        _butter.listen( "mediaready", function() {
+        allSources.forEach( function( source ) {
+          archiveBlock = _archiveBlock.cloneNode( true );
+          _archiveResults.appendChild( archiveBlock );
+          _butter.generateSafeTrackEvent( "mediaspawner", source.start, 0, source );
+        });
+
+        });
+      }
+    });
+  }
+
+_archiveButton.addEventListener( "click", addArchive, false );
 
 
 
@@ -216,30 +270,7 @@ define( [ "util/lang", "util/uri", "util/keys", "editor/editor", "text!layouts/m
     Editor.BaseEditor.extend( _this, butter, rootElement, {
       open: function() {
         _media = butter.currentMedia;
-
-          function addArchive() {
-            var val = _archiveInput.value;
-            Popcorn.getJSONP( "http://archive.org/bookmarks/" + val + " ?output=json&callback=createArchiveMedia", function( data ) {
-              var i,
-                  id,
-                  start,
-                  mediaString,
-                  DEFAULT_EVENT_LENGTH = 3;
-
-              for ( i = 0; i < 5; i++ ) {
-                id = data[ i ].identifier;
-                start = parseInt( data[ i ].media.split( "=" )[ 1 ] );
-                mediaString = "http://www.archive.org/download/" + id  + "/" + id + ".mp4?start=" + start + "&end=" + start + 20;
-                butter.generateSafeTrackEvent( "mediaspawner", 0, 0, {
-                  start: i * DEFAULT_EVENT_LENGTH,
-                  end: i * DEFAULT_EVENT_LENGTH + DEFAULT_EVENT_LENGTH,
-                  source: mediaString
-                });
-              }
-            });
-          }
-
-        _archiveButton.addEventListener( "click", addArchive, false );
+        _butter = butter;
 
         _media.listen( "mediaready", onMediaReady );
         _media.listen( "mediacontentchanged", onMediaContentChanged );
