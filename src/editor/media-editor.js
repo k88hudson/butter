@@ -222,7 +222,8 @@ define( [ "util/lang", "util/uri", "util/keys", "editor/editor", "text!layouts/m
           start: totalDuration,
           end: totalDuration + duration,
           source: mediaString,
-          title: data.title
+          link: data[ i ].media,
+          title: data[ i ].title
         });
       }
 
@@ -232,8 +233,6 @@ define( [ "util/lang", "util/uri", "util/keys", "editor/editor", "text!layouts/m
         _butter.currentMedia.url = [ "#t=," + totalDuration ];
         _butter.listen( "mediaready", function() {
         allSources.forEach( function( source ) {
-          //archiveBlock = _archiveBlock.cloneNode( true );
-          //_archiveResults.appendChild( archiveBlock );
           _butter.generateSafeTrackEvent( "mediaspawner", source.start, 0, source );
         });
 

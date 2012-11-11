@@ -79,7 +79,7 @@
           elem: "input",
           type: "number",
           label: "Media Width",
-          "default": 70,
+          "default": 100,
           units: "%",
           optional: true,
           hidden: true
@@ -88,7 +88,7 @@
           elem: "input",
           type: "number",
           label: "Media Height",
-          "default":70,
+          "default": 100,
           units: "%",
           optional: true,
           hidden: true
@@ -138,12 +138,11 @@
         var attributionContainer = document.createElement( "div" ),
             anchor = document.createElement( "a" );
         attributionContainer.classList.add( "media-spawner-attribution" );
-        anchor.href = options.source;
+        anchor.href = "http://archive.org/details/" + options.link;
         anchor.setAttribute( "target", "_blank" );
         anchor.innerHTML = options.title;
         attributionContainer.addEventListener( "click", onAttributionClick, false );
         attributionContainer.appendChild( anchor );
-        console.log( attributionContainer );
         container.appendChild( attributionContainer );
       }
 
@@ -218,15 +217,11 @@
       // Default width and height of media
       options.width = options.width || 40;
       options.height = options.height || 20;
-      options.top = options.top || 5;
-      options.left = options.left || 5;
       options.starttime = options.starttime || 0;
       container.style.width = options.width + "%";
       container.style.height = options.height + "%";
       container.style.top = options.top + "%";
       container.style.left = options.left + "%";
-
-      createAttribution();
 
       target && target.appendChild( container );
 
@@ -252,6 +247,7 @@
             options._container.style.height = "0%";
             options._container.style.visibility = "hidden";
             options._container.style.overflow = "hidden";
+            createAttribution();
           }
         }
 
@@ -344,6 +340,7 @@
         options._container.style.height = options.height + "%";
         options._container.style.visibility = "visible";
         options._container.style.overflow = "visible";
+
       }
 
       function doStuff() {
