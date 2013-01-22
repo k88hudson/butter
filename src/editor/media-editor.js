@@ -15,6 +15,9 @@ define( [ "util/lang", "util/uri", "util/time", "util/keys", "editor/editor", "t
       _currentMediaWrapper = _containerElement.querySelector( ".current-media-wrapper" ),
       _addAlternateSourceBtn = _containerElement.querySelector( ".add-alternate-media-source-btn" ),
       _mediaErrorMessage = _containerElement.querySelector( ".media-error-message" ),
+      _mediaListFragment = LangUtils.domFragment( EDITOR_LAYOUT, ".media-list-element" ),
+      _mediaManifest = _containerElement.querySelector( ".media-manifest" ),
+      _addMediaButton = _containerElement.querySelector( ".add-new-media"),
       _media,
       _inputCount = 0,
       _emptyInputs = 0,
@@ -205,12 +208,47 @@ define( [ "util/lang", "util/uri", "util/time", "util/keys", "editor/editor", "t
   }
 
   Editor.register( "media-editor", null, function( rootElement, butter ) {
-    rootElement = _parentElement;
+    rootElement = _parentElement,
+    tracks = butter.currentMedia.tracks,
     _this = this;
+
+    function selectTrackEvent( trackEvent ) {
+      trackEvent.selected = true;
+      for ( i = 0, length = tracks.length; i < length; i++ ) {
+        tracks[ i ].deselectEvents( trackEvent );
+      }
+    }
 
     function onMediaContentChanged() {
       _media = butter.currentMedia;
       setup();
+    }
+
+    function checkMediaTrackEvents() {
+      var allTe = butter.orderedTrackEvents,
+          listItem;
+
+      _mediaManifest.innerHTML = "";
+
+      allTe.forEach( function( te ) {
+        if ( te.type === "sequencer" ) {
+          listItem = _mediaListFragment.cloneNode( true );
+          listItem.innerHTML = te.popcornOptions.source || "Empty";
+          listItem.addEventListener( "click", function( e ) {
+            selectTrackEvent( te );
+          }, false );
+          if ( _mediaManifest.firstChild ) {
+            _mediaManifest.insertBefore( listItem, _mediaManifest.firstChild );
+          } else {
+           _mediaManifest.appendChild( listItem );
+          }
+        }
+      });
+    }
+
+    function addNewMediaEvent( e ) {
+      var newTrackEvent = butter.generateSafeTrackEvent( "sequencer", butter.currentTime );
+      selectTrackEvent( newTrackEvent );
     }
 
     Editor.BaseEditor.extend( _this, butter, rootElement, {
@@ -220,6 +258,9 @@ define( [ "util/lang", "util/uri", "util/time", "util/keys", "editor/editor", "t
         _media.listen( "mediaready", onMediaReady );
         _media.listen( "mediacontentchanged", onMediaContentChanged );
         _media.listen( "mediatimeout", onMediaTimeout );
+
+        checkMediaTrackEvents();
+        _addMediaButton.addEventListener( "click", addNewMediaEvent, false );
 
         // Ensure the loading spinner is off when the media is ready. Otherwise, keep it spinning.
         if ( _media.ready ) {
@@ -234,6 +275,9 @@ define( [ "util/lang", "util/uri", "util/time", "util/keys", "editor/editor", "t
         _media.unlisten( "mediaready", onMediaReady );
         _media.unlisten( "mediacontentchanged", onMediaContentChanged );
         _media.unlisten( "mediatimeout", onMediaTimeout );
+
+        _addMediaButton.removeEventListener( "click", addNewMediaEvent, false );
+
         document.querySelector( ".butter-editor-header-media" ).classList.remove( "butter-active" );
       }
     });

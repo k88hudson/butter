@@ -6,6 +6,12 @@
     <div class="scrollbar-outer">
       <div class="scrollbar-inner">
         <fieldset>
+          <h3>All media</h3>
+          <ol class="media-manifest"></ol>
+          <a class="add-new-media butter-btn btn-light"><span class="icon icon-plus"></span>Add New Media</a>
+        </fieldset>
+        <hr>
+        <fieldset>
           <label class="media-error-message hidden">Your media seems to be taking a long time to load. Review your media URL(s) or continue waiting.</label>
           <span class="current-media-wrapper"></span>
           <p class="add-alternate-media-source-desc">You need .webm, .mp4, and .ogv versions of your HTML5 video to support all major browsers.</p>
@@ -17,6 +23,7 @@
 </div>
 
 <div class="media-editor-inner-wrapper primary-media-wrapper">
+  <label>Total duration</label>
   <textarea class="current-media-input" placeholder="Media duration"></textarea>
   <span class="butter-btn-slide-out">
     <a class="butter-media-apply butter-btn btn-green butter-disabled">Apply</a>
@@ -33,4 +40,6 @@
     <a class="butter-media-apply butter-btn btn-green butter-disabled">Apply</a>
   </span>
 </div>
+
+<li class="media-list-element"></li>
 
