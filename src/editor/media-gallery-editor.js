@@ -12,7 +12,6 @@ define( [ "util/lang", "util/xhr", "util/keys", "util/mediatypes", "editor/edito
 
       _urlInput = _addMediaPanel.querySelector( ".add-media-input" ),
       _addBtn = _addMediaPanel.querySelector( ".add-media-btn" ),
-      _cancelBtn = _addMediaPanel.querySelector( ".add-media-cancel-btn" ),
       _errorMessage = _parentElement.querySelector( ".media-error-message" ),
       _oldValue,
       _loadingSpinner = _parentElement.querySelector( ".media-loading-spinner" ),
@@ -25,7 +24,11 @@ define( [ "util/lang", "util/xhr", "util/keys", "util/mediatypes", "editor/edito
 
       _butter,
       _media,
-      _this;
+      _mediaLoadTimeout,
+      _cancelSpinner,
+      _this,
+
+      MEDIA_LOAD_TIMEOUT = 10000;
 
   function toggleAddNewMediaPanel() {
     _parentElement.classList.toggle( "add-media-collapsed" );
@@ -34,12 +37,12 @@ define( [ "util/lang", "util/xhr", "util/keys", "util/mediatypes", "editor/edito
   function resetInput() {
     _urlInput.value = "";
 
+    clearTimeout( _mediaLoadTimeout );
     _urlInput.classList.remove( "error" );
     _errorMessage.classList.add( "hidden" );
     _loadingSpinner.classList.add( "hidden" );
 
     _addBtn.classList.add( "hidden" );
-    _cancelBtn.classList.add( "hidden" );
   }
 
   function setBaseDuration( duration ) {
@@ -64,6 +67,16 @@ define( [ "util/lang", "util/xhr", "util/keys", "util/mediatypes", "editor/edito
     }
   }
 
+  function onDenied( error ) {
+    clearTimeout( _cancelSpinner );
+    clearTimeout( _mediaLoadTimeout );
+    _errorMessage.innerHTML = error;
+    _loadingSpinner.classList.add( "hidden" );
+    setTimeout( function() {
+      _errorMessage.classList.remove( "hidden" );
+    }, 300 );
+  }
+
   function onSuccess( data ) {
     var el = _GALLERYITEM.cloneNode( true ),
         deleteBtn = el.querySelector( ".mg-delete-btn" ),
@@ -84,6 +97,7 @@ define( [ "util/lang", "util/xhr", "util/keys", "util/mediatypes", "editor/edito
     thumbnailBtn.setAttribute( "data-popcorn-plugin-type", "sequencer" );
     thumbnailBtn.setAttribute( "data-butter-draggable-type", "plugin" );
 
+    clearTimeout( _cancelSpinner );
     _loadingSpinner.classList.add( "hidden" );
 
     el.querySelector( ".mg-title" ).innerHTML = data.title;
@@ -154,14 +168,16 @@ define( [ "util/lang", "util/xhr", "util/keys", "util/mediatypes", "editor/edito
     resetInput();
   }
 
-  function addMediaToGallery() {
+  function addMediaToGallery( url, onDenied ) {
     var data = {};
 
-    data.source = _urlInput.value;
+    data.source = url;
     data.type = "sequencer";
-
-    _loadingSpinner.classList.remove( "hidden" );
-    MediaUtils.getMetaData( data.source, onSuccess );
+    _mediaLoadTimeout = setTimeout( function() {
+      _errorMessage.innerHTML = "Your media source is taking too long to load";
+      _errorMessage.classList.remove( "hidden" );
+    }, MEDIA_LOAD_TIMEOUT );
+    MediaUtils.getMetaData( data.source, onSuccess, onDenied );
   }
 
   function onFocus() {
@@ -169,25 +185,34 @@ define( [ "util/lang", "util/xhr", "util/keys", "util/mediatypes", "editor/edito
   }
 
   function onInput() {
-   if ( _oldValue !== _urlInput.value ) {
+    if ( _urlInput.value ) {
       _addBtn.classList.remove( "hidden" );
-      _cancelBtn.classList.remove( "hidden" );
     } else {
       _addBtn.classList.add( "hidden" );
-      _cancelBtn.classList.add( "hidden" );
     }
+    _loadingSpinner.classList.add( "hidden" );
+    _errorMessage.classList.add( "hidden" );
   }
 
   function onEnter( e ) {
     if ( e.keyCode === KeysUtils.ENTER ) {
       e.preventDefault();
-      addMediaToGallery();
+      onAddMediaClick()
     }
   }
 
   function onBlur( e ) {
     e.preventDefault();
     setBaseDuration( _durationInput.value );
+  }
+
+  function onAddMediaClick() {
+    // transitionend event is not reliable and not cross browser supported.
+    _cancelSpinner = setTimeout( function() {
+      _loadingSpinner.classList.remove( "hidden" );
+    }, 300 );
+    _addBtn.classList.add( "hidden" );
+    addMediaToGallery( _urlInput.value, onDenied );
   }
 
   function setup() {
@@ -197,8 +222,7 @@ define( [ "util/lang", "util/xhr", "util/keys", "util/mediatypes", "editor/edito
     _urlInput.addEventListener( "input", onInput, false );
     _urlInput.addEventListener( "keydown", onEnter, false );
 
-    _addBtn.addEventListener( "click", addMediaToGallery, false );
-    _cancelBtn.addEventListener( "click", resetInput, false );
+    _addBtn.addEventListener( "click", onAddMediaClick, false );
 
     _durationInput.addEventListener( "keydown", onDurationChange, false );
     _durationInput.addEventListener( "blur", onBlur, false );

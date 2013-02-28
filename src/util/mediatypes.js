@@ -24,15 +24,16 @@ define( [ "util/xhr", "util/uri" ],
       }
       return "html5";
     },
-    getMetaData: function( baseUrl, callback, type ) {
+    getMetaData: function( baseUrl, successCallback, errorCallback ) {
       var id,
           parsedUri,
           splitUriDirectory,
           xhrURL,
+          type = this.checkUrl( baseUrl ),
           videoElem;
 
-      type = type || this.checkUrl( baseUrl );
-      callback = callback || function(){};
+      successCallback = successCallback || function(){};
+      errorCallback = errorCallback || function(){};
 
       if ( type === "youtube" ) {
         parsedUri = URI.parse( baseUrl );
@@ -51,16 +52,19 @@ define( [ "util/xhr", "util/uri" ],
           if ( !respData ) {
             return;
           }
-          callback({
+
+          if ( respData.accessControl.embed === "denied" ) {
+            errorCallback( "Embedding of this Youtube video is disabled" );
+            return;
+          }
+
+          successCallback({
             source: "http://www.youtube.com/watch?v=" + id,
             title: respData.title,
             type: type,
             thumbnail: respData.thumbnail.hqDefault,
             author: respData.uploader,
-            duration: respData.duration,
-            // This informs the plugin that embed is not allowed.
-            // The plugin's action of what to do with this is up to the plugin.
-            denied: respData.accessControl.embed === "denied"
+            duration: respData.duration
           });
         });
       } else if ( type === "soundcloud" ) {
@@ -69,19 +73,16 @@ define( [ "util/xhr", "util/uri" ],
         id = splitUriDirectory[ splitUriDirectory.length - 1 ];
         xhrURL = "http://api.soundcloud.com/tracks/" + id + ".json?callback=?&client_id=PRaNFlda6Bhf5utPjUsptg";
         Popcorn.getJSONP( xhrURL, function( respData ) {
-          var denied;
           if ( !respData ) {
             return;
           }
 
           if ( respData.sharing === "private" || respData.embeddable_by === "none" ) {
-            // This informs the plugin that embed is not allowed.
-            // The plugin's action of what to do with this is up to the plugin.
-            denied = true;
+            errorCallback( "Embedding of this Soundcloud media is disabled" );
+            return;
           }
-          callback({
+          successCallback({
             source: baseUrl,
-            denied: denied,
             type: type,
             thumbnail: respData.artwork_url,
             duration: respData.duration / 1000,
@@ -99,7 +100,7 @@ define( [ "util/xhr", "util/uri" ],
           if ( !respData ) {
             return;
           }
-          callback({
+          successCallback({
             source: baseUrl,
             type: type,
             thumbnail: respData.thumbnail_small,
@@ -110,7 +111,7 @@ define( [ "util/xhr", "util/uri" ],
       } else if ( type === "html5" ) {
         videoElem = document.createElement( "video" );
         videoElem.addEventListener( "loadedmetadata", function() {
-          callback ({
+          successCallback ({
             source: baseUrl,
             type: type,
             title: baseUrl.substring( baseUrl.lastIndexOf( "/" ) + 1 ),

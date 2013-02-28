@@ -1,6 +1,5 @@
 <div class="media-editor butter-editor fadable alternates-hidden allow-scrollbar">
   <h1 class="add-new-media">New video clip
-    <span class="media-loading-spinner butter-spinner hidden" ></span>
   </h1>
   <div class="butter-editor-body">
     <fieldset class="add-media-panel">
@@ -15,10 +14,10 @@
           Paste a link from Youtube, Soundcloud, Vimeo or an HTML5 video
         </p>
         <textarea class="add-media-input" placeholder="Paste an HTML5, Youtube, Vimeo, or Soundcloud link here"></textarea>
-        <label class="media-error-message hidden">Your media seems to be taking a long time to load. Review your media URL(s) or continue waiting.</label>
         <span class="butter-btn-slide-out">
           <a class="add-media-btn butter-btn btn-green hidden">Create clip</a>
-          <a class="add-media-cancel-btn butter-btn btn-light hidden">Cancel</a>
+          <span class="media-loading-spinner butter-spinner hidden" ></span>
+          <label class="media-error-message hidden"></label>
         </span>
       </div>
     </fieldset>
