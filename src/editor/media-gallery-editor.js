@@ -38,7 +38,7 @@ define( [ "util/lang", "util/xhr", "util/keys", "util/mediatypes", "editor/edito
     _urlInput.value = "";
 
     clearTimeout( _mediaLoadTimeout );
-    _urlInput.classList.remove( "error" );
+    _addMediaPanel.classList.remove( "invalid-field" );
     _errorMessage.classList.add( "hidden" );
     _loadingSpinner.classList.add( "hidden" );
 
@@ -72,6 +72,7 @@ define( [ "util/lang", "util/xhr", "util/keys", "util/mediatypes", "editor/edito
     clearTimeout( _mediaLoadTimeout );
     _errorMessage.innerHTML = error;
     _loadingSpinner.classList.add( "hidden" );
+    _addMediaPanel.classList.add( "invalid-field" );
     setTimeout( function() {
       _errorMessage.classList.remove( "hidden" );
     }, 300 );
@@ -176,6 +177,7 @@ define( [ "util/lang", "util/xhr", "util/keys", "util/mediatypes", "editor/edito
     _mediaLoadTimeout = setTimeout( function() {
       _errorMessage.innerHTML = "Your media source is taking too long to load";
       _errorMessage.classList.remove( "hidden" );
+      _addMediaPanel.classList.add( "invalid-field" );
     }, MEDIA_LOAD_TIMEOUT );
     MediaUtils.getMetaData( data.source, onSuccess, onDenied );
   }
@@ -187,6 +189,7 @@ define( [ "util/lang", "util/xhr", "util/keys", "util/mediatypes", "editor/edito
   function onInput() {
     if ( _urlInput.value ) {
       _addBtn.classList.remove( "hidden" );
+      _addMediaPanel.classList.remove( "invalid-field" );
     } else {
       _addBtn.classList.add( "hidden" );
     }
