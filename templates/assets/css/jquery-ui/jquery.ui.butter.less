@@ -32,6 +32,8 @@
 @handlelarge: 25px;
 @handleZIndex: 1000;
 
+@green: #3FB58E;
+
 .ui-resizable,
 .ui-droppable,
 .ui-draggable {
@@ -42,16 +44,22 @@
 /*********************************************************
 * Resizable
 */
-@resizeSmall: 10px;
-@resizeBig: 24px;
-@resizeCorner: 14px;
+@resizeHandle: 8px;
+
+.ui-draggable:hover,
+.ui-draggable-dragging,
+.ui-resizable-resizing {
+  box-shadow: 0 0 0 1px @green;
+}
 
 .ui-resizable-handle {
   position: absolute;
   display: block;
   z-index: @handleZIndex + 1;
-  background: darken( @highlight, 10% );
-  border: 3px solid #3fb58e;
+  background: white;
+  height: @resizeHandle;
+  width: @resizeHandle;
+  border: 1px solid black;
   opacity: 0;
   .box-sizing( border-box );
   .transition( opacity 0.3s ease 0s );
@@ -83,7 +91,7 @@
   opacity: 0;
 }
 
-.ui-resizable-resizing,
+.ui-resizable-z,
 .ui-draggable-dragging {
   .ui-resizable-handle,
   .ui-draggable-handle {
@@ -92,71 +100,55 @@
 }
 
 .ui-resizable-w {
-  width:  @resizeSmall;
-  height: @resizeBig;
   cursor: w-resize;
   left: 0;
   bottom: 50%;
-  margin-bottom: -@resizeBig/2;
+  margin-bottom: -@resizeHandle/2;
+  margin-left: -@resizeHandle/2;
 }
 .ui-resizable-n {
-  height: @resizeSmall;
-  width: @resizeBig;
   cursor: n-resize;
   top: 0;
   left: 50%;
-  margin-left: -@resizeBig/2;
+  margin-left: -@resizeHandle/2;
+  margin-top: -@resizeHandle/2;
 }
 .ui-resizable-s {
-  height: @resizeSmall;
-  width: @resizeBig;
   cursor: s-resize;
   bottom: 0;
   left: 50%;
-  margin-left: -@resizeBig/2;
+  margin-left: -@resizeHandle/2;
+  margin-bottom: -@resizeHandle/2;
 }
 .ui-resizable-e {
-  height: @resizeBig;
-  width: @resizeSmall;
   cursor: e-resize;
   right: 0;
-  margin-top: -@resizeBig/2;
   top: 50%;
+  margin-top: -@resizeHandle/2;
+  margin-right: -@resizeHandle/2;
 }
 
 .ui-resizable-se {
   cursor: se-resize;
-  background: none;
-  height: @resizeCorner;
-  width: @resizeCorner;
   bottom: 0;
   right: 0;
-  border: 6px solid @highlight;
-  border-left: 0;
-  border-top: 0;
+  margin-bottom: -@resizeHandle/2;
+  margin-right: -@resizeHandle/2;
 }
 .ui-resizable-sw {
   cursor: sw-resize;
-  background: none;
-  border: 6px solid @highlight;
-  border-right: 0;
-  border-top: 0;
-  height: @resizeCorner;
-  width: @resizeCorner;
   bottom: 0;
   left: 0;
+  margin-bottom: -@resizeHandle/2;
+  margin-left: -@resizeHandle/2;
 }
 
 .ui-resizable-ne {
   cursor: ne-resize;
-  background: none;
-  height: @resizeCorner;
-  width: @resizeCorner;
   top: 0;
   right: 0;
-  border: 6px solid @highlight;
-  border-left: 0;
-  border-bottom: 0;
+  margin-top: -@resizeHandle/2;
+  margin-right: -@resizeHandle/2;
 }
 
 
@@ -175,38 +167,6 @@
     background: #FFF;
     z-index: @handleZIndex;
   }
-}
-.ui-draggable-top {
-  height: @handleWidth;
-  top: @offset;
-  left: @offset;
-  right: @offset;
-  box-shadow: 0 0 0 1px #CDCDCD,
-    0 1px 4px 0 rgba(0, 0, 0, 0.2);
-}
-.ui-draggable-bottom {
-  height: @handleWidth;
-  bottom: @offset;
-  left: @offset;
-  right: @offset;
-  box-shadow: 0 0 0 1px #CDCDCD,
-    0 -1px 4px 0 rgba(0, 0, 0, 0.2);
-}
-.ui-draggable-left {
-  width: @handleWidth;
-  bottom: @offset;
-  top: @offset;
-  left: @offset;
-  box-shadow: 0 0 0 1px #CDCDCD,
-    1px 0 4px 0 rgba(0, 0, 0, 0.2);
-}
-.ui-draggable-right {
-  width: @handleWidth;
-  bottom: @offset;
-  top: @offset;
-  right: @offset;
-  box-shadow: 0 0 0 1px #CCC,
-    -1px 0 4px 0 rgba(0, 0, 0, 0.2);
 }
 
 .ui-draggable-grip {

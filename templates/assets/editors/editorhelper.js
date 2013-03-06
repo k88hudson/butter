@@ -79,6 +79,8 @@
 
       var iframeCover = targetContainer.querySelector( ".butter-iframe-fix" );
 
+      var isDragging;
+
       options = options || {};
 
       function createHelper( suffix ) {
@@ -88,17 +90,11 @@
         return el;
       }
 
-      dragContainer.appendChild( createHelper( "top" ) );
-      dragContainer.appendChild( createHelper( "bottom" ) );
-      dragContainer.appendChild( createHelper( "left" ) );
-      dragContainer.appendChild( createHelper( "right" ) );
-      dragContainer.appendChild( createHelper( "grip" ) );
-
       $( dragContainer ).draggable({
-        handle: ".ui-draggable-handle",
         containment: "parent",
         start: function() {
           iframeCover.style.display = "block";
+          isDragging = true;
 
           // Open the editor
           butter.editor.editTrackEvent( trackEvent );
@@ -113,6 +109,7 @@
           calculateFinalPositions( event, ui, trackEvent, targetContainer, dragContainer, options );
         }
       });
+
     };
 
     /**
