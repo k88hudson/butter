@@ -348,10 +348,16 @@ define( [ "./logger", "./eventmanager", "./observer",
           if ( _selected ){
             _this.notify( "selected" );
             _this.dispatch( "trackeventselected" );
+            if ( _this.popcornTrackEvent ) {
+              _this.popcornTrackEvent._container.classList.add( "track-event-selected" );
+            }
           }
           else {
             _this.notify( "deselected" );
             _this.dispatch( "trackeventdeselected" );
+            if ( _this.popcornTrackEvent ) {
+              _this.popcornTrackEvent._container.classList.remove( "track-event-selected" );
+            }
           } //if
         }
       },

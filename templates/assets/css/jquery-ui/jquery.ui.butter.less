@@ -46,10 +46,17 @@
 */
 @resizeHandle: 8px;
 
+.track-event-selected {
+  box-shadow: 0 0 0 1px @green,
+    0 0 8px 2px @green;
+  z-index: 100000 !important;
+}
+
 .ui-draggable:hover,
 .ui-draggable-dragging,
 .ui-resizable-resizing {
   box-shadow: 0 0 0 1px @green;
+  z-index: 100001 !important;
 }
 
 .ui-resizable-handle {
@@ -62,11 +69,11 @@
   border: 1px solid black;
   opacity: 0;
   .box-sizing( border-box );
-  .transition( opacity 0.3s ease 0s );
 }
 
 .ui-draggable:hover,
-.ui-resizable:hover {
+.ui-resizable:hover,
+.track-event-selected {
   .ui-resizable-handle,
   .ui-draggable-handle,
   .title {
