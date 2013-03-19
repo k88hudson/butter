@@ -136,7 +136,7 @@ define( [ "util/lang", "util/xhr",
       }
 
       if ( description.layout ) {
-        // Collect the element labeled with the 'butter-editor' class to avoid other elements (such as comments)
+        // Collect the element labeled with the 'b-editor' class to avoid other elements (such as comments)
         // which may exist in the layout.
         compiledLayout = LangUtils.domFragment( description.layout );
 
@@ -145,7 +145,7 @@ define( [ "util/lang", "util/xhr",
 
         // If domFragment returned a DOMFragment (not an actual element) try to get the proper element out of it
         if ( !compiledLayout.classList ) {
-          compiledLayout = compiledLayout.querySelector( ".butter-editor" );
+          compiledLayout = compiledLayout.querySelector( ".butter-editor" ) || compiledLayout.querySelector( ".b-editor" )
         }
 
         if ( !compiledLayout ) {

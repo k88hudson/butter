@@ -195,26 +195,22 @@
     left: 5px;
     margin-top: -@_playButtonHeight / 2;
   }
-  .status-button[data-state="true"] > .icon {
-    background-position: -288px -72px;
-  }
 }
+.icon-play-status:before { content: "\f04b"; } // icon-play
+[data-state="true"] .icon-play-status:before { content: "\f04c"; } // icon-pause
 
 .mute-button-container {
   position: absolute;
-  top: 13px;
-  left: @_traySideWidth - 23px;
-
+  top: 10px;
+  left: @_traySideWidth - 25px;
   .status-button {
-    width: 20px;
+    width: 16px;
     height: 20px;
     background: none;
-    .icon {
-      background-image: url( "../resources/icons/glyphiconshalflings-alt.png" );
-    }
-    &[data-state="true"] .icon {
-      background-position: -360px -24px;
-    }
+    text-align: left;
   }
-
 }
+[data-state="true"] .icon-mute-status:before { content: "\f026"; } // icon-volume-off
+.icon-mute-status:before { content: "\f027"; } // icon-volume-down
+
+

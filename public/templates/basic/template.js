@@ -13,6 +13,10 @@
         script.src = "//www.mozilla.org/tabzilla/media/js/tabzilla.js";
         document.body.appendChild( script );
 
+        setTimeout( function() {
+          butter.ui.showUIKit();
+        }, 1000 );
+
         butter.listen( "mediaready", function mediaReady() {
           butter.unlisten( "mediaready", mediaReady );
           document.querySelector( "#embed-wrapper" ).classList.remove( "faded" );

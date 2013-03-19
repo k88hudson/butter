@@ -64,9 +64,9 @@
   top: @HEADER_SPACING;
   right: 0;
   z-index: @HEADER_Z_INDEX + 1;
-  &.toggled .icon {
-    background-image: url( "../resources/icons/glyphiconshalflings-alt.png" );
-    background-position: -432px -72px; /* from icon-chevron-right */
+  &.toggled .icon-chevron-right:before {
+   content: "\f053"; /* from icon-chevron-left */
+   color: #555;
   }
 }
 
@@ -257,7 +257,11 @@
 @_editorTextIndent: 40px;
 @_editorInputHeight: 32px;
 
-.butter-form {
+fieldset {
+  border: none;
+}
+
+.butter-form .butter-editor {
 
   // Container building blocks
   .trackevent-property,
@@ -288,7 +292,6 @@
     font-size: 16px;
     margin-bottom: 5px;
   }
-
 
   // Inputs
   select,
@@ -857,4 +860,221 @@ textarea {
   border: 1px solid @baseLightOutline;
   cursor: pointer;
   .box-sizing( border-box );
+}
+
+/*********************************************************
+* Editor body
+*/
+
+.panel {
+  background: @lightergrey;
+  color: #555;
+  font-size: 13px;
+  line-height: 1.4em;
+}
+
+.row {
+  .clearfix();
+  border-bottom: 1px solid @lightgrey;
+  &.no-border,
+  &:last-of-type { border-bottom: none; }
+  &.white { background: #FFF; }
+  &.border:last-of-type { border-botton: 1px solid @lightgrey; }
+}
+
+.header-row {
+  padding: 1em;
+  background: #FFF;
+  font-weight: 700;
+  font-size: 1.1em;
+  border-bottom: 1px solid @lightgrey;
+}
+
+/*********************************************************
+* Positioning and Helpers
+*/
+
+.inner,
+.item {
+  position: relative;
+  padding: 1em;
+  .clearfix();
+}
+
+// For lists
+.item {
+  border-bottom: 1px solid @lightgrey;
+  &:last-of-type {
+    border-bottom: none;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.fl-right {
+  float: right;
+}
+
+/*********************************************************
+* Labels and inputs
+*/
+
+label {
+  display: block;
+  line-height: 1.8;
+  margin-top: 0.2em;
+}
+
+input,
+textarea,
+.select {
+  width: 100%;
+  .box-sizing( border-box );
+
+  border: 1px solid @lightgrey;
+  border-top-color: darken( @lightgrey, 10% );
+  border-radius: 2px;
+
+  color: #444;
+  font-size: 1em;
+
+  &:-moz-placeholder {
+    color: #AAA;
+  }
+  &:focus {
+    outline: none;
+    border: 1px solid darken( @lightgrey , 30% );
+    box-shadow: @lightgrey 0px 2px 4px -2px inset, white 0px 1px 0px;
+    .transition( border 0.25s ease, box-shadow 0.25s ease );
+  }
+}
+
+input {
+  height: 2.4em;
+  margin: 0.2em 0;
+  padding: 0 0.5em;
+}
+
+textarea {
+  padding: 0.5em;
+  height: 3.8em;
+  resize: none;
+}
+
+// Small
+input.sixth {
+  padding: 0 0.2em;
+  text-align: center;
+}
+
+// Invalid
+input.invalid {
+  border-color: @red;
+  color: @red;
+}
+
+/*********************************************************
+* Input types
+*/
+
+.url-input {
+  // Meant to be resizable
+  height: 3.8em;
+  margin: 0.2em 0;
+  padding: 0.5em;
+  font-size: 0.9em;
+  font-family: menlo, monospace;
+  word-wrap: break-word;
+}
+
+.timecode-input {
+  font-family: menlo, monospace;
+}
+
+
+/*********************************************************
+* Tabs
+*/
+
+.tabs {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background: @lightergrey;
+  border-top: 1px solid @lightgrey;
+  height: 2.4em;
+  .clearfix();
+  > li {
+    .selectable( none );
+    float: left;
+    height: 100%;
+    line-height: 2.4em;
+    border-right: 1px solid @lightgrey;
+    font-size: 0.9em;
+    color: #999;
+    padding: 0 1em;
+    cursor: pointer;
+    &.tab-on {
+      background: #FFF;
+      color: #555;
+      border-top: 1px solid #FFF;
+      z-index: 1;
+      margin-top: -1px;
+      box-shadow: 0 3px 8px -2px fade( black, 40% );
+    }
+  }
+}
+
+.tabs.top {
+  border-bottom: 1px solid @lightgrey;
+  border-top: none;
+  > li {
+    &.tab-on {
+      margin-top: 0;
+      border-bottom: 1px solid #FFF;
+      border-top: none;
+      box-shadow: none;
+    }
+  }
+}
+
+[data-tab] {
+  display: none;
+}
+
+[data-tab].tab-on {
+  display: block;
+}
+
+
+/*********************************************************
+* Button
+*/
+.btn {
+  display: inline-block;
+  background: @green;
+  border: 1px solid darken( @green, 10% );
+  color: white;
+  height: 2.4em;
+  margin: 0.2em 0;
+  padding: 0 0.8em;
+  line-height: 2.4em;
+  border-radius: 2px;
+  cursor: pointer;
+  font-weight: normal;
+  &:hover {
+    background: lighten( @green, 5% );
+  }
+}
+
+.btn.pressed {
+  background: lighten( @green, 30% );
+  border-color: lighten( @green, 10% );
+}
+
+.btn.fl-right {
+  float: right;
+  margin-top: -0.6em;
 }

@@ -12,6 +12,7 @@ define( [ "util/time" ], function( util ){
     function update() {
       if( _state ){
         _button.removeAttribute( "data-state" );
+        console.log( _button );
       }
       else {
         _button.setAttribute( "data-state", true );
