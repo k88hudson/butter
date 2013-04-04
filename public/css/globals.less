@@ -37,10 +37,10 @@
   -webkit-user-select: @param;
   -moz-user-select: @param;
   -ms-user-select: @param;
-  user-select: @param; 
+  user-select: @param;
 }
 
-// GRADIENTS 
+// GRADIENTS
 // Usage:
 //  .gradient( "vertical", red, blue );         -> Creates a gradient from top = red to bottom = blue.
 //  .gradient( "horizonal", red, blue );        -> Creates a gradient from left = red to right = blue.
@@ -235,7 +235,10 @@
 
 // Editor width
 @in-editor-offset-w: ~`parseInt( "@{EDITOR_WIDTH}" )`;
-@in-editor-offset-h: ~`parseInt( "@{TRAY_HEIGHT}" ) + parseInt( "@{HEADER_SPACING}" )`;
+@in-editor-offset-h: ~`parseInt( "@{TRAY_HEIGHT}" ) + parseInt( "@{HEADER_SPACING}" ) + 60`;
+
+// Editor width
+@tray-minimized-offset-h: ~`parseInt( "@{HEADER_SPACING}" ) + 100`;
 
 // ~`...` is javascript evaluation in LESS http://lesscss.org/#-javascript-evaluation
 // This has to use parseInt because the LESS variables have px in them
@@ -250,3 +253,8 @@
 @medium-in-editor: ~`"only screen and (min-width : " + (@{medium-w} + @{in-editor-offset-w} ) + "px) and (min-height : " + (@{medium-w} * @{aspectratio} + @{in-editor-offset-h}) + "px)"`;
 @large-in-editor: ~`"only screen and (min-width : " + (@{large-w} + @{in-editor-offset-w}) + "px) and (min-height : " + (@{large-w} * @{aspectratio} + @{in-editor-offset-h}) + "px)"`;
 @xlarge-in-editor: ~`"only screen and (min-width : " + (@{xlarge-w} + @{in-editor-offset-w}) + "px) and (min-height : " + (@{xlarge-w} * @{aspectratio} + @{in-editor-offset-h}) + "px)"`;
+
+@small-tray-minimized: ~`"only screen and (min-width : 0px) and (min-width: 0px)"`;
+@medium-tray-minimized: ~`"only screen and (min-width : " + (@{medium-w} + @{in-editor-offset-w} ) + "px) and (min-height : " + (@{medium-w} * @{aspectratio} + @{tray-minimized-offset-h}) + "px)"`;
+@large-tray-minimized: ~`"only screen and (min-width : " + (@{large-w} + @{in-editor-offset-w}) + "px) and (min-height : " + (@{large-w} * @{aspectratio} + @{tray-minimized-offset-h}) + "px)"`;
+@xlarge-tray-minimized: ~`"only screen and (min-width : " + (@{xlarge-w} + @{in-editor-offset-w}) + "px) and (min-height : " + (@{xlarge-w} * @{aspectratio} + @{tray-minimized-offset-h}) + "px)"`;
