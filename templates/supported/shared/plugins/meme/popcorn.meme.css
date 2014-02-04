@@ -1,0 +1,18 @@
+.meme{
+  position: relative;
+  min-height: 80px;
+  max-width: 550px;
+  color: #FFF;
+  top: 40px;
+  left: 0;
+  text-transform: uppercase;
+  text-shadow:
+      3px 3px 0 #000,
+     -3px -3px 0 #000,
+      3px -3px 0 #000,
+      -3px 3px 0 #000;
+  z-index: 1000;
+  font-size: 60px;
+  font-family: Impact, Charcoal, sans-serif;
+  text-align: center;
+}

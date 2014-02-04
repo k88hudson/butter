@@ -5,17 +5,28 @@
   "baseDir": "../../../",
   "savedDataUrl": "saved-data.json",
   "editor": {
+    "default": "{{baseDir}}editors/default-editor.html",
     "pop": "{{baseDir}}templates/supported/popup/editors/pop.html"
-  },
+  }, 
   "plugin": {
     "plugins": [
       {
         "type": "pop",
         "path": "{{baseDir}}templates/supported/popup/plugins/popcorn.pop.js"
+      },
+      {
+        "type": "looper",
+        "path": "{{baseDir}}templates/supported/shared/plugins/looper/popcorn.looper.js"
+      },
+      {
+        "type": "meme",
+        "path": "{{baseDir}}templates/supported/shared/plugins/meme/popcorn.meme.js"
       }
     ],
     "defaults" : [
-      "pop"
+      "looper",
+      "pop",
+      "meme"
     ]
   },
   "mediaDefaults": {

@@ -75,3 +75,23 @@ body {
   top: 0;
   left: 0;
 }
+
+#video-overlay-top {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  height: 100px;
+  width: 100%;
+  z-index: 1000;
+  text-align: center;
+}
+
+#video-overlay-bottom {
+  position: absolute;
+  bottom: 40px;
+  width: 100%;
+  left: 0;
+  height: 100px;
+  z-index: 1000;
+  text-align: center;
+}
